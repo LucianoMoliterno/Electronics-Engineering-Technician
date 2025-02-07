@@ -1,0 +1,359 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	org	0
+0002    0000    1683    	bsf	status,5
+0003    0001    0185    	clrf	trisa
+0004    0002    0186    	clrf	trisb
+0005    0003    3047    	movlw	b'1000111'
+0006    0004    0081    	movwf	option
+0007    0005    1405    	bsf	porta,0
+0008    0006    1485    	bsf	porta,1
+0009    0007    1505    	bsf	porta,2
+0010    0008    1585    	bsf	porta,3
+0011    0009    1006    	bcf	PORTB,0
+0012    000A    1086    	bcf	PORTB,1
+0013    000B    1106    	bcf	PORTB,2
+0014    000C    1186    	bcf	PORTB,3
+0015    000D    1206    	bcf	PORTB,4
+0016    000E    1286    	bcf	PORTB,5
+0017    000F    1306    	bcf	PORTB,6
+0018    0010    1386    	bcf	PORTB,7
+0019    0011    1283    	bcf	status,5
+0020    0012    0185    	clrf	PORTA
+0021    0013    0186    	clrf	PORTB
+0022    0014    3001    	movlw	.1
+0023    0015    009B    	movwf	1BH		;Permanentes
+0024    0016    3002    	movlw	.2
+0025    0017    009C    	movwf	1CH		;Permanentes
+0026    0018    3003    	movlw	.3
+0027    0019    00BA    	movwf	3AH		;Permanentes
+0028    001A    3004    	movlw	.4
+0029    001B    00BB    	movwf	3BH		;Permanentes
+0030    001C    3005    	movlw	.5
+0031    001D    00CA    	movwf	4AH		;Permanentes
+0032    001E    3006    	movlw	.6
+0033    001F    00CB    	movwf	4BH		;Permanentes
+0034    0020    3007    	movlw	.7
+0035    0021    00CC    	movwf	4CH		;Permanentes
+0036    0022            
+0037    0022    3002    	movlw	.2
+0038    0023    009A    	movwf	1AH		;el que varia	
+0039    0024    3001    	movlw	.1
+0040    0025    00AA    	movwf	2AH
+0041    0026            
+0042    0026    3004    	movlw	.4		;inicial	DEMORA
+0043    0027    009D    	movwf	1DH
+0044    0028    303D    	movlw	.61		;;inicial	TMR0
+0045    0029    00AC    	movwf	2CH
+0046    002A            	
+0047    002A            
+0048    002A    1C05    inicio	btfss	porta,0
+0049    002B    282A    	goto	inicio		;NO
+0050    002C    282D    	goto	traba		;SI
+0051    002D            
+0052    002D    1686    traba	bsf	portb,5
+0053    002E    1805    	btfsc	porta,0
+0054    002F    282D    	goto	traba		;NO SOLTO
+0055    0030    2831    	goto	inicix		;SI SOLTO
+0056    0031            	
+0057    0031            inicix	
+0058    0031    1D05    ra2	btfss	porta,2
+0059    0032    2834    	goto	ra3		;no
+0060    0033    28A2    	goto	kiss		;si
+0061    0034            
+0062    0034    1D85    ra3	btfss	porta,3
+0063    0035    2837    	goto	ra1		;no
+0064    0036    28E5    	goto	kiss2		;si
+0065    0037            	
+0066    0037    1C85    ra1	btfss	porta,1
+0067    0038    283D    	goto	sopo		;NO (hiva noo4)
+0068    0039    283A    	goto	cambio		;si
+0069    003A            
+0070    003A    1885    cambio	btfsc	porta,1
+0071    003B    283A    	goto	cambio
+0072    003C    2831    	goto	inicix
+0073    003D            
+0074    003D    081B    sopo	movfw	1BH		;vale 1
+0075    003E    022A    	subwf	2AH,W		;variable	1 - 1 = 0
+0076    003F    1D03    	btfss	status,2	; Z = 1
+0077    0040    2842    	goto	gogo		;no ( porque varia con ra1, que nos da z=0) IZQUIERAA
+0078    0041    2872    	goto	gege		;si ( porque quedo 0) DERECHA
+0079    0042            
+0080    0042            gogo
+0081    0042    1706    	bsf	portb,6
+0082    0043    1386    	bcf	portb,7
+0083    0044    1086    	bcf	portb,1
+0084    0045    1106    	bcf	portb,2
+0085    0046    1586    	bsf	portb,3
+0086    0047    1606    	bsf	portb,4
+0087    0048    2128    	call	demora
+0088    0049    1486    	bsf	portb,1
+0089    004A    1106    	bcf	portb,2
+0090    004B    1186    	bcf	portb,3
+0091    004C    1606    	bsf	portb,4
+0092    004D    2128    	call	demora
+0093    004E    1486    	bsf	portb,1
+0094    004F    1506    	bsf	portb,2
+0095    0050    1186    	bcf	portb,3
+0096    0051    1206    	bcf	portb,4
+0097    0052    2128    	call	demora
+0098    0053    1086    	bcf	portb,1
+0099    0054    1506    	bsf	portb,2
+0100    0055    1586    	bsf	portb,3
+0101    0056    1206    	bcf	portb,4
+0102    0057    2128    	call 	demora
+0103    0058            
+0104    0058    1C05    	btfss	porta,0
+0105    0059    285B    	goto	lono
+0106    005A    2866    	goto	li7
+0107    005B    1D05    lono	btfss	porta,2
+0108    005C    285E    	goto	lono2
+0109    005D    28A2    	goto	kiss
+0110    005E            
+0111    005E    1D85    lono2	btfss	porta,3
+0112    005F    2861    	goto	lono3
+0113    0060    28E5    	goto	kiss2
+0114    0061            
+0115    0061    1C85    lono3	btfss	porta,1
+0116    0062    2842    	goto	gogo		;no
+0117    0063    3001    	movlw	.1		
+0118    0064    00AA    	movwf	2AH
+0119    0065    283A    	goto	cambio
+0120    0066            
+0121    0066    1086    li7	bcf	portb,1
+0122    0067    1106    	bcf	portb,2
+0123    0068    1186    	bcf	portb,3
+0124    0069    1206    	bcf	portb,4
+0125    006A    1286    	bcf	portb,5
+0126    006B    1306    	bcf	portb,6
+0127    006C    1386    	bcf	portb,7
+0128    006D    3002    	movlw	.2
+0129    006E    00AA    	movwf	2AH
+0130    006F    1805    poti	btfsc	porta,0
+0131    0070    286F    	goto	poti
+0132    0071    282A    	goto	inicio
+0133    0072            
+0134    0072            gege
+0135    0072    1306    	bcf	portb,6
+0136    0073    1786    	bsf	portb,7
+0137    0074            
+0138    0074    1486    	bsf	portb,1
+0139    0075    1506    	bsf	portb,2
+0140    0076    1186    	bcf	portb,3
+0141    0077    1206    	bcf	portb,4
+0142    0078    2128    	call	demora
+0143    0079    1486    	bsf	portb,1
+0144    007A    1106    	bcf	portb,2
+0145    007B    1186    	bcf	portb,3
+0146    007C    1606    	bsf	portb,4
+0147    007D    2128    	call	demora
+0148    007E    1086    	bcf	portb,1
+0149    007F    1106    	bcf	portb,2
+0150    0080    1586    	bsf	portb,3
+0151    0081    1606    	bsf	portb,4
+0152    0082    2128    	call	demora
+0153    0083    1086    	bcf	portb,1
+0154    0084    1506    	bsf	portb,2
+0155    0085    1586    	bsf	portb,3
+0156    0086    1206    	bcf	portb,4
+0157    0087    2128    	call 	demora
+0158    0088            				;preguntando
+0159    0088    1C05    	btfss	porta,0		
+0160    0089    2897    	goto	noko
+0161    008A    288B    	goto	li8		;quiero apagar	
+0162    008B            
+0163    008B    1086    li8	bcf	portb,1
+0164    008C    1106    	bcf	portb,2
+0165    008D    1186    	bcf	portb,3
+0166    008E    1206    	bcf	portb,4
+0167    008F    1286    	bcf	portb,5
+0168    0090    1306    	bcf	portb,6
+0169    0091    1386    	bcf	portb,7
+0170    0092    3001    	movlw	.1
+0171    0093    00AA    	movwf	2AH
+0172    0094    1805    yu	btfsc	porta,0 
+0173    0095    2894    	goto	yu
+0174    0096    282A    	goto	inicio
+0175    0097            
+0176    0097    1D05    noko	btfss	porta,2
+0177    0098    289A    	goto	noko1
+0178    0099    28A2    	goto	kiss
+0179    009A    1D85    noko1	btfss	porta,3
+0180    009B    289D    	goto	noko2
+0181    009C    28E5    	goto	kiss2
+0182    009D    1C85    noko2	btfss	porta,1
+0183    009E    2872    	goto	gege
+0184    009F    3002    	movlw	.2		;Derecha
+0185    00A0    00AA    	movwf	2AH
+0186    00A1    283A    	goto	cambio
+0187    00A2            
+0188    00A2            
+0189    00A2    1905    kiss	btfsc	porta,2
+0190    00A3    28A2    	goto	kiss
+0191    00A4    28A5    	goto	empiesa
+0192    00A5            
+0193    00A5    081C    empiesa	movfw	1CH		;.2	10
+0194    00A6    021A    	subwf	1AH,W
+0195    00A7    1D03    	btfss	status,2
+0196    00A8    28AF    	goto	no2
+0197    00A9    0A9A    	incf	1AH,F
+0198    00AA    3002    	movlw	.2		;inicial	DEMORA
+0199    00AB    009D    	movwf	1DH
+0200    00AC    303D    	movlw	.61		;;inicial	TMR0
+0201    00AD    00AC    	movwf	2CH
+0202    00AE    2834    	goto	ra3
+0203    00AF            
+0204    00AF    083A    no2	movfw	3AH		;.3	15
+0205    00B0    021A    	subwf	1AH,W
+0206    00B1    1D03    	btfss	status,2
+0207    00B2    28BA    	goto	no3
+0208    00B3    28B4    	goto	as
+0209    00B4    0A9A    as	incf	1AH,F
+0210    00B5    3002    	movlw	.2		;inicial	DEMORA
+0211    00B6    009D    	movwf	1DH
+0212    00B7    307E    	movlw	.126		;;inicial	TMR0
+0213    00B8    00AC    	movwf	2CH
+0214    00B9    2834    	goto	ra3
+0215    00BA            
+0216    00BA    083B    no3	movfw	3BH		;.4	20
+0217    00BB    021A    	subwf	1AH,W
+0218    00BC    1D03    	btfss	status,2
+0219    00BD    28C5    	goto	no4
+0220    00BE    28BF    	goto	ad
+0221    00BF    0A9A    ad	incf	1AH,F
+0222    00C0    3001    	movlw	.1		;inicial	DEMORA
+0223    00C1    009D    	movwf	1DH
+0224    00C2    303D    	movlw	.61		;;inicial	TMR0
+0225    00C3    00AC    	movwf	2CH
+0226    00C4    2834    	goto	ra3
+0227    00C5            
+0228    00C5    084A    no4	movfw	4AH		;.5	25
+0229    00C6    021A    	subwf	1AH,W
+0230    00C7    1D03    	btfss	status,2
+0231    00C8    28D0    	goto	no5
+0232    00C9    28CA    	goto	af
+0233    00CA    0A9A    af	incf	1AH,F
+0234    00CB    3001    	movlw	.1		;inicial	DEMORA
+0235    00CC    009D    	movwf	1DH
+0236    00CD    3064    	movlw	.100		;;inicial	TMR0
+0237    00CE    00AC    	movwf	2CH
+0238    00CF    2834    	goto	ra3
+0239    00D0            
+0240    00D0    084B    no5	movfw	4BH		;.6	30
+0241    00D1    021A    	subwf	1AH,W
+0242    00D2    1D03    	btfss	status,2
+0243    00D3    28DB    	goto	gh		;no
+0244    00D4    28D5    	goto	ag		;si
+0245    00D5    0A9A    ag	incf	1AH,F
+0246    00D6    3001    	movlw	.1		;inicial	DEMORA
+0247    00D7    009D    	movwf	1DH
+0248    00D8    307E    	movlw	.126		;;inicial	TMR0
+0249    00D9    00AC    	movwf	2CH
+0250    00DA    2834    	goto	ra3		;FIN
+0251    00DB            
+0252    00DB    084C    gh	movfw	4CH		;.7	35
+0253    00DC    021A    	subwf	1AH,W
+0254    00DD    1D03    	btfss	status,2
+0255    00DE    2831    	goto	inicix
+0256    00DF    0A9A    	incf	1AH,F
+0257    00E0    3001    	movlw	.1		;inicial	DEMORA
+0258    00E1    009D    	movwf	1DH
+0259    00E2    3091    	movlw	.145		;;inicial	TMR0
+0260    00E3    00AC    	movwf	2CH
+0261    00E4    2834    	goto	ra3		;FIN
+0262    00E5            
+0263    00E5            
+0264    00E5    1985    kiss2	btfsc	porta,3
+0265    00E6    28E5    	goto	kiss2
+0266    00E7    28E8    	goto	empies2		;EMPIESA 2
+0267    00E8            
+0268    00E8            empies2	
+0269    00E8    084B    nope1	movfw	4BH		;.6	30p
+0270    00E9    021A    	subwf	1AH,W
+0271    00EA    1D03    	btfss	status,2
+0272    00EB    28F3    	goto	nope2
+0273    00EC    28ED    	goto	sepe2
+0274    00ED    039A    sepe2	decf	1AH,F
+0275    00EE    3001    	movlw	.1		;inicial	DEMORA
+0276    00EF    009D    	movwf	1DH
+0277    00F0    307E    	movlw	.126		;;inicial	TMR0
+0278    00F1    00AC    	movwf	2CH
+0279    00F2    2831    	GOTO	inicix
+0280    00F3            
+0281    00F3    084A    nope2	movfw	4AH		;.5	25p
+0282    00F4    021A    	subwf	1AH,W
+0283    00F5    1D03    	btfss	status,2
+0284    00F6    28FE    	goto	nope3
+0285    00F7    28F8    	goto	sepe3
+0286    00F8    039A    sepe3	decf	1AH,F
+0287    00F9    3001    	movlw	.1		;inicial	DEMORA
+0288    00FA    009D    	movwf	1DH
+0289    00FB    3064    	movlw	.100		;;inicial	TMR0
+0290    00FC    00AC    	movwf	2CH
+0291    00FD    2831    	GOTO	inicix
+0292    00FE            
+0293    00FE    083B    nope3	movfw	3BH		;.4	20p
+0294    00FF    021A    	SUBWF	1AH,W
+0295    0100    1D03    	BTFSS	status,2
+0296    0101    2909    	GOTO	nope4
+0297    0102    2903    	goto	sepe4
+0298    0103    039A    sepe4	DECF	1AH,F
+0299    0104    3001    	movlw	.1		;inicial	DEMORA
+0300    0105    009D    	movwf	1DH
+0301    0106    303D    	movlw	.61		;;inicial	TMR0
+0302    0107    00AC    	movwf	2CH
+0303    0108    2831    	GOTO	ra2
+0304    0109            
+0305    0109    083A    nope4	movfw	3AH		;.3	15p
+0306    010A    021A    	SUBWF	1AH,W
+0307    010B    1D03    	BTFSS	status,2
+0308    010C    2914    	GOTO	nope5
+0309    010D    290E    	goto	sepe5
+0310    010E    039A    sepe5	DECF	1AH,F
+0311    010F    3002    	movlw	.2		;inicial	DEMORA
+0312    0110    009D    	movwf	1DH
+0313    0111    307E    	movlw	.126		;;inicial	TMR0
+0314    0112    00AC    	movwf	2CH
+0315    0113    2831    	GOTO	ra2
+0316    0114            
+0317    0114    081C    nope5	movfw	1CH		;.2	10
+0318    0115    021A    	subwf	1AH,W
+0319    0116    1D03    	btfss	status,2
+0320    0117    291E    	goto	nope7
+0321    0118    039A    	decf	1AH,F
+0322    0119    3002    	movlw	.2		;inicial	DEMORA
+0323    011A    009D    	movwf	1DH
+0324    011B    303D    	movlw	.61		;;inicial	TMR0
+0325    011C    00AC    	movwf	2CH
+0326    011D    2831    	GOTO	ra2	
+0327    011E            
+0328    011E    081B    nope7	movfw	1BH		;.2	10
+0329    011F    021A    	subwf	1AH,W
+0330    0120    1D03    	btfss	status,2
+0331    0121    2831    	goto	ra2
+0332    0122    039A    	decf	1AH,F
+0333    0123    3004    	movlw	.4		;inicial	DEMORA
+0334    0124    009D    	movwf	1DH
+0335    0125    303D    	movlw	.61		;;inicial	TMR0
+0336    0126    00AC    	movwf	2CH
+0337    0127    2831    	GOTO	ra2		
+0338    0128            	
+0339    0128            
+0340    0128            
+0341    0128    0181    demora	clrf	TMR0		;TMR0=0
+0342    0129    081D    	movfw	1DH		;variable (TENGO .50)
+0343    012A    00BD    	movwf	3DH		;permanente
+0344    012B    110B    pipa	bcf	intcon,2
+0345    012C    082C    	movfw	2CH		;variable (TENGO .50)
+0346    012D    0081    	movwf	TMR0		;Permanente
+0347    012E    1D0B    no	btfss	intcon,2
+0348    012F    292E    	goto	no
+0349    0130    2931    	goto	si9
+0350    0131    0BBD    si9	decfsz	3DH,F
+0351    0132    292B    	goto	pipa
+0352    0133    0008    	return
+0353    0134            	
+---------------------------------------------
+Number of errors = 0
