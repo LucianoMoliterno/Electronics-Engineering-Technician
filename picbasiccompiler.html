@@ -1,0 +1,1775 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>PIC Basic Compiler Reference Manual</title>
+</head>
+<body text="#003060" bgcolor="#FFFFFF" link="#003060" vlink="#003060" alink="#003060">
+<center>
+<table width="550" border="1" cellpadding="5" cellspacing="0" cols="1">
+<tr><td valign="top">
+<center>
+<font face="Arial" size=-1>
+
+
+<br>&nbsp;
+<br><font size=+2><b>PIC Basic Compiler Reference Manual</b></font>
+<br>&nbsp;
+<br>&nbsp;
+
+<p style="text-indent: 20;" align="left">
+The list of all Basic compiler keywords:<br>
+<a href="picbasiccompiler.html#34"><font color="#0000C0">1WIRE_REG</font></a>,
+<a href="picbasiccompiler.html#34"><font color="#0000C0">1WIRE_BIT</font></a>,
+<a href="picbasiccompiler.html#34"><font color="#0000C0">1WIREINIT</font></a>,
+<a href="picbasiccompiler.html#34"><font color="#0000C0">1WIRESENDBIT</font></a>,
+<a href="picbasiccompiler.html#34"><font color="#0000C0">1WIREGETBIT</font></a>,
+<a href="picbasiccompiler.html#34"><font color="#0000C0">1WIRESENDBYTE</font></a>,
+<a href="picbasiccompiler.html#34"><font color="#0000C0">1WIREGETBYTE</font></a>,
+<a href="picbasiccompiler.html#13"><font color="#0000C0">ADCIN</font></a>,
+<a href="picbasiccompiler.html#13"><font color="#0000C0">ADC_CLOCK</font></a>,
+<a href="picbasiccompiler.html#13"><font color="#0000C0">ADC_SAMPLEUS</font></a>,
+<a href="picbasiccompiler.html#32"><font color="#0000C0">ALLDIGITAL</font></a>,
+<a href="picbasiccompiler.html#19"><font color="#0000C0">ALLOW_ALL_BAUDRATES</font></a>,
+<a href="picbasiccompiler.html#19"><font color="#0000C0">ALLOW_MULTIPLE_HSEROPEN</font></a>,
+<a href="picbasiccompiler.html#7"><font color="#0000C0">AND</font></a>,
+<a href="picbasiccompiler.html#1"><font color="#0000C0">AS</font></a>,
+<a href="picbasiccompiler.html#22"><font color="#0000C0">ASM</font></a>,
+<a href="picbasiccompiler.html#1"><font color="#0000C0">BIT</font></a>,
+<a href="picbasiccompiler.html#14"><font color="#0000C0">BREAK</font></a>,
+<a href="picbasiccompiler.html#1"><font color="#0000C0">BYTE</font></a>,
+<a href="picbasiccompiler.html#35"><font color="#0000C0">CALL</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">CASE</font></a>,
+<a href="picbasiccompiler.html#25"><font color="#0000C0">CLOCK_FREQUENCY</font></a>,
+<a href="picbasiccompiler.html#25"><font color="#0000C0">CONF_WORD</font></a>,
+<a href="picbasiccompiler.html#25"><font color="#0000C0">CONF_WORD_2</font></a>,
+<a href="picbasiccompiler.html#4"><font color="#0000C0">CONST</font></a>,
+<a href="picbasiccompiler.html#19"><font color="#0000C0">CRLF</font></a>,
+<a href="picbasiccompiler.html#25"><font color="#0000C0">DEFINE</font></a>,
+<a href="picbasiccompiler.html#1"><font color="#0000C0">DIM</font></a>,
+<a href="picbasiccompiler.html#15"><font color="#0000C0">DISABLE</font></a>,
+<a href="picbasiccompiler.html#34"><font color="#0000C0">DS18S20START</font></a>,
+<a href="picbasiccompiler.html#34"><font color="#0000C0">DS18S20READT</font></a>,
+<a href="picbasiccompiler.html#25"><font color="#0000C0">EEPROM</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">ELSE</font></a>,
+<a href="picbasiccompiler.html#15"><font color="#0000C0">ENABLE</font></a>,
+<a href="picbasiccompiler.html#14"><font color="#0000C0">END</font></a>,
+<a href="picbasiccompiler.html#35"><font color="#0000C0">END FUNCTION</font></a>,
+<a href="picbasiccompiler.html#35"><font color="#0000C0">END PROC</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">ENDIF</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">ENDSELECT</font></a>,
+<a href="picbasiccompiler.html#35"><font color="#0000C0">EXIT</font></a>,
+<a href="picbasiccompiler.html#4"><font color="#0000C0">FALSE</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">FOR</font></a>,
+<a href="picbasiccompiler.html#35"><font color="#0000C0">FUNCTION</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_DREG</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_RSREG</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_RSBIT</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_EREG</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_EBIT</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_RWREG</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_RWBIT</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_CS1REG</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_CS1BIT</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_CS2REG</font></a>,
+<a href="picbasiccompiler.html#26"><font color="#0000C0">GLCD_CS2BIT</font></a>,
+<a href="picbasiccompiler.html#27"><font color="#0000C0">GLCDINIT</font></a>,
+<a href="picbasiccompiler.html#27"><font color="#0000C0">GLCDCLEAR</font></a>,
+<a href="picbasiccompiler.html#27"><font color="#0000C0">GLCDPSET</font></a>,
+<a href="picbasiccompiler.html#27"><font color="#0000C0">GLCDPRESET</font></a>,
+<a href="picbasiccompiler.html#27"><font color="#0000C0">GLCDCLEAN</font></a>,
+<a href="picbasiccompiler.html#27"><font color="#0000C0">GLCDPOSITION</font></a>,
+<a href="picbasiccompiler.html#27"><font color="#0000C0">GLCDWRITE</font></a>,
+<a href="picbasiccompiler.html#27"><font color="#0000C0">GLCDOUT</font></a>,
+<a href="picbasiccompiler.html#27"><font color="#0000C0">GLCDIN</font></a>,
+<a href="picbasiccompiler.html#27"><font color="#0000C0">GLCDCMDOUT</font></a>,
+<a href="picbasiccompiler.html#14"><font color="#0000C0">GOSUB</font></a>,
+<a href="picbasiccompiler.html#8"><font color="#0000C0">GOTO</font></a>,
+<a href="picbasiccompiler.html#14"><font color="#0000C0">HALT</font></a>,
+<a href="picbasiccompiler.html#3"><font color="#0000C0">HIGH</font></a>,
+<a href="picbasiccompiler.html#19"><font color="#0000C0">HSERGET</font></a>,
+<a href="picbasiccompiler.html#19"><font color="#0000C0">HSERIN</font></a>,
+<a href="picbasiccompiler.html#19"><font color="#0000C0">HSEROUT</font></a>,
+<a href="picbasiccompiler.html#19"><font color="#0000C0">HSEROPEN</font></a>,
+<a href="picbasiccompiler.html#21"><font color="#0000C0">I2CWRITE</font></a>,
+<a href="picbasiccompiler.html#21"><font color="#0000C0">I2CREAD</font></a>,
+<a href="picbasiccompiler.html#21"><font color="#0000C0">I2CREAD_DELAYUS</font></a>,
+<a href="picbasiccompiler.html#21"><font color="#0000C0">I2CCLOCK_STRETCH</font></a>,
+<a href="picbasiccompiler.html#21"><font color="#0000C0">I2CWRITE1</font></a>,
+<a href="picbasiccompiler.html#21"><font color="#0000C0">I2CREAD1</font></a>,
+<a href="picbasiccompiler.html#24"><font color="#0000C0">I2CPREPARE</font></a>,
+<a href="picbasiccompiler.html#24"><font color="#0000C0">I2CSTART</font></a>,
+<a href="picbasiccompiler.html#24"><font color="#0000C0">I2CSTOP</font></a>,
+<a href="picbasiccompiler.html#24"><font color="#0000C0">I2CSEND</font></a>,
+<a href="picbasiccompiler.html#24"><font color="#0000C0">I2CRECA</font></a>,
+<a href="picbasiccompiler.html#24"><font color="#0000C0">I2CRECEIVEACK</font></a>,
+<a href="picbasiccompiler.html#24"><font color="#0000C0">I2CRECN</font></a>,
+<a href="picbasiccompiler.html#24"><font color="#0000C0">I2CRECEIVENACK</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">IF</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_BITS</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_DREG</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_DBIT</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_RSREG</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_RSBIT</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_EREG</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_EBIT</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_RWREG</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_RWBIT</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_COMMANDUS</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_DATAUS</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_INITMS</font></a>,
+<a href="picbasiccompiler.html#16"><font color="#0000C0">LCD_READ_BUSY_FLAG</font></a>,
+<a href="picbasiccompiler.html#30"><font color="#0000C0">LCD_LINES</font></a>,
+<a href="picbasiccompiler.html#30"><font color="#0000C0">LCD_CHARS</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDINIT</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDOUT</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDCMDOUT</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDCLEAR</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDHOME</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDLEFT</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDRIGHT</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDSHIFTLEFT</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDSHIFTRIGHT</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDLINE1HOME</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDLINE2HOME</font></a>,
+<a href="picbasiccompiler.html#30"><font color="#0000C0">LCDLINE3HOME</font></a>,
+<a href="picbasiccompiler.html#30"><font color="#0000C0">LCDLINE4HOME</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDLINE1CLEAR</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDLINE2CLEAR</font></a>,
+<a href="picbasiccompiler.html#30"><font color="#0000C0">LCDLINE3CLEAR</font></a>,
+<a href="picbasiccompiler.html#30"><font color="#0000C0">LCDLINE4CLEAR</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDLINE1POS</font></a>,
+<a href="picbasiccompiler.html#17"><font color="#0000C0">LCDLINE2POS</font></a>,
+<a href="picbasiccompiler.html#30"><font color="#0000C0">LCDLINE3POS</font></a>,
+<a href="picbasiccompiler.html#30"><font color="#0000C0">LCDLINE4POS</font></a>,
+<a href="picbasiccompiler.html#18"><font color="#0000C0">LCDDEFCHAR</font></a>,
+<a href="picbasiccompiler.html#19"><font color="#0000C0">LF</font></a>,
+<a href="picbasiccompiler.html#1"><font color="#0000C0">LONG</font></a>,
+<a href="picbasiccompiler.html#23"><font color="#0000C0">LOOKUP</font></a>,
+<a href="picbasiccompiler.html#3"><font color="#0000C0">LOW</font></a>,
+<a href="picbasiccompiler.html#5"><font color="#0000C0">MOD</font></a>,
+<a href="picbasiccompiler.html#7"><font color="#0000C0">NAND</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">NEXT</font></a>,
+<a href="picbasiccompiler.html#7"><font color="#0000C0">NOR</font></a>,
+<a href="picbasiccompiler.html#7"><font color="#0000C0">NOT</font></a>,
+<a href="picbasiccompiler.html#7"><font color="#0000C0">NXOR</font></a>,
+<a href="picbasiccompiler.html#15"><font color="#0000C0">ON INTERRUPT</font></a>,
+<a href="picbasiccompiler.html#7"><font color="#0000C0">OR</font></a>,
+<a href="picbasiccompiler.html#33"><font color="#0000C0">POINTER</font></a>,
+<a href="picbasiccompiler.html#35"><font color="#0000C0">PROC</font></a>,
+<a href="picbasiccompiler.html#28"><font color="#0000C0">PWMON</font></a>,
+<a href="picbasiccompiler.html#28"><font color="#0000C0">PWMDUTY</font></a>,
+<a href="picbasiccompiler.html#28"><font color="#0000C0">PWMOFF</font></a>,
+<a href="picbasiccompiler.html#10"><font color="#0000C0">READ</font></a>,
+<a href="picbasiccompiler.html#1"><font color="#0000C0">RESERVE</font></a>,
+<a href="picbasiccompiler.html#15"><font color="#0000C0">RESUME</font></a>,
+<a href="picbasiccompiler.html#14"><font color="#0000C0">RETURN</font></a>,
+<a href="picbasiccompiler.html#15"><font color="#0000C0">SAVE SYSTEM</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">SELECT CASE</font></a>,
+<a href="picbasiccompiler.html#20"><font color="#0000C0">SERIN</font></a>,
+<a href="picbasiccompiler.html#20"><font color="#0000C0">SERININV</font></a>,
+<a href="picbasiccompiler.html#20"><font color="#0000C0">SEROUT</font></a>,
+<a href="picbasiccompiler.html#20"><font color="#0000C0">SEROUTINV</font></a>,
+<a href="picbasiccompiler.html#20"><font color="#0000C0">SEROUT_DELAYUS</font></a>,
+<a href="picbasiccompiler.html#31"><font color="#0000C0">SERVOIN</font></a>,
+<a href="picbasiccompiler.html#31"><font color="#0000C0">SERVOOUT</font></a>,
+<a href="picbasiccompiler.html#12"><font color="#0000C0">SHIFTLEFT</font></a>,
+<a href="picbasiccompiler.html#12"><font color="#0000C0">SHIFTRIGHT</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPI_CS_REG</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPI_CS_BIT</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPI_SCK_REG</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPI_SCK_BIT</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPI_SDI_REG</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPI_SDI_BIT</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPI_SDO_REG</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPI_SDO_BIT</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPICS_INVERT</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPICLOCK_INVERT</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPICLOCK_STRETCH</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPICSON</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPICSOFF</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPIPREPARE</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPISEND</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPISENDBITS</font></a>,
+<a href="picbasiccompiler.html#36"><font color="#0000C0">SPIRECEIVE</font></a>,
+<a href="picbasiccompiler.html#6"><font color="#0000C0">SQR</font></a>,
+<a href="picbasiccompiler.html#29"><font color="#0000C0">STARTFROMZERO</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">STEP</font></a>,
+<a href="picbasiccompiler.html#2"><font color="#0000C0">SYMBOL</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">THEN</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">TO</font></a>,
+<a href="picbasiccompiler.html#3"><font color="#0000C0">TOGGLE</font></a>,
+<a href="picbasiccompiler.html#4"><font color="#0000C0">TRUE</font></a>,
+<a href="picbasiccompiler.html#9"><font color="#0000C0">WAITMS</font></a>,
+<a href="picbasiccompiler.html#9"><font color="#0000C0">WAITUS</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">WEND</font></a>,
+<a href="picbasiccompiler.html#11"><font color="#0000C0">WHILE</font></a>,
+<a href="picbasiccompiler.html#1"><font color="#0000C0">WORD</font></a>,
+<a href="picbasiccompiler.html#22"><font color="#0000C0">WREG</font></a>,
+<a href="picbasiccompiler.html#10"><font color="#0000C0">WRITE</font></a>,
+<a href="picbasiccompiler.html#7"><font color="#0000C0">XOR</font></a>.
+<br>&nbsp;
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Standard Basic language elements</b>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+Default extension for basic source files is BAS. The compiler output is 
+assembler source file (with ASM extension) that can be translated to 
+binary code using integrated assembler. Smart editor marks all reserved 
+keywords in different color, that simplifies debugging process. BASIC 
+compiler's assembler output has all necessary comment lines, that 
+makes it very useful for educational purposes, also.
+</p>
+
+<a name="1"></a>
+<p style="text-indent: 20;" align="justify">
+Four data types are supported:
+<br>- Bit (1-bit, 0 or 1)
+<br>- Byte (1-byte integers in the range 0 to 255)
+<br>- Word (2-byte integers in the range 0 to 65,535)
+<br>- Long (4-byte integers in the range 0 to 4,294,967,295) - optional module
+</p>
+<p style="text-indent: 20;" align="justify">
+Declarations may be placed anywhere in the program. All variables are 
+considered global. The total number of variables is limited by the 
+available microcontroller RAM memory. Variables are declared using 
+DIM statement:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BIT
+<br>DIM B AS BYTE
+<br>DIM X AS WORD
+<br>DIM Y AS LONG
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+If necessary, variable address can be specified during declaration:
+<font face="Courier New" color="#0000C0">
+<br>DIM X AS BYTE @ 0x050
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+It is also possible to use one-dimensional arrays. For example:
+<font face="Courier New" color="#0000C0">
+<br>DIM A(10) AS BYTE
+</font>
+<br>declares an array of 10 Byte variables with array index in the range [0-9]. 
+</p>
+<p style="text-indent: 20;" align="justify">
+RESERVE statement allows advanced usage by reserving some of the 
+RAM locations to be used by in-code assembler routines or by MPLAB 
+In-Circuit Debugger. For example:
+<font face="Courier New" color="#0000C0">
+<br>RESERVE 0x70
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+High and low byte of a word variable can be addressed by .HB and .LB 
+extensions. Individual bits can be addressed by .0, .1, ..., .14 and .15 
+extensions. It is possible to make conversions between Byte and Word 
+data types using .LB and .HB extensions or directly:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BYTE
+<br>DIM B AS WORD
+<br>A = B.HB
+<br>A = B.LB 'This statement is equivalent to A = B
+<br>B.HB = A
+<br>B.LB = A
+<br>B = A 'This statement will also clear the high byte of B variable
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+High word (composed by bytes 3 and 2) and low word (composed by bytes 1 and 0)
+of a long variable can be addressed by .HW and .LW extensions. Byte 0 can be addressed
+by .LB and byte 1 by .HB extensions. For example:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BYTE
+<br>DIM B AS WORD
+<br>DIM X AS LONG
+<br>A = X.LB
+<br>B = X.HW
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+All special function registers (SFRs) are available as Byte variables in 
+basic programs. Individual bits of a Byte variable can be addressed by 
+.0, .1, .2, .3, .4, .5, .6 and .7 extensions or using official names of the 
+bits:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BIT
+<br>DIM B AS BYTE
+<br>A = B.7
+<br>B.6 = 1
+<br>TRISA.1 = 0
+<br>TRISB = 0
+<br>PORTA.1 = 1
+<br>PORTB = 255
+<br>STATUS.RP0 = 1
+<br>INTCON.INTF = 0
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+Standard short forms for accessing port registers and individual chip pins 
+are also available (RA, RB, RC, RD, RE can be used as Byte variables; 
+RA0, RA1, RA2, ..., RE6, RE7 are available as Bit variables):
+<font face="Courier New" color="#0000C0">
+<br>RA = 0xFF
+<br>RB0 = 1
+</font>
+</p>
+
+<a name="33"></a>
+<p style="text-indent: 20;" align="justify">
+Any variable that is declared as a Byte or Word variable using Dim statement
+can be used as a pointer to user RAM memory when it is used as an argument of
+POINTER function. The value contained in the variable that is used as a pointer
+should be in the range 0-511. Here is one example:
+<font face="Courier New" color="#0000C0">
+<br>DIM X AS WORD
+<br>DIM Y AS BYTE
+<br>X = 0x3F
+<br>Y = POINTER(X)
+<br>Y = Y + 0x55
+<br>X = X - 1
+<br>POINTER(X) = Y
+<br>Y = 0xAA
+<br>X = X - 1
+<br>POINTER(X) = Y
+</font>
+</p>
+
+<a name="2"></a>
+<p style="text-indent: 20;" align="justify">
+It is also possible to use symbolic names (symbols) in programs:
+<font face="Courier New" color="#0000C0">
+<br>SYMBOL LED1 = PORTB.0
+<br>LED1 = 1
+<br>SYMBOL AD_ACTION = ADCON0.GO_DONE
+</font>
+</p>
+
+<a name="4"></a>
+<p style="text-indent: 20;" align="justify">
+Constants can be used in decimal number system with no special 
+marks, in hexadecimal number system with leading 0x notation (or with 
+H at the end) and in binary system with leading % mark (or with B at the 
+end). Keywords True and False are also available for Bit type constants. 
+For example:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BIT
+<br>DIM B AS BYTE
+<br>A = TRUE
+<br>B = 0x55
+<br>B = %01010101
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+Constants can also be assigned to symbolic names using CONST 
+directive:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS WORD
+<br>CONST PI = 314
+<br>A = PI
+</font>
+</p>
+
+<a name="3"></a>
+<p style="text-indent: 20;" align="justify">
+There are three statements that are used for bit manipulation - HIGH, 
+LOW and TOGGLE. If the argument of these statements is a bit in one 
+of the PORT registers, then the same bit in the corresponding TRIS 
+register is automatically cleared, setting the affected pin as an output 
+pin. Some examples:
+<font face="Courier New" color="#0000C0">
+<br>HIGH PORTB.0
+<br>LOW ADCON0.ADON
+<br>TOGGLE OPTION_REG.INTEDG
+</font>
+</p>
+
+<a name="32"></a>
+<p style="text-indent: 20;" align="justify">
+All PIC microcontrollers that feature analog capabilities (A/D converters and/or
+analog comparators) are setup at power-up to use the involved pins for these
+analog purposes. In order to use those pins as digital input/outputs, they
+should be setup for digital use by changing the values in some of the
+special functions registers as specified by the datasheets.
+To setup all pins for digital purposes, ALLDIGITAL statement can be used
+at the beginning of the basic program.
+</p>
+
+<a name="5"></a>
+<p style="text-indent: 20;" align="justify">
+Five arithmetic operations (+, -, *, /, MOD) are available for Byte, Word and 
+Long data types. The compiler is able to compile all possible complex 
+arithmetic expressions. For example:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS WORD
+<br>DIM B AS WORD
+<br>DIM X AS WORD
+<br>A = 123
+<br>B = A * 234
+<br>X = 2
+<br>X = (12345 - B * X) / (A + B)
+</font>
+</p>
+
+<a name="6"></a>
+<p style="text-indent: 20;" align="justify">
+Square root of a number (0-65535 range) can be calculated using SQR function:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS WORD
+<br>A = 3600
+<br>A = SQR(A)
+</font>
+</p>
+
+<a name="7"></a>
+<p style="text-indent: 20;" align="justify">
+For Bit data type variables seven logical operations are available. It is 
+possible to make only one logical operation in one single statement. 
+Logical operations are also available for Byte and Word variables. For 
+example:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BIT
+<br>DIM B AS BIT
+<br>DIM X AS BIT
+<br>X = NOT A
+<br>X = A AND B
+<br>X = A OR B
+<br>X = A XOR B
+<br>X = A NAND B
+<br>X = A NOR B
+<br>X = A NXOR B
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS WORD
+<br>DIM B AS WORD
+<br>A = A OR B
+<br>PORTB = PORTC AND %11110000
+</font>
+</p>
+
+<a name="25"></a>
+<p style="text-indent: 20;" align="justify">
+There are two configuration parameters CONF_WORD and CONF_WORD_2 (not 
+available for all devices) that can be set using DEFINE directive to 
+override the default values. The clock frequency of the target device
+can be specified by setting the CLOCK_FREQUENCY parameter (the value is
+expressed in MHz). These parameters should be setup at the beginning of
+the basic program. For example:
+<font face="Courier New" color="#0000C0">
+<br>DEFINE CONF_WORD = 0x3F72
+<br>DEFINE CLOCK_FREQUENCY = 20
+</font>
+<p style="text-indent: 20;" align="justify">
+EEPROM memory content can be defined in basic programs using EEPROM statement.
+Its first argument is the address of the first byte in the data list. Multiple
+EEPROM statements can be used to fill in different areas of EEPROM memory,
+if needed. For example:
+<font face="Courier New" color="#0000C0">
+<br>EEPROM 0, 0x55
+<br>EEPROM 253, 0x01, 0x02, 0x03
+</font>
+</p>
+
+<a name="8"></a>
+<p style="text-indent: 20;" align="justify">
+The GOTO statement uses line label name as argument. Line labels 
+must be followed by colon mark ":". Here is one example:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS WORD
+<br>A = 0
+<br>loop: A = A + 1
+<br>GOTO loop
+</font>
+</p>
+
+<a name="9"></a>
+<p style="text-indent: 20;" align="justify">
+WAITMS and WAITUS statements can be used to force program to 
+wait for the specified number of milliseconds or microseconds. It is also 
+possible to use variable argument of Byte or Word data type. These 
+routines use Clock Frequency parameter that can be changed from the 
+Options menu. WAITUS routine has minimal delay and step that also 
+depends on the Clock Frequency parameter.
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS WORD
+<br>A = 100
+<br>WAITMS A
+<br>WAITUS 50
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+PLEASE NOTE: When writing programs for real PIC devices you will 
+most likely use delay intervals that are comparable to 1 second or 1000 
+milliseconds. Many examples in this help file also use such 'real-time' 
+intervals. But, if you want to simulate those programs you have to be 
+very patient to see something to happen, even on very powerful PCs 
+available today. For simulation of 'WaitMs 1000' statement on 4MHz you 
+have to wait the simulator to simulate 1000000 instructions and it will 
+take considerable amount of time even if 'extremely fast' simulation rate 
+is selected. So, just for the purpose of simulation you should recompile 
+your programs with adjusted delay intervals, that should not exceed 
+1-10ms. But, be sure to recompile your program with original delays 
+before you download it to a real device.
+</p>
+
+<a name="11"></a>
+<p style="text-indent: 20;" align="justify">
+Four standard BASIC structures are supported: 
+FOR-TO-STEP-NEXT, WHILE-WEND, IF-THEN-ELSE-ENDIF and SELECT CASE-CASE-ENDSELECT. 
+Here are several examples:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BYTE
+<br>TRISB = 0
+<br>A = 255
+<br>WHILE A > 0
+<br>&nbsp;&nbsp;&nbsp;PORTB = A
+<br>&nbsp;&nbsp;&nbsp;A = A - 1
+<br>&nbsp;&nbsp;&nbsp;WAITMS 100
+<br>WEND
+<br>PORTB = A
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>TRISB = 0
+<br>loop:
+<br>IF PORTA.0 THEN
+<br>&nbsp;&nbsp;&nbsp;PORTB.0 = 1
+<br>ELSE
+<br>&nbsp;&nbsp;&nbsp;PORTB.0 = 0
+<br>ENDIF
+<br>GOTO loop
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS WORD
+<br>TRISB = 0
+<br>FOR A = 0 TO 10000 STEP 10
+<br>&nbsp;&nbsp;&nbsp;PORTB = A.LB
+<br>NEXT A
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BYTE
+<br>DIM B AS BYTE
+<br>DIM X AS BYTE
+<br>B = 255
+<br>X = 2
+<br>TRISB = 0
+<br>FOR A = B TO 0 STEP -X
+<br>&nbsp;&nbsp;&nbsp;PORTB = A
+<br>NEXT A
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BYTE
+<br>loop:
+<br>SELECT CASE A
+<br>CASE 255
+<br>&nbsp;&nbsp;&nbsp;A = 1
+<br>CASE <= 127
+<br>&nbsp;&nbsp;&nbsp;A = A + 1
+<br>CASE ELSE
+<br>&nbsp;&nbsp;&nbsp;A = 255
+<br>ENDSELECT
+<br>GOTO loop
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+After IF-THEN statement in the same line can be placed almost every 
+other possible statement and then ENDIF is not used. There are no 
+limits for the number of nested statements of any kind.
+In the test expressions of IF-THEN and WHILE statements it is possible to
+use multiple ORed and multiple ANDed conditions.
+Multiple comma separated conditions can be used with CASE statements, also.
+</p>
+
+<a name="23"></a>
+<p style="text-indent: 20;" align="justify">
+LOOKUP function can be used to select one from the list of Byte 
+constants, based on the value in the index Byte variable, that is 
+supplied as the last separated argument of the function. The first 
+constant in the list has index value 0. The selected constant will be 
+loaded into the result Byte data type variable. If the value in the index 
+variable goes beyond the number of constants in the list, the result 
+variable will not be affected by the function. Here is one small example 
+for a 7-segment LED display:
+<font face="Courier New" color="#0000C0">
+<br>DIM DIGIT AS BYTE
+<br>DIM MASK AS BYTE
+<br>loop:
+<br>TRISB = %00000000
+<br>FOR DIGIT = 0 TO 9
+<br>&nbsp;&nbsp;&nbsp;MASK = LOOKUP(0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F), DIGIT
+<br>&nbsp;&nbsp;&nbsp;PORTB = MASK
+<br>&nbsp;&nbsp;&nbsp;WAITMS 1000
+<br>NEXT DIGIT
+<br>GOTO loop
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+If all constants in the list (or part of them) are ASCII values, then
+shorter form of the list can be created by using string arguments. For
+example:
+<font face="Courier New" color="#0000C0">
+<br>MASK = LOOKUP("ABCDEFGHIJK"), INDEX
+</font>
+</p>
+
+<a name="12"></a>
+<p style="text-indent: 20;" align="justify">
+SHIFTLEFT and SHIFTRIGHT functions can be used to shift bit-level 
+representation of a variable left and right. The first argument is input 
+variable and the second argument is number of shifts to be performed. 
+Here are two examples:
+<font face="Courier New" color="#0000C0">
+<br>TRISB = 0x00
+<br>PORTB = %00000011
+<br>goleft:
+<br>WAITMS 250
+<br>PORTB = SHIFTLEFT(PORTB, 1)
+<br>IF PORTB = %11000000 THEN GOTO goright
+<br>GOTO goleft
+<br>goright:
+<br>WAITMS 250
+<br>PORTB = SHIFTRIGHT(PORTB, 1)
+<br>IF PORTB = %00000011 THEN GOTO goleft
+<br>GOTO goright
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>TRISB = 0x00
+<br>PORTB = %00000001
+<br>goleft:
+<br>WAITMS 250
+<br>PORTB = SHIFTLEFT(PORTB, 1)
+<br>IF PORTB.7 THEN GOTO goright
+<br>GOTO goleft
+<br>goright:
+<br>WAITMS 250
+<br>PORTB = SHIFTRIGHT(PORTB, 1)
+<br>IF PORTB.0 THEN GOTO goleft
+<br>GOTO goright
+</font>
+</p>
+
+<a name="14"></a>
+<p style="text-indent: 20;" align="justify">
+Structured programs can be written using subroutine calls with GOSUB 
+statement that uses line label name as argument. Return from a 
+subroutine is performed by RETURN statement. User need to take care 
+that the program structure is consistent. When using subroutines, main 
+routine need to be ended with END statement. END statement is 
+compiled as an infinite loop. Here is an example:
+<font face="Courier New" color="#0000C0">
+<br>SYMBOL ad_action = ADCON0.GO_DONE
+<br>SYMBOL display = PORTB
+<br>TRISB = %00000000
+<br>TRISA = %111111
+<br>ADCON0 = 0xC0
+<br>ADCON1 = 0
+<br>HIGH ADCON0.ADON
+<br>main:
+<br>GOSUB getadresult
+<br>display = ADRESH
+<br>GOTO main
+<br>END
+<br>getadresult:
+<br>HIGH ad_action
+<br>WHILE ad_action
+<br>WEND
+<br>RETURN
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+If there is a need to insert an infinite loop in basic program, that
+can be done with HALT statement.
+</p>
+
+<p style="text-indent: 20;" align="justify">
+It is possible to insert breakpoints for the simulator directly in basic
+programs using BREAK statement. It is compiled as reserved opcode 0x0001
+and the simulator will interpret this opcode as a breakpoint and switch
+the simulation rate to Step By Step.
+</p>
+
+<p style="text-indent: 20;" align="justify">
+It is possible to use comments in basic source programs. The comments 
+must begin with single quote symbol (') and may be placed anywhere in 
+the program.
+</p>
+
+<a name="22"></a>
+<p style="text-indent: 20;" align="justify">
+Lines of assembler source code may be placed anywhere in basic 
+source program and must begin with ASM: prefix. For example:
+<font face="Courier New" color="#0000C0">
+<br>ASM:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOP
+<br>ASM:LABEL1:&nbsp;MOVLW 0xFF
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+Symbolic names of declared variables can be used in assembler 
+routines because proper variable address will be assigned to those 
+names by EQU directive:
+<font face="Courier New" color="#0000C0">
+<br>DIM VARNAME AS BYTE
+<br>ASM:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVLW 0xFF
+<br>ASM:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVWF VARNAME
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+When working with inline assembler code, it could be useful to use
+working register as a source or destination in assign statements.
+For that purpose WREG keyword should be used and the compiler
+will take care of the bank control:
+<font face="Courier New" color="#0000C0">
+<br>DIM VARNAME AS BYTE
+<br>ASM:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVLW 0xFF
+<br>VARNAME = WREG
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Structured language support (procedures and functions)</b> - optional module
+</p>
+
+<a name="35"></a>
+<p style="text-indent: 20;" align="justify">
+Procedures can be declared with PROC statement. They can contain up to
+5 arguments (comma separated list) and all available data types can be used
+for argument variables.
+Argument variables are declared locally, so they do not need to have unique
+names in relation to the rest of user basic program, that makes very easy to
+re-use once written procedures in other basic programs. The procedures can be
+exited with EXIT statement. They must be ended with END PROC statement
+and must be placed after the END statement in program. Calls to
+procedures are implemented with CALL statement. The list of passed arguments
+can contain both variables and numeric constants. For example:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BYTE
+<br>FOR A = 0 TO 255
+<br>&nbsp;&nbsp;&nbsp;CALL portb_display(A)
+<br>&nbsp;&nbsp;&nbsp;WAITMS 100
+<br>NEXT A
+<br>END
+<br>&nbsp;
+<br>PROC portb_display(arg1 AS BYTE)
+<br>PORTB = arg1
+<br>END PROC
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+All facts stated for procedures are valid for functions, also. Functions
+can be declared with FUNCTION statement. They can contain up to 5 arguments
+and argument variables are declared locally. Functions can be exited with
+EXIT statement and must be ended with END FUNCTION. The name of the function
+is declared as a global variable, so if the function is called with CALL
+statement, after its execution the function variable will contain the result.
+Standard way of function calls in assignment statements can be used, also.
+One simple example:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BYTE
+<br>DIM B AS WORD
+<br>FOR A = 0 TO 255
+<br>&nbsp;&nbsp;&nbsp;B = square(A)
+<br>NEXT A
+<br>END
+<br>&nbsp;
+<br>FUNCTION square(arg1 AS WORD) AS WORD
+<br>square = arg1 * arg1
+<br>END FUNCTION
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Using internal EEPROM memory</b>
+</p>
+
+<a name="10"></a>
+<p style="text-indent: 20;" align="justify">
+Access to EEPROM data memory can be programmed using READ and 
+WRITE statements. The first argument is the address of a byte in 
+EEPROM memory and can be a constant or Byte variable. The second 
+argument is data that is read or written (for READ statement it must be a 
+Byte variable). It is suggested to keep interrupts disabled during the 
+execution of WRITE statement.
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BYTE
+<br>DIM B AS BYTE
+<br>A = 10
+<br>READ A, B
+<br>WRITE 11, B
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Using internal A/D converter module</b>
+</p>
+
+<a name="13"></a>
+<p style="text-indent: 20;" align="justify">
+ADCIN statement is available as a support for internal A/D converter. Its 
+first argument is ADC channel number and the second argument is a 
+variable that will be used to store the result od A/D conversion. ADCIN 
+statement uses two parameters ADC_CLOCK and ADC_SAMPLEUS 
+that have default values 3 and 20. These default values can be 
+changed using DEFINE directive. ADC_CLOCK parameter determines 
+the choice for ADC clock source (allowed range is 0-3 or 0-7 depending 
+on the device used). ADC_SAMPLEUS parameter sets the desired ADC 
+acquisition time in microseconds (0-255). ADCIN statement presupposes 
+that the corresponding pin is configured as an analog input (TRIS, 
+ADCON1 register and on some devices ANSEL register). Here is one 
+example:
+<font face="Courier New" color="#0000C0">
+<br>DIM V(5) AS BYTE
+<br>DIM VM AS WORD
+<br>DIM I AS BYTE
+<br>DEFINE ADC_CLOCK = 3
+<br>DEFINE ADC_SAMPLEUS = 50
+<br>TRISA = 0xFF
+<br>TRISB = 0
+<br>ADCON1 = 0
+<br>FOR I = 0 TO 4
+<br>&nbsp;&nbsp;&nbsp;ADCIN 0, V(I)
+<br>NEXT I
+<br>VM = 0
+<br>FOR I = 0 TO 4
+<br>&nbsp;&nbsp;&nbsp;VM = VM + V(I)
+<br>NEXT I
+<br>VM = VM / 5
+<br>PORTB = VM.LB
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Using interrupts</b>
+</p>
+
+<a name="15"></a>
+<p style="text-indent: 20;" align="justify">
+Interrupt routine should be placed as all other subroutines after the END 
+statement. It should begin with ON INTERRUPT and end with 
+RESUME statement. If arithmetic operations, arrays or any other 
+complex statements are used in interrupt routine, then SAVE SYSTEM 
+statement should be placed right after ON INTERRUPT statement to 
+save the content of registers used by system. ENABLE and DISABLE 
+statements can be used in main program to control GIE bit in INTCON 
+register. RESUME statement will set the GIE bit and enable new 
+interrupts. For example:
+<font face="Courier New" color="#0000C0">
+<br>DIM A AS BYTE
+<br>A = 255
+<br>TRISA = 0
+<br>PORTA = A
+<br>INTCON.INTE = 1
+<br>ENABLE
+<br>END
+<br>ON INTERRUPT
+<br>&nbsp;&nbsp;&nbsp;A = A - 1
+<br>&nbsp;&nbsp;&nbsp;PORTA = A
+<br>&nbsp;&nbsp;&nbsp;INTCON.INTF = 0
+<br>RESUME
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>DIM T AS WORD
+<br>T = 0
+<br>TRISA = 0xFF
+<br>ADCON1 = 0
+<br>TRISB = 0
+<br>OPTION_REG.T0CS = 0
+<br>INTCON.T0IE = 1
+<br>ENABLE
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;ADCIN 0, PORTB
+<br>GOTO loop
+<br>END
+<br>ON INTERRUPT
+<br>&nbsp;&nbsp;&nbsp;SAVE SYSTEM
+<br>&nbsp;&nbsp;&nbsp;T = T + 1
+<br>&nbsp;&nbsp;&nbsp;INTCON.T0IF = 0
+<br>RESUME
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Serial communication using internal hardware UART</b>
+</p>
+
+<a name="19"></a>
+<p style="text-indent: 20;" align="justify">
+The support for both hardware and software serial communication is 
+also available. HSEROPEN, HSEROUT, HSERIN and HSERGET 
+statements can be used with PIC devices that have internal hardware 
+UART. HSEROPEN statement sets up the hardware UART. Its only 
+argument is baud rate and allowed values are: 300, 600, 1200, 2400, 
+4800, 9600, 14400, 19200, 28800, 31250, 38400, 56000 and 57600. If the 
+argument is omitted UART will be set up for 9600 baud rate. If 
+parameter ALLOW_MULTIPLE_HSEROPEN is set to 1 using DEFINE 
+directive, it will be possible to use HSEROPEN statement more than 
+once in the program, for example to change selected baud rate. If 
+ALLOW_ALL_BAUDRATES parameter is set to 1 using DEFINE 
+directive all baud rates in the range 100-57600 will be allowed. 
+HSEROUT statement is used for serial transmission. HSEROUT 
+statement may have multiple arguments separated by ','. You can use 
+strings, LF keyword for Line Feed character or CRLF keyword for 
+Carriage Return - Line Feed sequence, constants and variables. If '#' 
+sign is used before the name of a variable then its decimal 
+representation is sent to the serial port. HSERIN statement can be used 
+to load a list of Byte and Word variables with the values received on 
+serial port. This statement will wait until the required number of bytes is 
+received on serial port. HSERGET statement have one argument that 
+must be a Byte variable. If there is a character waiting in the receive 
+buffer it will be loaded in the variable, otherwise 0 value will be loaded. 
+Here are some examples:
+<font face="Courier New" color="#0000C0">
+<br>DIM I AS BYTE
+<br>HSEROPEN 38400
+<br>WAITMS 1000
+<br>FOR I = 20 TO 0 STEP -1
+<br>&nbsp;&nbsp;&nbsp;HSEROUT "Number: ", #I, CrLf
+<br>&nbsp;&nbsp;&nbsp;WAITMS 500
+<br>NEXT I
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>DIM I AS BYTE
+<br>HSEROPEN 19200
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;HSERIN I
+<br>&nbsp;&nbsp;&nbsp;HSEROUT "Number: ", #I, CrLf
+<br>GOTO loop
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>DIM I AS BYTE
+<br>HSEROPEN 19200
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;HSERGET I
+<br>&nbsp;&nbsp;&nbsp;IF I > 0 THEN
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HSEROUT "Number: ", #I, CrLf
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAITMS 50
+<br>&nbsp;&nbsp;&nbsp;ENDIF
+<br>GOTO loop
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Software UART implementation</b>
+</p>
+
+<a name="20"></a>
+<p style="text-indent: 20;" align="justify">
+On all supported PIC devices you can use software serial 
+communication routines with SEROUT and SERIN statements. The first 
+argument of both statements must be one of the microcontroller's pins, 
+and the second argument is baud rate: 300, 600, 1200, 2400, 4800 or 
+9600. For SEROUT statement then follows the list of arguments to be 
+sent to serial port. You can use strings, LF keyword for Line Feed 
+character or CRLF keyword for Carriage Return - Line Feed sequence, 
+constants and variables. If '#' sign is used before the name of a variable 
+then its decimal representation is sent to the serial port. SEROUT 
+statement uses SEROUT_DELAYUS parameter that can be set by 
+DEFINE directive and has default value of 1000 microseconds. This 
+defines the delay interval before a character is actually sent to the port 
+and it is used to increase the reliability of software SEROUT routine. For 
+SERIN statement then follows the list of Byte and Word variables to be 
+loaded with the values received on serial port. This statement will wait 
+until the required number of bytes is received on serial port. For serial 
+interface with inverted logic levels there are SERININV and 
+SEROUTINV statements available. Some examples:
+<font face="Courier New" color="#0000C0">
+<br>DEFINE SEROUT_DELAYUS = 5000
+<br>SEROUT PORTC.6, 1200, "Hello world!", CrLf
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>DIM I AS BYTE
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;SERIN PORTC.7, 9600, I
+<br>&nbsp;&nbsp;&nbsp;SEROUT PORTC.6, 9600, "Number: ", #I, CrLf
+<br>GOTO loop
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; I2C communication with external I2C devices</b>
+</p>
+
+<a name="21"></a>
+<p style="text-indent: 20;" align="justify">
+I2C communication can be implemented in basic programs using 
+I2CWRITE and I2CREAD statements. The first argument of both 
+statements must be one of the microcontroller's pins that is connected 
+to the SDA line of the external I2C device. The second argument of 
+both statements must be one of the microcontroller's pins that is 
+connected to the SCL line. The third argument of both statements must 
+be a constant value or Byte variable called 'slave address'. Its format is 
+described in the datasheet of the used device. For example, for 
+EEPROMs from 24C family (with device address inputs connected to 
+ground) the value 0xA0 should be used for slave address parameter. 
+Both statements will take control over bit 0 of slave address during 
+communication. The forth argument of both statements must be a Byte 
+or Word variable (this depends on the device used) that contains the 
+address of the location that will be accessed. If a constant value is 
+used for address parameter it must be in Byte value range. The last 
+(fifth) argument of I2CWRITE statement is a Byte constant or variable 
+that will be written to the specified address, and for I2CREAD statement 
+it must be a Byte variable to store the value that will be read from the 
+specified address. It is allowed to use more than one 'data' argument. 
+For I2C devices that do not support data address argument there is 
+short form of I2C statements (I2CWRITE1 and I2CREAD1) available 
+where slave address argument is followed with one or more data 
+arguments directly. For some I2C slave devices it is necessary to make 
+a delay to make sure device is ready to respond to I2CREAD statement. 
+For that purpose there is I2CREAD_DELAYUS parameter that can be 
+set by DEFINE directive and has default value of 0 microseconds. 
+Also, for slower I2C devices, it might be necessary to use longer 
+clock pulses. That can be done by setting I2CCLOCK_STRETCH parameter
+using DEFINE directive. This parameter will set clock stretch factor.
+Its default value is 1. 
+Here is one combined example with LCD module and 24C64 EEPROM (SDA 
+connected to RC2; SCL connected to RC3):
+<font face="Courier New" color="#0000C0">
+<br>DEFINE LCD_BITS = 8
+<br>DEFINE LCD_DREG = PORTB
+<br>DEFINE LCD_DBIT = 0
+<br>DEFINE LCD_RSREG = PORTD
+<br>DEFINE LCD_RSBIT = 1
+<br>DEFINE LCD_EREG = PORTD
+<br>DEFINE LCD_EBIT = 3
+<br>DEFINE LCD_RWREG = PORTD
+<br>DEFINE LCD_RWBIT = 2
+<br>DIM ADDR AS WORD
+<br>DIM DATA AS BYTE
+<br>SYMBOL SDA = PORTC.2
+<br>SYMBOL SCL = PORTC.3
+<br>LCDINIT 3
+<br>WAITMS 1000
+<br>FOR ADDR = 0 TO 31
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdClear
+<br>&nbsp;&nbsp;&nbsp;DATA = 255 - ADDR
+<br>&nbsp;&nbsp;&nbsp;I2CWRITE SDA, SCL, 0xA0, ADDR, DATA
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "Write To EEPROM"
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine2Home
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "(", #ADDR, ") = ", #DATA
+<br>&nbsp;&nbsp;&nbsp;WAITMS 1000
+<br>NEXT ADDR
+<br>FOR ADDR = 0 TO 31
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdClear
+<br>&nbsp;&nbsp;&nbsp;I2CREAD SDA, SCL, 0xA0, ADDR, DATA
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "Read From EEPROM"
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine2Home
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "(", #ADDR, ") = ", #DATA
+<br>&nbsp;&nbsp;&nbsp;WAITMS 1000
+<br>NEXT ADDR
+</font>
+</p>
+
+<a name="24"></a>
+<p style="text-indent: 20;" align="justify">
+There is a set of low-level I2C communication statements available, if 
+the user needs to get more control over I2C communication process. 
+I2CPREPARE statement has two arguments that must be one of the 
+microcontroller's pins. The first argument defines SDA line and second 
+argument defines SCL line. This statement will prepare these lines for 
+I2C communication. I2CSTART statement will generate start condition, 
+and I2CSTOP statement will generate stop condition. One byte can be 
+sent to the I2C slave using I2CSEND statement. After the statement is 
+executed C bit in STATUS register will hold the copy of the state on the 
+SDA line during the acknowledge cycle. There are two statements that 
+can be used to receive one byte from I2C slave. I2CRECA or 
+I2CRECEIVEACK will generate acknowledge signal during 
+acknowlegde cycle after the byte is received. I2CRECN or 
+I2CRECEIVENACK will generate not acknowledge signal during 
+acknowlegde cycle after the byte is received. One example:
+<font face="Courier New" color="#0000C0">
+<br>DIM ADDR AS WORD
+<br>DIM DATA(31) AS BYTE
+<br>SYMBOL SDA = PORTC.4
+<br>SYMBOL SCL = PORTC.3
+<br>ADDR = 0
+<br>I2CPREPARE SDA, SCL
+<br>I2CSTART
+<br>I2CSEND 0xA0
+<br>I2CSEND ADDR.HB
+<br>I2CSEND ADDR.LB
+<br>I2CSTOP
+<br>I2CSTART
+<br>I2CSEND 0xA1
+<br>FOR ADDR = 0 TO 30
+<br>&nbsp;&nbsp;&nbsp;I2CRECEIVEACK DATA(ADDR)
+<br>NEXT ADDR
+<br>I2CRECN DATA(31)
+<br>I2CSTOP
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Support for Serial Peripheral Interface (SPI) communication</b>
+</p>
+
+<a name="36"></a>
+<p style="text-indent: 20;" align="justify">
+Prior to using SPI related statements, SPI interface should set up
+using DEFINE directives. There are eight available parameters to define
+the connection of SCK, SDI, SDO and (optionally) CS lines:
+<br>SPI_SCK_REG - defines the port where SCK line is connected to
+<br>SPI_SCK_BIT - defines the pin where SCK line is connected to
+<br>SPI_SDI_REG - defines the port where SDI line is connected to
+<br>SPI_SDI_BIT - defines the pin where SDI line is connected to
+<br>SPI_SDO_REG - defines the port where SDO line is connected to
+<br>SPI_SDO_BIT - defines the pin where SDO line is connected to
+<br>SPI_CS_REG - defines the port where CS line is connected to
+<br>SPI_CS_BIT - defines the pin where CS line is connected to
+<br>The assumed settings are active-high for Clock line and active-low
+for ChipSelect line. That can be changed by assigning the value 1
+to SPICLOCK_INVERT and/or SPICS_INVERT parameters by DEFINE directive.
+For slower SPI devices, it might be necessary to use longer clock
+pulses. The default clock stretch factor (1) can be changed by setting
+SPICLOCK_STRETCH parameter.
+</p>
+
+<p style="text-indent: 20;" align="justify">
+SPIPREPARE statement (no arguments) will prepare interface lines
+for SPI communication. SPICSON and SPICSOFF statements will enable/
+disable the ChipSelect line of the interface. One byte can be sent
+to the SPI peripheral using SPISEND statement. To receive a byte from
+the peripheral SPIRECEIVE statement should be used. To send the specified
+number of bits there is SPISENDBITS statement available. Its first argument
+should be the number of bits to be sent [1-8] and the second argument is
+a byte variable or constant. Here is one example for using 25C040 SPI
+eeprom:
+<font face="Courier New" color="#0000C0">
+<br>Define CONF_WORD = 0x3f72
+<br>Define CLOCK_FREQUENCY = 12
+<br>AllDigital
+<br>&nbsp;
+<br>Define SPI_CS_REG = PORTC
+<br>Define SPI_CS_BIT = 0
+<br>Define SPI_SCK_REG = PORTC
+<br>Define SPI_SCK_BIT = 3
+<br>Define SPI_SDI_REG = PORTC
+<br>Define SPI_SDI_BIT = 5
+<br>Define SPI_SDO_REG = PORTC
+<br>Define SPI_SDO_BIT = 4
+<br>SPIPrepare
+<br>&nbsp;
+<br>Define LCD_BITS = 8
+<br>Define LCD_DREG = PORTD
+<br>Define LCD_DBIT = 0
+<br>Define LCD_RSREG = PORTE
+<br>Define LCD_RSBIT = 0
+<br>Define LCD_RWREG = PORTE
+<br>Define LCD_RWBIT = 1
+<br>Define LCD_EREG = PORTE
+<br>Define LCD_EBIT = 2
+<br>Define LCD_READ_BUSY_FLAG = 1
+<br>Lcdinit
+<br>&nbsp;
+<br>Dim addr As Byte
+<br>Dim data As Byte
+<br>&nbsp;
+<br>For addr = 0 To 10
+<br>&nbsp;&nbsp;&nbsp;data = 200 - addr
+<br>&nbsp;&nbsp;&nbsp;SPICSOn
+<br>&nbsp;&nbsp;&nbsp;SPISend 0x06
+<br>&nbsp;&nbsp;&nbsp;SPICSOff
+<br>&nbsp;&nbsp;&nbsp;SPICSOn
+<br>&nbsp;&nbsp;&nbsp;SPISend 0x02
+<br>&nbsp;&nbsp;&nbsp;SPISend addr
+<br>&nbsp;&nbsp;&nbsp;SPISend data
+<br>&nbsp;&nbsp;&nbsp;SPICSOff
+<br>&nbsp;&nbsp;&nbsp;Lcdcmdout LcdClear
+<br>&nbsp;&nbsp;&nbsp;Lcdout "Write To EEPROM"
+<br>&nbsp;&nbsp;&nbsp;Lcdcmdout LcdLine2Home
+<br>&nbsp;&nbsp;&nbsp;Lcdout "(", #addr, ") = ", #data
+<br>&nbsp;&nbsp;&nbsp;WaitMs 500
+<br>Next addr
+<br>&nbsp;
+<br>For addr = 0 To 10
+<br>&nbsp;&nbsp;&nbsp;SPICSOn
+<br>&nbsp;&nbsp;&nbsp;SPISend 0x03
+<br>&nbsp;&nbsp;&nbsp;SPISend addr
+<br>&nbsp;&nbsp;&nbsp;SPIReceive data
+<br>&nbsp;&nbsp;&nbsp;SPICSOff
+<br>&nbsp;&nbsp;&nbsp;Lcdcmdout LcdClear
+<br>&nbsp;&nbsp;&nbsp;Lcdout "Read From EEPROM"
+<br>&nbsp;&nbsp;&nbsp;Lcdcmdout LcdLine2Home
+<br>&nbsp;&nbsp;&nbsp;Lcdout "(", #addr, ") = ", #data
+<br>&nbsp;&nbsp;&nbsp;WaitMs 500
+<br>Next addr
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+Here is the same example written for 93C86 Microwire EEPROM:
+<font face="Courier New" color="#0000C0">
+<br>Define CONF_WORD = 0x3f72
+<br>Define CLOCK_FREQUENCY = 12
+<br>AllDigital
+<br>&nbsp;
+<br>Define SPI_CS_REG = PORTC
+<br>Define SPI_CS_BIT = 0
+<br>Define SPICS_INVERT = 1
+<br>Define SPI_SCK_REG = PORTC
+<br>Define SPI_SCK_BIT = 3
+<br>Define SPI_SDI_REG = PORTC
+<br>Define SPI_SDI_BIT = 5
+<br>Define SPI_SDO_REG = PORTC
+<br>Define SPI_SDO_BIT = 4
+<br>SPIPrepare
+<br>&nbsp;
+<br>Define LCD_BITS = 8
+<br>Define LCD_DREG = PORTD
+<br>Define LCD_DBIT = 0
+<br>Define LCD_RSREG = PORTE
+<br>Define LCD_RSBIT = 0
+<br>Define LCD_RWREG = PORTE
+<br>Define LCD_RWBIT = 1
+<br>Define LCD_EREG = PORTE
+<br>Define LCD_EBIT = 2
+<br>Define LCD_READ_BUSY_FLAG = 1
+<br>Lcdinit
+<br>&nbsp;
+<br>Dim addr As Byte
+<br>Dim data As Byte
+<br>&nbsp;
+<br>SPICSOn
+<br>SPISendBits 6, %100110
+<br>SPISendBits 8, %00000000
+<br>SPICSOff
+<br>&nbsp;
+<br>For addr = 0 To 10
+<br>&nbsp;&nbsp;&nbsp;data = 200 - addr
+<br>&nbsp;&nbsp;&nbsp;SPICSOn
+<br>&nbsp;&nbsp;&nbsp;SPISendBits 6, %101000
+<br>&nbsp;&nbsp;&nbsp;SPISendBits 8, addr
+<br>&nbsp;&nbsp;&nbsp;SPISend data
+<br>&nbsp;&nbsp;&nbsp;SPICSOff
+<br>&nbsp;&nbsp;&nbsp;SPICSOn
+<br>&nbsp;&nbsp;&nbsp;SPISend 0x00
+<br>&nbsp;&nbsp;&nbsp;SPICSOff
+<br>&nbsp;&nbsp;&nbsp;Lcdcmdout LcdClear
+<br>&nbsp;&nbsp;&nbsp;Lcdout "Write To EEPROM"
+<br>&nbsp;&nbsp;&nbsp;Lcdcmdout LcdLine2Home
+<br>&nbsp;&nbsp;&nbsp;Lcdout "(", #addr, ") = ", #data
+<br>&nbsp;&nbsp;&nbsp;WaitMs 500
+<br>Next addr
+<br>&nbsp;
+<br>For addr = 0 To 10
+<br>&nbsp;&nbsp;&nbsp;SPICSOn
+<br>&nbsp;&nbsp;&nbsp;SPISendBits 6, %110000
+<br>&nbsp;&nbsp;&nbsp;SPISendBits 8, addr
+<br>&nbsp;&nbsp;&nbsp;SPIReceive data
+<br>&nbsp;&nbsp;&nbsp;SPICSOff
+<br>&nbsp;&nbsp;&nbsp;Lcdcmdout LcdClear
+<br>&nbsp;&nbsp;&nbsp;Lcdout "Read From EEPROM"
+<br>&nbsp;&nbsp;&nbsp;Lcdcmdout LcdLine2Home
+<br>&nbsp;&nbsp;&nbsp;Lcdout "(", #addr, ") = ", #data
+<br>&nbsp;&nbsp;&nbsp;WaitMs 500
+<br>Next addr
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Interfacing character LCDs</b>
+</p>
+
+<a name="16"></a>
+<p style="text-indent: 20;" align="justify">
+Basic compiler also features the support for LCD modules based on HD44780
+or compatible controller chip. Prior to using LCD related statements, user
+should set up LCD interface using DEFINE directives. Here is the list of
+available parameters:
+<br>LCD_BITS - defines the number of data interface lines (allowed values 
+are 4 and 8; default is 4)
+<br>LCD_DREG - defines the port where data lines are connected to 
+(default is PORTB)
+<br>LCD_DBIT - defines the position of data lines for 4-bit interface (0 or 4; 
+default is 4), ignored for 8-bit interface
+<br>LCD_RSREG - defines the port where RS line is connected to (default 
+is PORTB)
+<br>LCD_RSBIT - defines the pin where RS line is connected to (default is 
+3)
+<br>LCD_EREG - defines the port where E line is connected to (default is 
+PORTB)
+<br>LCD_EBIT - defines the pin where E line is connected to (default is 2)
+<br>LCD_RWREG - defines the port where R/W line is connected to (set to 
+0 if not used; 0 is default)
+<br>LCD_RWBIT - defines the pin where R/W line is connected to (set to 0 
+if not used; 0 is default)
+<br>LCD_COMMANDUS - defines the delay after LCDCMDOUT statement 
+(default value is 5000)
+<br>LCD_DATAUS - defines the delay after LCDOUT statement (default 
+value is 100)
+<br>LCD_INITMS - defines the delay for LCDINIT statement (default value is 
+100)
+<br>The last three parameters should be set to low values when using 
+integrated LCD module simulator. If R/W line is connected to microcontroller
+and parameter LCD_READ_BUSY_FLAG is set to 1 using DEFINE directive, then
+these delay parameters will be ignored by compiler and correct timing will
+be implemented by reading the status of the busy flag in the LCD.
+</p>
+
+<a name="17"></a>
+<p style="text-indent: 20;" align="justify">
+LCDINIT statement should be placed in the program before any of 
+LCDOUT (used for sending data) and LCDCMDOUT (used for sending 
+commands) statements. Its argument is used to define the cursor type: 0 
+= no cursor (default), 1 = blink, 2 = underline, 3 = blink + underline.
+LCDOUT and LCDCMDOUT statements may have multiple arguments 
+separated by ','. Strings, constants and variables can be used as 
+arguments of LCDOUT statement. If '#' sign is used before the name of 
+a variable then its decimal representation is sent to the LCD module. 
+Constants and variables can be used as arguments of LCDCMDOUT 
+statement and the following keywords are also available: LcdClear, 
+LcdHome, LcdLine2Home, LcdLeft, LcdRight, LcdShiftLeft, 
+LcdShiftRight, LcdLine1Clear, LcdLine2Clear, LcdLine1Pos() and 
+LcdLine2Pos(). Argument of LcdLine1Pos() and LcdLine2Pos() 
+can be a number in the range (1-40) or Byte data type 
+variable. The value contained in that variable should be in the same 
+range. Here are some examples:
+<font face="Courier New" color="#0000C0">
+<br>DEFINE LCD_BITS = 8
+<br>DEFINE LCD_DREG = PORTB
+<br>DEFINE LCD_DBIT = 0
+<br>DEFINE LCD_RSREG = PORTD
+<br>DEFINE LCD_RSBIT = 1
+<br>DEFINE LCD_EREG = PORTD
+<br>DEFINE LCD_EBIT = 3
+<br>DEFINE LCD_RWREG = PORTD
+<br>DEFINE LCD_RWBIT = 2
+<br>LCDINIT
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "Hello world!"
+<br>&nbsp;&nbsp;&nbsp;WAITMS 1000
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdClear
+<br>&nbsp;&nbsp;&nbsp;WAITMS 1000
+<br>GOTO loop
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+<font face="Courier New" color="#0000C0">
+<br>DEFINE LCD_BITS = 8
+<br>DEFINE LCD_DREG = PORTB
+<br>DEFINE LCD_DBIT = 0
+<br>DEFINE LCD_RSREG = PORTD
+<br>DEFINE LCD_RSBIT = 1
+<br>DEFINE LCD_EREG = PORTD
+<br>DEFINE LCD_EBIT = 3
+<br>DEFINE LCD_RWREG = PORTD
+<br>DEFINE LCD_RWBIT = 2
+<br>DIM A AS WORD
+<br>A = 65535
+<br>LCDINIT 3
+<br>WAITMS 1000
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "I am counting!"
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine2Home
+<br>&nbsp;&nbsp;&nbsp;LCDOUT #A
+<br>&nbsp;&nbsp;&nbsp;A = A - 1
+<br>&nbsp;&nbsp;&nbsp;WAITMS 250
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdClear
+<br>GOTO loop
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+LCD related statements will take control over TRIS registers connected 
+with pins used for LCD interface, but if you use PORTA or PORTE pins 
+on devices with A/D Converter Module then you should take control 
+over the ADCON1 register to set used pins as digital I/O.
+</p>
+
+<a name="18"></a>
+<p style="text-indent: 20;" align="justify">
+You can setup up to eight user defined characters to be used on LCD. 
+This can easily be done with LCDDEFCHAR statement. The first 
+argument of this statement is char number and must be in the range 0-7. 
+Next 8 arguments form 8-line char pattern (from the top to the bottom) 
+and must be in the range 0-31 (5-bits wide). These 8 user characters are 
+assigned to char codes 0-7 and 8-15 and can be displayed using 
+LCDOUT statement. After LCDDEFCHAR statement the cursor will be in 
+HOME position. For example:
+<font face="Courier New" color="#0000C0">
+<br>LCDDEFCHAR 0, 10, 10, 10, 10, 10, 10, 10, 10
+<br>LCDDEFCHAR 1, %11111, %10101, %10101, %10101, %10101,
+<br>%10101, %10101, %11111
+<br>LCDOUT 0, 1, "Hello!", 1, 0
+</font>
+</p>
+
+<a name="30"></a>
+<p style="text-indent: 20;" align="justify">
+For LCDs with four lines of characters additional symbolic arguments of
+LCDCMDOUT statement can be used: LcdLine3Home, LcdLine4Home, LcdLine3Clear,
+LcdLine4Clear, LcdLine3Pos() and LcdLine4Pos(). Argument of LcdLine3Pos()
+and LcdLine4Pos() can be a number in the range (1-40) or Byte data type 
+variable. The value contained in that variable should be in the same range.
+Prior to using these language elements, correct values determining LCD type
+should be assigned to LCD_LINES and LCD_CHARS parameters using DEFINE directives.
+<font face="Courier New" color="#0000C0">
+<br>DEFINE LCD_LINES = 4
+<br>DEFINE LCD_CHARS = 16
+<br>DEFINE LCD_BITS = 8
+<br>DEFINE LCD_DREG = PORTB
+<br>DEFINE LCD_DBIT = 0
+<br>DEFINE LCD_RSREG = PORTD
+<br>DEFINE LCD_RSBIT = 1
+<br>DEFINE LCD_EREG = PORTD
+<br>DEFINE LCD_EBIT = 3
+<br>DEFINE LCD_RWREG = PORTD
+<br>DEFINE LCD_RWBIT = 2
+<br>LCDINIT 3
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdClear
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine1Home
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "This is line 1"
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine2Home
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "This is line 2"
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine3Home
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "This is line 3"
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine4Home
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "This is line 4"
+<br>&nbsp;&nbsp;&nbsp;WAITMS 1000
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine1Clear
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine2Clear
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine3Clear
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine4Clear
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine1Pos(1)
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "Line 1"
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine2Pos(2)
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "Line 2"
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine3Pos(3)
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "Line 3"
+<br>&nbsp;&nbsp;&nbsp;LCDCMDOUT LcdLine4Pos(4)
+<br>&nbsp;&nbsp;&nbsp;LCDOUT "Line 4"
+<br>&nbsp;&nbsp;&nbsp;WAITMS 1000
+<br>GOTO loop
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Interfacing graphical LCDs with 128x64 dot matrix</b>
+</p>
+
+<a name="26"></a>
+<p style="text-indent: 20;" align="justify">
+Interfacing graphical LCDs with dot matrix resolution 128x64 controlled by
+KS0107 or compatible chip is supported with
+the following list of Basic language elements: GLCDINIT, GLCDCLEAR, GLCDPSET, 
+GLCDPRESET, GLCDPOSITION, GLCDWRITE, GLCDCLEAN, GLCDOUT, GLCDIN, GLCDCMDOUT.
+Prior to using Graphical LCDs related statements, user should set up the 
+interface with the graphical LCD module using DEFINE directives. Here is the 
+list of available parameters:
+<br>GLCD_DREG - defines the port where data lines are connected to (it has 
+to be a full 8-pins port)
+<br>GLCD_RSREG - defines the port where RS line is connected to
+<br>GLCD_RSBIT - defines the pin where RS line is connected to
+<br>GLCD_EREG - defines the port where E line is connected to
+<br>GLCD_EBIT - defines the pin where E line is connected to
+<br>GLCD_RWREG - defines the port where R/W line is connected to
+<br>GLCD_RWBIT - defines the pin where R/W line is connected to
+<br>GLCD_CS1REG - defines the port where CS1 line is connected to
+<br>GLCD_CS1BIT - defines the pin where CS1 line is connected to
+<br>GLCD_CS2REG - defines the port where CS2 line is connected to
+<br>GLCD_CS2BIT - defines the pin where CS2 line is connected to
+</p>
+
+<a name="27"></a>
+<p style="text-indent: 20;" align="justify">
+GLCDINIT statement should be placed somewhere at the beginning of the
+basic program before any other graphical LCD related stetements are used.
+Graphical LCD related statements will take control over TRIS registers
+connected with pins used for LCD interface, but if you use pins that are
+setup as analog inputs at power-up on devices with A/D Converter and/or
+Comparator modules, you should take control over the appropriate register(s)
+(ADCON1, ANSEL, CMCON) to set used pins as digital I/O.
+</p>
+<p style="text-indent: 20;" align="justify">
+GLCDCLEAR statement will clear the whole display. It can be used with one
+optional constant argument in the range 0-255 that will be placed on every
+byte position on the display (128x64 graphical displays are internaly divided
+in two 64x64 halves; both halves are divided in eight 64x8 horizontal pages;
+every page has its addressing number in the range 0-15; page in upper-left
+corner has number 0; page in lower-left corner has number 7; page in
+upper-right corner has number 8; page in lower-right corner has number 15;
+every page has 64 byte positions addressed with numbers in the range 0-63;
+every byte position has 8 bits; the uppermost bit is LSB and the lowermost
+bit is MSB). For example:
+<font face="Courier New" color="#0000C0">
+<br>GLCDINIT
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;GLCDCLEAR 0xAA
+<br>&nbsp;&nbsp;&nbsp;WAITMS 1000
+<br>&nbsp;&nbsp;&nbsp;GLCDCLEAR 0x55
+<br>&nbsp;&nbsp;&nbsp;WAITMS 1000
+<br>GOTO loop
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+GLCDPSET and GLCDPRESET statements are used to turn on and turn off
+one of the dots on the graphical display. The first argument is the
+horizontal coordinate and it must be a byte data type variable or constant
+in the range 0-127. The second argument is the vertical coordinate and it
+must be a byte data type variable or constant in the range 0-63. The dot
+in the upper-left corner of the display is the origin with coordinates 0,0.
+For example:
+<font face="Courier New" color="#0000C0">
+<br>DIM I AS BYTE
+<br>DIM J AS BYTE
+<br>GLCDINIT
+<br>FOR I = 0 TO 127
+<br>FOR J = 0 TO 63
+<br>&nbsp;&nbsp;&nbsp;GLCDPSET I, J
+<br>NEXT J
+<br>NEXT I
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+GLCDCLEAN statement is used to clear a section of the page on the display.
+It has three arguments. The first argument is page address and it must be a
+byte data type variable or constant in the range 0-15. The second argument
+is the first byte position on the page that will be cleaned and it must be a
+byte data type variable or constant in the range 0-63. The third argument
+is the last byte position on the page that will be cleaned and it must be a
+byte data type variable or constant in the range 0-63. If the last two arguments
+are omitted the whole page will be cleared. For example:
+<font face="Courier New" color="#0000C0">
+<br>DIM I AS BYTE
+<br>GLCDINIT
+<br>GLCDCLEAR 0xFF
+<br>FOR I = 0 TO 15
+<br>&nbsp;&nbsp;&nbsp;GLCDCLEAN I
+<br>&nbsp;&nbsp;&nbsp;WAITMS 500
+<br>NEXT I
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+GLCDPOSITION statement is used to address a byte position on the display.
+It must be used before any of the GLCDWRITE, GLCDIN, GLCDOUT and GLCDCMDOUT
+statements. The first argument is page address and it must be a byte data type
+variable or constant in the range 0-15. The second argument is the target byte
+position on the page and it must be a byte data type variable or constant in the
+range 0-63. If the second argument is omitted, zero byte position is used.
+</p>
+<p style="text-indent: 20;" align="justify">
+GLCDWRITE statement is used to write text on the display. It will start writing
+from the current byte position on the display. It must be used carefully, because
+when the byte position (63) of the page is reached, the writing will continue from
+the byte position 0 staying on the same page. The width of every character written
+is 5 byte positions plus one clear byte position. After the statement is executed
+the current byte position will be at the end of the text written.
+GLCDWRITE statement may have multiple arguments separated by ','.
+Strings, constants and byte variables can be used as its arguments. Constants and
+variable values are interpreted as ASCII codes.
+If '#' sign is used before the name of a variable (byte or word data type) then its
+decimal representation is written. For example:
+<font face="Courier New" color="#0000C0">
+<br>DIM I AS BYTE
+<br>GLCDINIT
+<br>FOR I = 0 TO 15
+<br>&nbsp;&nbsp;&nbsp;GLCDPOSITION I, 0
+<br>&nbsp;&nbsp;&nbsp;GLCDWRITE "Page: ", #I
+<br>&nbsp;&nbsp;&nbsp;WAITMS 250
+<br>NEXT I
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+GLCDOUT statement is used to write the value of the byte variable or constant
+at the current byte position on the display. The current byte position will
+be incremented by one.
+GLCDIN statement will read the value from the current byte position on the
+display and put it in the byte variable specified as its argument.
+GLCDCMDOUT statement is used to send low-level commands to the graphical LCD.
+Its argument can be a constant or byte data type variable.
+All these three statements can be used with multiple arguments separated by ','.
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Using internal PWM modules</b>
+</p>
+
+<a name="28"></a>
+<p style="text-indent: 20;" align="justify">
+Internal PWM modules (more precisely: PWM modes of CCP modules) are turned
+on using PWMON statement. This statement has two arguments. The first argument
+is module number and it must be a constant in the range 1-3. The second argument
+is used for mode selection. Internal PWM module can be used on three different
+output frequencies for each of four duty cycle resolutions supported by PWMON statement
+(10-bit, 9-bit, 8-bit and 7-bit). So, PWM module can be turned on with PWMON
+statement in 12 modes. Here is the list of all modes at 4MHz clock frequency
+(for other clock frequencies, the values should be proportionally adjusted):
+<font face="Courier New" color="#0000C0">
+<br>mode 1: 10-bit, 244Hz
+<br>mode 2: 10-bit, 977Hz
+<br>mode 3: 10-bit, 3906Hz
+<br>mode 4: 9-bit, 488Hz
+<br>mode 5: 9-bit, 1953Hz
+<br>mode 6: 9-bit, 7813Hz
+<br>mode 7: 8-bit, 977Hz
+<br>mode 8: 8-bit, 3906Hz
+<br>mode 9: 8-bit, 15625Hz
+<br>mode 10: 7-bit, 1953Hz
+<br>mode 11: 7-bit, 7813Hz
+<br>mode 12: 7-bit, 31250Hz
+</font>
+<br>The PWM module is initially started with 0 duty cycle, so the output will
+stay low until the duty cycle is changed. PWM module can be turned off with
+PWMOFF statement. It has only one argument - module number.
+</p>
+<p style="text-indent: 20;" align="justify">
+The duty cycle of PWM signal can be changed with PWMDUTY statement. Its first
+argument is module number. The second argument is duty cycle and it can be a
+constant in the range 0-1023 or byte or word data type variable. User must take
+care to use the proper value ranges for all PWM modes (0-1023 for 10-bit resolution,
+0-511 for 9-bit resolution, 0-255 for 8-bit resolution and 0-127 for 7-bit
+resolution). Here is one example example:
+<font face="Courier New" color="#0000C0">
+<br>DIM duty AS BYTE
+<br>PWMON 1, 9
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;ADCIN 0, duty
+<br>&nbsp;&nbsp;&nbsp;PWMDUTY 1, duty
+<br>GOTO loop
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Interfacing Radio Control (R/C) servos</b>
+</p>
+
+<a name="31"></a>
+<p style="text-indent: 20;" align="justify">
+For writing applications to interface R/C servos there are two statements
+available: SERVOIN and SERVOOUT. R/C servo is controlled by a train of pulses
+(15-20 pulses per second) whose length define the position of the servo arm.
+The valid length of pulses is in the range 1-2ms. These two statements have two
+arguments. The first argument of both statements is the microcontroller pin
+where the servo signal is received or transmitted. For SERVOIN statement that pin
+should be setup as an input pin and for SERVOOUT statement the pin should be setup
+for output. The second argument of SERVOIN statement must be a Byte variable where
+the length of the pulse will be saved. The pulses are measured in 10us units, so
+it is possible to measure pulses in the range 0.01-2.55ms. The value stored
+in the variable for normal servos should be in the range 100-200. The second argument
+of the SERVOOUT statement should be a Byte variable or constant that determines
+the length of the generated pulse. For proper operation of the target servo
+SERVOOUT statement should be executed 15-20 times during one second. Here is
+an example of the servo reverse operation:
+<font face="Courier New" color="#0000C0">
+<br>DIM length AS BYTE
+<br>TRISB.0 = 1
+<br>TRISB.1 = 0
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;SERVOIN PORTB.0, length
+<br>&nbsp;&nbsp;&nbsp;IF length < 100 THEN length = 100
+<br>&nbsp;&nbsp;&nbsp;IF length > 200 THEN length = 200
+<br>&nbsp;&nbsp;&nbsp;length = length - 100
+<br>&nbsp;&nbsp;&nbsp;length = 100 - length
+<br>&nbsp;&nbsp;&nbsp;length = length + 100
+<br>&nbsp;&nbsp;&nbsp;SERVOOUT PORTB.1, length
+<br>GOTO loop
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Interfacing 1-WIRE devices</b>
+</p>
+
+<a name="34"></a>
+<p style="text-indent: 20;" align="justify">
+Prior to using 1-WIRE related statements, user should define the 
+pin where the device is connected to using DEFINE directives.
+Available parameters are 1WIRE_REG and 1WIRE_BIT. For example:
+<font face="Courier New" color="#0000C0">
+<br>DEFINE 1WIRE_REG = PORTB
+<br>DEFINE 1WIRE_BIT = 0
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+Initialization sequence can be performed by 1WIREINIT statement.
+It can have an optional argument (Bit data type variable) that will
+be set to 0 if the presence of the device has been detected and set to 1
+if there is no device on the line.
+<br>Individual bits (time slots) can be sent to and received from the device
+using 1WIRESENDBIT and 1WIREGETBIT statements. Both statements can
+have multiple arguments - comma separated list of Bit data type variables
+(or Bit constants for 1WIRESENDBIT statement).
+<br>1WIRESENDBYTE and 1WIREGETBYTE statements can be used to send to and receive
+bytes from the device. Both statements can
+have multiple arguments - comma separated list of Byte data type variables
+(or Byte constants for 1WIRESENDBYTE statement).
+Here is one example for measuring temperature using DS18S20 device:
+<font face="Courier New" color="#0000C0">
+<br>DIM finish AS BIT
+<br>DIM temp AS BYTE
+<br>DIM sign AS BYTE
+<br>1WIREINIT
+<br>1WIRESENDBYTE 0xCC, 0x44
+<br>WAITMS 1
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;1WIREGETBIT finish
+<br>IF finish = 0 THEN GOTO loop
+<br>1WIREINIT
+<br>1WIRESENDBYTE 0xCC, 0xBE
+<br>1WIREGETBYTE temp, sign
+</font>
+</p>
+<p style="text-indent: 20;" align="justify">
+This example can be very short by using two DS18S20 specific high level
+basic statements. DS18S20START statement will initiate a single temperature
+conversion. According to the device datasheet the conversion will be completed
+in at most 750ms. After that period the measured value can be read by
+DS18S20READT statement that requires two Byte data type variables as arguments.
+The first argument will contain the temperature value in 0.5 degrees centigrade
+units (for example, the value 100 represents the temperature of 50 degrees).
+The second argument will contain the value 0x00 if the temperature is positive
+and 0xFF value if it is negative. For example:
+<font face="Courier New" color="#0000C0">
+<br>DIM temp AS BYTE
+<br>DIM sign AS BYTE
+<br>DS18S20START
+<br>WAITMS 1000
+<br>DS18S20READT temp, sign
+</font>
+</p>
+
+<p style="text-indent: 20;" align="justify">
+<b>&#9679; Advanced features</b>
+</p>
+
+<a name="29"></a>
+<p style="text-indent: 20;" align="justify">
+If STARTFROMZERO directive is used the compiler will start the program from
+zero flash program memory location (reset vector) and use the available program
+memory continuously. Interrupt routine if used should be implemented by using
+inline assembler code. The compiler will also leave control over PCLATH register
+to the user supposing that all code is placed in the same program memory page.
+This advanced feature can be used when developing bootloader applications, for
+example.
+</p>
+
+
+</font>
+</center>
+</td></tr>
+</table>
+</center>
+</body>
+</html>

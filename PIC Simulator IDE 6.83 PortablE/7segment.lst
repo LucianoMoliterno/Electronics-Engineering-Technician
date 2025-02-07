@@ -1,0 +1,295 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            ; Begin
+0002    0000            	R0L EQU 0x20
+0003    0000            	R0H EQU 0x21
+0004    0000            	R1L EQU 0x22
+0005    0000            	R1H EQU 0x23
+0006    0000            	R2L EQU 0x24
+0007    0000            	R2H EQU 0x25
+0008    0000            	R3L EQU 0x26
+0009    0000            	R3H EQU 0x27
+0010    0000            	R4L EQU 0x28
+0011    0000            	R4H EQU 0x29
+0012    0000            	R5L EQU 0x2A
+0013    0000            	R5H EQU 0x2B
+0014    0000            	W_TEMP EQU 0x7F
+0015    0000            	STATUS_TEMP EQU 0x7E
+0016    0000            	ORG 0x0000
+0017    0000    118A    	BCF PCLATH,3
+0018    0001    120A    	BCF PCLATH,4
+0019    0002    280E    	GOTO L0005
+0020    0003            	ORG 0x0004
+0021    0004    00FF    	MOVWF W_TEMP
+0022    0005    0E03    	SWAPF STATUS,W
+0023    0006    0183    	CLRF STATUS
+0024    0007    00FE    	MOVWF STATUS_TEMP
+0025    0008    2051    	CALL L0006
+0026    0009    0E7E    	SWAPF STATUS_TEMP,W
+0027    000A    0083    	MOVWF STATUS
+0028    000B    0EFF    	SWAPF W_TEMP,F
+0029    000C    0E7F    	SWAPF W_TEMP,W
+0030    000D    0009    	RETFIE
+0031    000E            L0005:
+0032    000E            ; 1: Dim digit As Byte 'input variable for GETMASK subroutine
+0033    000E            ;       The address of 'digit' is 0x2D
+0034    000E            	digit EQU 0x2D
+0035    000E            ; 2: Dim digit1 As Byte 'current high digit
+0036    000E            ;       The address of 'digit1' is 0x2E
+0037    000E            	digit1 EQU 0x2E
+0038    000E            ; 3: Dim digit2 As Byte 'current low digit
+0039    000E            ;       The address of 'digit2' is 0x2F
+0040    000E            	digit2 EQU 0x2F
+0041    000E            ; 4: Dim mask As Byte 'output variable from GETMASK subroutine
+0042    000E            ;       The address of 'mask' is 0x30
+0043    000E            	mask EQU 0x30
+0044    000E            ; 5: Dim mask1 As Byte 'current high digit mask
+0045    000E            ;       The address of 'mask1' is 0x31
+0046    000E            	mask1 EQU 0x31
+0047    000E            ; 6: Dim mask2 As Byte 'current low digit mask
+0048    000E            ;       The address of 'mask2' is 0x32
+0049    000E            	mask2 EQU 0x32
+0050    000E            ; 7: Dim i As Byte
+0051    000E            ;       The address of 'i' is 0x33
+0052    000E            	i EQU 0x33
+0053    000E            ; 8: Dim phase As Bit
+0054    000E            ;       The address of 'phase' is 0x2C,0
+0055    000E            ; 9: 
+0056    000E            ; 10: Symbol d1enable = PORTC.0 'enable line for higher 7-segment display
+0057    000E            ;       The address of 'd1enable' is 0x7,0
+0058    000E            ; 11: Symbol d2enable = PORTC.1 'enable line for lower 7-segment display
+0059    000E            ;       The address of 'd2enable' is 0x7,1
+0060    000E            ; 12: TRISB = %00000000 'set PORTB pins as outputs
+0061    000E    1683    	BSF STATUS,RP0
+0062    000F    0186    	CLRF 0x06
+0063    0010    1283    	BCF STATUS,RP0
+0064    0011            ; 13: TRISC.0 = 0 'set RC0 pin as output
+0065    0011    1683    	BSF STATUS,RP0
+0066    0012    1007    	BCF 0x07,0
+0067    0013    1283    	BCF STATUS,RP0
+0068    0014            ; 14: TRISC.1 = 0 'set RC1 pin as output
+0069    0014    1683    	BSF STATUS,RP0
+0070    0015    1087    	BCF 0x07,1
+0071    0016    1283    	BCF STATUS,RP0
+0072    0017            ; 15: d1enable = False
+0073    0017    1007    	BCF 0x07,0
+0074    0018            ; 16: d2enable = False
+0075    0018    1087    	BCF 0x07,1
+0076    0019            ; 17: mask1 = 0
+0077    0019    01B1    	CLRF 0x31
+0078    001A            ; 18: mask2 = 0
+0079    001A    01B2    	CLRF 0x32
+0080    001B            ; 19: phase = 0
+0081    001B    102C    	BCF 0x2C,0
+0082    001C            ; 20: INTCON.T0IE = 1 'enable Timer0 interrupts
+0083    001C    168B    	BSF 0x0B,5
+0084    001D            ; 21: INTCON.GIE = 1 'enable all un-masked interrupts
+0085    001D    178B    	BSF 0x0B,7
+0086    001E            ; 22: OPTION_REG.T0CS = 0 'set Timer0 clock source to internal instruction cycle clock
+0087    001E    1683    	BSF STATUS,RP0
+0088    001F    1281    	BCF 0x01,5
+0089    0020    1283    	BCF STATUS,RP0
+0090    0021            ; 23: 
+0091    0021            ; 24: loop: 
+0092    0021            L0001:
+0093    0021            ; 25: For i = 0 To 99
+0094    0021    01B3    	CLRF 0x33
+0095    0022            L0007:
+0096    0022    0833    	MOVF 0x33,W
+0097    0023    3C63    	SUBLW 0x63
+0098    0024    1C03    	BTFSS STATUS,C
+0099    0025    284D    	GOTO L0008
+0100    0026            ; 26: digit1 = i / 10 'get current high digit
+0101    0026    0833    	MOVF 0x33,W
+0102    0027    00A0    	MOVWF R0L
+0103    0028    01A1    	CLRF R0H
+0104    0029    300A    	MOVLW 0x0A
+0105    002A    00A2    	MOVWF R1L
+0106    002B    01A3    	CLRF R1H
+0107    002C    207F    	CALL D001
+0108    002D    00AE    	MOVWF 0x2E
+0109    002E            ; 27: digit2 = i Mod 10 'get current low digit
+0110    002E    0833    	MOVF 0x33,W
+0111    002F    00A0    	MOVWF R0L
+0112    0030    01A1    	CLRF R0H
+0113    0031    300A    	MOVLW 0x0A
+0114    0032    00A2    	MOVWF R1L
+0115    0033    01A3    	CLRF R1H
+0116    0034    207F    	CALL D001
+0117    0035    0824    	MOVF R2L,W
+0118    0036    00AF    	MOVWF 0x2F
+0119    0037            ; 28: TMR0 = 0 'reset Timer0 to prevent its interrupt before both masks are determined
+0120    0037    0181    	CLRF 0x01
+0121    0038            ; 29: digit = digit1
+0122    0038    082E    	MOVF 0x2E,W
+0123    0039    00AD    	MOVWF 0x2D
+0124    003A            ; 30: Gosub getmask 'get mask for high digit
+0125    003A    205E    	CALL L0002
+0126    003B            ; 31: mask1 = mask
+0127    003B    0830    	MOVF 0x30,W
+0128    003C    00B1    	MOVWF 0x31
+0129    003D            ; 32: digit = digit2
+0130    003D    082F    	MOVF 0x2F,W
+0131    003E    00AD    	MOVWF 0x2D
+0132    003F            ; 33: Gosub getmask 'get mask for low digit
+0133    003F    205E    	CALL L0002
+0134    0040            ; 34: mask2 = mask
+0135    0040    0830    	MOVF 0x30,W
+0136    0041    00B2    	MOVWF 0x32
+0137    0042            ; 35: Gosub show1 'display new mask
+0138    0042    2074    	CALL L0003
+0139    0043            ; 36: Gosub show2 'display new mask
+0140    0043    2079    	CALL L0004
+0141    0044            ; 37: WaitUs 500 'delay interval suitable for simulation
+0142    0044    30F4    	MOVLW 0xF4
+0143    0045    00A8    	MOVWF R4L
+0144    0046    3001    	MOVLW 0x01
+0145    0047    00A9    	MOVWF R4H
+0146    0048    209B    	CALL Y001
+0147    0049            ; 38:  'use large delay for the real device, say WAITMS 500
+0148    0049            ; 39: Next i
+0149    0049    3001    	MOVLW 0x01
+0150    004A    07B3    	ADDWF 0x33,F
+0151    004B    1C03    	BTFSS STATUS,C
+0152    004C    2822    	GOTO L0007
+0153    004D    301F    L0008:	MOVLW 0x1F
+0154    004E    0583    	ANDWF STATUS,F
+0155    004F            ; 40: Goto loop
+0156    004F    2821    	GOTO L0001
+0157    0050            ; 41: End
+0158    0050    2850    L0009:	GOTO L0009
+0159    0051            ; 42: 
+0160    0051            ; 43: On Interrupt 'Timer0 interrupt routine
+0161    0051            L0006:
+0162    0051            ; 44:  'continuously switch between high and low digit displays
+0163    0051            ; 45: If phase = 0 Then
+0164    0051    182C    	BTFSC 0x2C,0
+0165    0052    2856    	GOTO L0010
+0166    0053            ; 46: phase = 1
+0167    0053    142C    	BSF 0x2C,0
+0168    0054            ; 47: Gosub show1
+0169    0054    2074    	CALL L0003
+0170    0055            ; 48: Else
+0171    0055    285A    	GOTO L0011
+0172    0056    301F    L0010:	MOVLW 0x1F
+0173    0057    0583    	ANDWF STATUS,F
+0174    0058            ; 49: phase = 0
+0175    0058    102C    	BCF 0x2C,0
+0176    0059            ; 50: Gosub show2
+0177    0059    2079    	CALL L0004
+0178    005A            ; 51: Endif
+0179    005A    301F    L0011:	MOVLW 0x1F
+0180    005B    0583    	ANDWF STATUS,F
+0181    005C            ; 52: INTCON.T0IF = 0 'enable new TMR0 interrupts
+0182    005C    110B    	BCF 0x0B,2
+0183    005D            ; 53: Resume
+0184    005D    0008    	RETURN
+0185    005E            ; 54: 
+0186    005E            ; 55: getmask:  'get appropriate 7-segment mask for input digit
+0187    005E            L0002:
+0188    005E            ; 56: mask = LookUp(0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f), digit
+0189    005E    082D    	MOVF 0x2D,W
+0190    005F    3C09    	SUBLW 0x09
+0191    0060    1C03    	BTFSS STATUS,C
+0192    0061    2873    	GOTO L0012
+0193    0062    2065    	CALL L0013
+0194    0063    00B0    	MOVWF 0x30
+0195    0064    2873    	GOTO L0012
+0196    0065            L0013:
+0197    0065    3000    	MOVLW 0x00
+0198    0066    008A    	MOVWF PCLATH
+0199    0067    082D    	MOVF 0x2D,W
+0200    0068    0782    	ADDWF PCL,F
+0201    0069    343F    	RETLW 0x3F
+0202    006A    3406    	RETLW 0x06
+0203    006B    345B    	RETLW 0x5B
+0204    006C    344F    	RETLW 0x4F
+0205    006D    3466    	RETLW 0x66
+0206    006E    346D    	RETLW 0x6D
+0207    006F    347D    	RETLW 0x7D
+0208    0070    3407    	RETLW 0x07
+0209    0071    347F    	RETLW 0x7F
+0210    0072    346F    	RETLW 0x6F
+0211    0073            L0012:
+0212    0073            ; 57: Return
+0213    0073    0008    	RETURN
+0214    0074            ; 58: 
+0215    0074            ; 59: show1:  'show high digit on its display
+0216    0074            L0003:
+0217    0074            ; 60: d2enable = False
+0218    0074    1087    	BCF 0x07,1
+0219    0075            ; 61: PORTB = mask1
+0220    0075    0831    	MOVF 0x31,W
+0221    0076    0086    	MOVWF 0x06
+0222    0077            ; 62: d1enable = True
+0223    0077    1407    	BSF 0x07,0
+0224    0078            ; 63: Return
+0225    0078    0008    	RETURN
+0226    0079            ; 64: 
+0227    0079            ; 65: show2:  'show low digit on its display
+0228    0079            L0004:
+0229    0079            ; 66: d1enable = False
+0230    0079    1007    	BCF 0x07,0
+0231    007A            ; 67: PORTB = mask2
+0232    007A    0832    	MOVF 0x32,W
+0233    007B    0086    	MOVWF 0x06
+0234    007C            ; 68: d2enable = True
+0235    007C    1487    	BSF 0x07,1
+0236    007D            ; 69: Return
+0237    007D    0008    	RETURN
+0238    007E            ; End of program
+0239    007E    287E    L0014:	GOTO L0014
+0240    007F            ; Division Routine
+0241    007F    3010    D001:	MOVLW 0x10
+0242    0080    00A6    	MOVWF R3L
+0243    0081    01A5    	CLRF R2H
+0244    0082    01A4    	CLRF R2L
+0245    0083    0D21    D002:	RLF R0H,W
+0246    0084    0DA4    	RLF R2L,F
+0247    0085    0DA5    	RLF R2H,F
+0248    0086    0822    	MOVF R1L,W
+0249    0087    02A4    	SUBWF R2L,F
+0250    0088    0823    	MOVF R1H,W
+0251    0089    1C03    	BTFSS STATUS,C
+0252    008A    0F23    	INCFSZ R1H,W
+0253    008B    02A5    	SUBWF R2H,F
+0254    008C    1803    	BTFSC STATUS,C
+0255    008D    2895    	GOTO D003
+0256    008E    0822    	MOVF R1L,W
+0257    008F    07A4    	ADDWF R2L,F
+0258    0090    0823    	MOVF R1H,W
+0259    0091    1803    	BTFSC STATUS,C
+0260    0092    0F23    	INCFSZ R1H,W
+0261    0093    07A5    	ADDWF R2H,F
+0262    0094    1003    	BCF STATUS,C
+0263    0095    0DA0    D003:	RLF R0L,F
+0264    0096    0DA1    	RLF R0H,F
+0265    0097    0BA6    	DECFSZ R3L,F
+0266    0098    2883    	GOTO D002
+0267    0099    0820    	MOVF R0L,W
+0268    009A    0008    	RETURN
+0269    009B            ; Waitus Routine - Word Argument
+0270    009B    3010    Y001:	MOVLW 0x10
+0271    009C    02A8    	SUBWF R4L,F
+0272    009D    0100    	CLRW
+0273    009E    1C03    	BTFSS STATUS,C
+0274    009F    3E01    	ADDLW 0x01
+0275    00A0    02A9    	SUBWF R4H,F
+0276    00A1    1C03    	BTFSS STATUS,C
+0277    00A2    0008    	RETURN
+0278    00A3    28A4    	GOTO Y002
+0279    00A4    300A    Y002:	MOVLW 0x0A
+0280    00A5    02A8    	SUBWF R4L,F
+0281    00A6    0100    	CLRW
+0282    00A7    1C03    	BTFSS STATUS,C
+0283    00A8    3E01    	ADDLW 0x01
+0284    00A9    02A9    	SUBWF R4H,F
+0285    00AA    1C03    	BTFSS STATUS,C
+0286    00AB    0008    	RETURN
+0287    00AC    28A4    	GOTO Y002
+0288    00AD            ; End of listing
+0289    00AD            	END
+---------------------------------------------
+Number of errors = 0

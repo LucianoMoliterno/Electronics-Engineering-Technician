@@ -1,0 +1,265 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            ; Begin
+0002    0000            	R0L EQU 0x20
+0003    0000            	R0H EQU 0x21
+0004    0000            	R1L EQU 0x22
+0005    0000            	R1H EQU 0x23
+0006    0000            	R2L EQU 0x24
+0007    0000            	R2H EQU 0x25
+0008    0000            	R3L EQU 0x26
+0009    0000            	R3H EQU 0x27
+0010    0000            	R4L EQU 0x28
+0011    0000            	R4H EQU 0x29
+0012    0000            	R5L EQU 0x2A
+0013    0000            	R5H EQU 0x2B
+0014    0000            	SCL_PORT EQU 0x2C
+0015    0000            	SCL_BIT EQU 0x2D
+0016    0000            	SDA_PORT EQU 0x2E
+0017    0000            	SDA_BIT EQU 0x2F
+0018    0000            	ORG 0x0000
+0019    0000    118A    	BCF PCLATH,3
+0020    0001    120A    	BCF PCLATH,4
+0021    0002    2805    	GOTO L0001
+0022    0003            	ORG 0x0004
+0023    0004    0009    	RETFIE
+0024    0005            L0001:
+0025    0005            ; 1: Dim addr As Word 'variable for storing EEPROM byte address
+0026    0005            ;       The address of 'addr' is 0x30
+0027    0005            	addr EQU 0x30
+0028    0005            ; 2: Dim data As Byte 'variable for storing EEPROM byte data
+0029    0005            ;       The address of 'data' is 0x32
+0030    0005            	data EQU 0x32
+0031    0005            ; 3: 
+0032    0005            ; 4: Symbol sda = PORTC.2 'nickname for SDA pin
+0033    0005            ;       The address of 'sda' is 0x7,2
+0034    0005            ; 5: Symbol scl = PORTC.3 'nickname for SCL pin
+0035    0005            ;       The address of 'scl' is 0x7,3
+0036    0005            ; 6: 
+0037    0005            ; 7: For addr = 0 To 31 'the first 32 bytes will be written
+0038    0005    01B0    	CLRF 0x30
+0039    0006    01B1    	CLRF 0x31
+0040    0007            L0002:
+0041    0007    0830    	MOVF 0x30,W
+0042    0008    00A0    	MOVWF R0L
+0043    0009    0831    	MOVF 0x31,W
+0044    000A    00A1    	MOVWF R0H
+0045    000B    01A3    	CLRF R1H
+0046    000C    301F    	MOVLW 0x1F
+0047    000D    2054    	CALL C006
+0048    000E    1D03    	BTFSS STATUS,Z
+0049    000F    2842    	GOTO L0003
+0050    0010            ; 8: data = 255 - addr 'set the data byte to be written
+0051    0010            ;       The address of 'oshonsoft_temp_1' is 0x33
+0052    0010            	oshonsoft_temp_1 EQU 0x33
+0053    0010    0830    	MOVF 0x30,W
+0054    0011    3CFF    	SUBLW 0xFF
+0055    0012    00B3    	MOVWF 0x33
+0056    0013    0831    	MOVF 0x31,W
+0057    0014    1C03    	BTFSS STATUS,C
+0058    0015    3E01    	ADDLW 0x01
+0059    0016    3C00    	SUBLW 0x00
+0060    0017    00B4    	MOVWF 0x34
+0061    0018    0833    	MOVF 0x33,W
+0062    0019    00B2    	MOVWF 0x32
+0063    001A            ; 9: I2CWrite sda, scl, 0xa0, addr, data 'perform I2C write operation to serial EEPROM
+0064    001A    3007    	MOVLW 0x07
+0065    001B    00AE    	MOVWF SDA_PORT
+0066    001C    3004    	MOVLW 0x04
+0067    001D    00AF    	MOVWF SDA_BIT
+0068    001E    1683    	BSF STATUS,RP0
+0069    001F    1107    	BCF TRISC,2
+0070    0020    1283    	BCF STATUS,RP0
+0071    0021    3007    	MOVLW 0x07
+0072    0022    00AC    	MOVWF SCL_PORT
+0073    0023    3008    	MOVLW 0x08
+0074    0024    00AD    	MOVWF SCL_BIT
+0075    0025    1683    	BSF STATUS,RP0
+0076    0026    1187    	BCF TRISC,3
+0077    0027    1283    	BCF STATUS,RP0
+0078    0028    20AC    	CALL IC41
+0079    0029    20AC    	CALL IC41
+0080    002A    20A9    	CALL IC31
+0081    002B    30A0    	MOVLW 0xA0
+0082    002C    2090    	CALL IC01
+0083    002D    0831    	MOVF 0x31,W
+0084    002E    2090    	CALL IC01
+0085    002F    0830    	MOVF 0x30,W
+0086    0030    2090    	CALL IC01
+0087    0031    0832    	MOVF 0x32,W
+0088    0032    2090    	CALL IC01
+0089    0033    20AC    	CALL IC41
+0090    0034            ; 10: WaitMs 1 'small delay interval
+0091    0034    3001    	MOVLW 0x01
+0092    0035    00A0    	MOVWF R0L
+0093    0036    01A1    	CLRF R0H
+0094    0037    2067    	CALL W001
+0095    0038            ; 11: Next addr
+0096    0038    3001    	MOVLW 0x01
+0097    0039    07B0    	ADDWF 0x30,F
+0098    003A    3000    	MOVLW 0x00
+0099    003B    1803    	BTFSC STATUS,C
+0100    003C    3E01    	ADDLW 0x01
+0101    003D    1803    	BTFSC STATUS,C
+0102    003E    2842    	GOTO L0003
+0103    003F    07B1    	ADDWF 0x31,F
+0104    0040    1C03    	BTFSS STATUS,C
+0105    0041    2807    	GOTO L0002
+0106    0042    301F    L0003:	MOVLW 0x1F
+0107    0043    0583    	ANDWF STATUS,F
+0108    0044            ; End of program
+0109    0044    2844    L0004:	GOTO L0004
+0110    0045            ; Comparison Routine
+0111    0045    00A2    C001:	MOVWF R1L
+0112    0046    3005    	MOVLW 0x05
+0113    0047    2857    	GOTO C007
+0114    0048    00A2    C002:	MOVWF R1L
+0115    0049    3002    	MOVLW 0x02
+0116    004A    2857    	GOTO C007
+0117    004B    00A2    C003:	MOVWF R1L
+0118    004C    3006    	MOVLW 0x06
+0119    004D    2857    	GOTO C007
+0120    004E    00A2    C004:	MOVWF R1L
+0121    004F    3003    	MOVLW 0x03
+0122    0050    2857    	GOTO C007
+0123    0051    00A2    C005:	MOVWF R1L
+0124    0052    3004    	MOVLW 0x04
+0125    0053    2857    	GOTO C007
+0126    0054    00A2    C006:	MOVWF R1L
+0127    0055    3001    	MOVLW 0x01
+0128    0056    2857    	GOTO C007
+0129    0057    00A8    C007:	MOVWF R4L
+0130    0058    0823    	MOVF R1H,W
+0131    0059    0221    	SUBWF R0H,W
+0132    005A    1D03    	BTFSS STATUS,Z
+0133    005B    285E    	GOTO C008
+0134    005C    0822    	MOVF R1L,W
+0135    005D    0220    	SUBWF R0L,W
+0136    005E    3004    C008:	MOVLW 0x04
+0137    005F    1803    	BTFSC STATUS,C
+0138    0060    3001    	MOVLW 0x01
+0139    0061    1903    	BTFSC STATUS,Z
+0140    0062    3002    	MOVLW 0x02
+0141    0063    0528    	ANDWF R4L,W
+0142    0064    1D03    	BTFSS STATUS,Z
+0143    0065    30FF    	MOVLW 0xFF
+0144    0066    0008    	RETURN
+0145    0067            ; Waitms Routine
+0146    0067    08A0    W001:	MOVF R0L,F
+0147    0068    1903    	BTFSC STATUS,Z
+0148    0069    2872    	GOTO W002
+0149    006A    2079    	CALL W003
+0150    006B    03A0    	DECF R0L,F
+0151    006C    0000    	NOP
+0152    006D    0000    	NOP
+0153    006E    0000    	NOP
+0154    006F    0000    	NOP
+0155    0070    0000    	NOP
+0156    0071    2867    	GOTO W001
+0157    0072    08A1    W002:	MOVF R0H,F
+0158    0073    1903    	BTFSC STATUS,Z
+0159    0074    0008    	RETURN
+0160    0075    2079    	CALL W003
+0161    0076    03A1    	DECF R0H,F
+0162    0077    03A0    	DECF R0L,F
+0163    0078    2867    	GOTO W001
+0164    0079    300C    W003:	MOVLW 0x0C
+0165    007A    00A5    	MOVWF R2H
+0166    007B    0BA5    W004:	DECFSZ R2H,F
+0167    007C    287B    	GOTO W004
+0168    007D    0000    	NOP
+0169    007E    0000    	NOP
+0170    007F    3012    	MOVLW 0x12
+0171    0080    00A2    	MOVWF R1L
+0172    0081    0BA2    W005:	DECFSZ R1L,F
+0173    0082    2888    	GOTO W006
+0174    0083    208A    	CALL W007
+0175    0084    208A    	CALL W007
+0176    0085    0000    	NOP
+0177    0086    0000    	NOP
+0178    0087    0008    	RETURN
+0179    0088    208A    W006:	CALL W007
+0180    0089    2881    	GOTO W005
+0181    008A    300D    W007:	MOVLW 0x0D
+0182    008B    00A4    	MOVWF R2L
+0183    008C    0BA4    W008:	DECFSZ R2L,F
+0184    008D    288C    	GOTO W008
+0185    008E    0000    	NOP
+0186    008F    0008    	RETURN
+0187    0090            ; I2CWrite Routine
+0188    0090    00A0    IC01:	MOVWF R0L
+0189    0091    3008    	MOVLW 0x08
+0190    0092    00A1    	MOVWF R0H
+0191    0093    0DA0    IC02:	RLF R0L,F
+0192    0094    1803    	BTFSC STATUS,C
+0193    0095    20AF    	CALL IC20
+0194    0096    1C03    	BTFSS STATUS,C
+0195    0097    20B4    	CALL IC21
+0196    0098    20B9    	CALL IC22
+0197    0099    20BE    	CALL IC23
+0198    009A    0BA1    	DECFSZ R0H,F
+0199    009B    2893    	GOTO IC02
+0200    009C    20CA    	CALL IC24
+0201    009D    20A1    	CALL IC03
+0202    009E    20D0    	CALL IC25
+0203    009F    20B4    	CALL IC21
+0204    00A0    0008    	RETURN
+0205    00A1    20B9    IC03:	CALL IC22
+0206    00A2    082E    	MOVF SDA_PORT,W
+0207    00A3    0084    	MOVWF FSR
+0208    00A4    082F    	MOVF SDA_BIT,W
+0209    00A5    0500    	ANDWF INDF,W
+0210    00A6    3EFF    	ADDLW 0xFF
+0211    00A7    20BE    	CALL IC23
+0212    00A8    0008    	RETURN
+0213    00A9    20B4    IC31:	CALL IC21
+0214    00AA    20BE    	CALL IC23
+0215    00AB    28C7    	GOTO IC29
+0216    00AC    20B9    IC41:	CALL IC22
+0217    00AD    20AF    	CALL IC20
+0218    00AE    28C7    	GOTO IC29
+0219    00AF    082E    IC20:	MOVF SDA_PORT,W
+0220    00B0    0084    	MOVWF FSR
+0221    00B1    082F    	MOVF SDA_BIT,W
+0222    00B2    0480    	IORWF INDF,F
+0223    00B3    28C3    	GOTO IC28
+0224    00B4    082E    IC21:	MOVF SDA_PORT,W
+0225    00B5    0084    	MOVWF FSR
+0226    00B6    092F    	COMF SDA_BIT,W
+0227    00B7    0580    	ANDWF INDF,F
+0228    00B8    28C3    	GOTO IC28
+0229    00B9    082C    IC22:	MOVF SCL_PORT,W
+0230    00BA    0084    	MOVWF FSR
+0231    00BB    082D    	MOVF SCL_BIT,W
+0232    00BC    0480    	IORWF INDF,F
+0233    00BD    28C3    	GOTO IC28
+0234    00BE    082C    IC23:	MOVF SCL_PORT,W
+0235    00BF    0084    	MOVWF FSR
+0236    00C0    092D    	COMF SCL_BIT,W
+0237    00C1    0580    	ANDWF INDF,F
+0238    00C2    28C3    	GOTO IC28
+0239    00C3    1784    IC28:	BSF FSR,7
+0240    00C4    0900    	COMF INDF,W
+0241    00C5    1384    	BCF FSR,7
+0242    00C6    0580    	ANDWF INDF,F
+0243    00C7    0000    IC29:	NOP
+0244    00C8    0000    	NOP
+0245    00C9    0008    	RETURN
+0246    00CA    082E    IC24:	MOVF SDA_PORT,W
+0247    00CB    0084    	MOVWF FSR
+0248    00CC    1784    	BSF FSR,7
+0249    00CD    082F    	MOVF SDA_BIT,W
+0250    00CE    0480    	IORWF INDF,F
+0251    00CF    0008    	RETURN
+0252    00D0    082E    IC25:	MOVF SDA_PORT,W
+0253    00D1    0084    	MOVWF FSR
+0254    00D2    1784    	BSF FSR,7
+0255    00D3    092F    	COMF SDA_BIT,W
+0256    00D4    0580    	ANDWF INDF,F
+0257    00D5    0008    	RETURN
+0258    00D6            ; End of listing
+0259    00D6            	END
+---------------------------------------------
+Number of errors = 0

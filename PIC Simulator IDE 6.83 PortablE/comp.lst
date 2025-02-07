@@ -1,0 +1,68 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            ; Begin
+0002    0000            	R0L EQU 0x20
+0003    0000            	R0H EQU 0x21
+0004    0000            	R1L EQU 0x22
+0005    0000            	R1H EQU 0x23
+0006    0000            	R2L EQU 0x24
+0007    0000            	R2H EQU 0x25
+0008    0000            	R3L EQU 0x26
+0009    0000            	R3H EQU 0x27
+0010    0000            	R4L EQU 0x28
+0011    0000            	R4H EQU 0x29
+0012    0000            	R5L EQU 0x2A
+0013    0000            	R5H EQU 0x2B
+0014    0000            	ORG 0x0000
+0015    0000    118A    	BCF PCLATH,3
+0016    0001    120A    	BCF PCLATH,4
+0017    0002    2805    	GOTO L0002
+0018    0003            	ORG 0x0004
+0019    0004    0009    	RETFIE
+0020    0005            L0002:
+0021    0005            ; 1: Symbol comp_change = PIR1.CMIF 'comparator interrupt flag
+0022    0005            ;       The address of 'comp_change' is 0xC,6
+0023    0005            ; 2: 
+0024    0005            ; 3: CMCON = 0x06 'set comparator mode to two common reference comparators with outputs
+0025    0005    3006    	MOVLW 0x06
+0026    0006    009F    	MOVWF 0x1F
+0027    0007            ; 4: TRISA = 0x07 'set RA0, RA1 and RA2 as inputs, other PORTA pins as outputs
+0028    0007    1683    	BSF STATUS,RP0
+0029    0008    3007    	MOVLW 0x07
+0030    0009    0085    	MOVWF 0x05
+0031    000A    1283    	BCF STATUS,RP0
+0032    000B            ; 5: VRCON = 0xec 'turn on, configure voltage reference module for 2.5V and connect it to RA2
+0033    000B    1683    	BSF STATUS,RP0
+0034    000C    30EC    	MOVLW 0xEC
+0035    000D    009F    	MOVWF 0x1F
+0036    000E    1283    	BCF STATUS,RP0
+0037    000F            ; 6: TRISB = 0x00 'set PORTB pins as outputs
+0038    000F    1683    	BSF STATUS,RP0
+0039    0010    0186    	CLRF 0x06
+0040    0011    1283    	BCF STATUS,RP0
+0041    0012            ; 7: 
+0042    0012            ; 8: loop1: 
+0043    0012            L0001:
+0044    0012            ; 9: While Not comp_change 'wait for comparator output change
+0045    0012            L0003:
+0046    0012    1B0C    	BTFSC 0x0C,6
+0047    0013    2815    	GOTO L0004
+0048    0014            ; 10: Wend
+0049    0014    2812    	GOTO L0003
+0050    0015    301F    L0004:	MOVLW 0x1F
+0051    0016    0583    	ANDWF STATUS,F
+0052    0017            ; 11: PORTB = CMCON 'display CMCON register on PORTB pins, RB6 and RB7 are comparator outputs
+0053    0017    081F    	MOVF 0x1F,W
+0054    0018    0086    	MOVWF 0x06
+0055    0019            ; 12: comp_change = 0 'reset comparator interrupt flag
+0056    0019    130C    	BCF 0x0C,6
+0057    001A            ; 13: Goto loop1 'repeat forever
+0058    001A    2812    	GOTO L0001
+0059    001B            ; End of program
+0060    001B    281B    L0005:	GOTO L0005
+0061    001C            ; End of listing
+0062    001C            	END
+---------------------------------------------
+Number of errors = 0

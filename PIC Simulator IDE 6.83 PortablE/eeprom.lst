@@ -1,0 +1,72 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            ; Begin
+0002    0000            	R0L EQU 0xC
+0003    0000            	R0H EQU 0xD
+0004    0000            	R1L EQU 0xE
+0005    0000            	R1H EQU 0xF
+0006    0000            	R2L EQU 0x10
+0007    0000            	R2H EQU 0x11
+0008    0000            	R3L EQU 0x12
+0009    0000            	R3H EQU 0x13
+0010    0000            	R4L EQU 0x14
+0011    0000            	R4H EQU 0x15
+0012    0000            	R5L EQU 0x16
+0013    0000            	R5H EQU 0x17
+0014    0000            	ORG 0x0000
+0015    0000    118A    	BCF PCLATH,3
+0016    0001    120A    	BCF PCLATH,4
+0017    0002    2805    	GOTO L0001
+0018    0003            	ORG 0x0004
+0019    0004    0009    	RETFIE
+0020    0005            L0001:
+0021    0005            ; 1: Dim a As Byte 'eeprom address
+0022    0005            ;       The address of 'a' is 0x18
+0023    0005            	a EQU 0x18
+0024    0005            ; 2: Dim b As Byte 'eeprom data
+0025    0005            ;       The address of 'b' is 0x19
+0026    0005            	b EQU 0x19
+0027    0005            ; 3: 
+0028    0005            ; 4: For a = 0 To 63 'go through whole eeprom memory
+0029    0005    0198    	CLRF 0x18
+0030    0006            L0002:
+0031    0006    0818    	MOVF 0x18,W
+0032    0007    3C3F    	SUBLW 0x3F
+0033    0008    1C03    	BTFSS STATUS,C
+0034    0009    2821    	GOTO L0003
+0035    000A            ; 5: b = 255 - a 'set the data value to be written
+0036    000A    0818    	MOVF 0x18,W
+0037    000B    3CFF    	SUBLW 0xFF
+0038    000C    0099    	MOVWF 0x19
+0039    000D            ; 6: Write a, b 'perform the writing to eeprom
+0040    000D    0818    	MOVF 0x18,W
+0041    000E    0089    	MOVWF EEADR
+0042    000F    0819    	MOVF 0x19,W
+0043    0010    0088    	MOVWF EEDATA
+0044    0011    1683    	BSF STATUS,RP0
+0045    0012    1508    	BSF EECON1,WREN
+0046    0013    3055    	MOVLW 0x55
+0047    0014    0089    	MOVWF EECON2
+0048    0015    30AA    	MOVLW 0xAA
+0049    0016    0089    	MOVWF EECON2
+0050    0017    1488    	BSF EECON1,WR
+0051    0018    1888    L0004:	BTFSC EECON1,WR
+0052    0019    2818    	GOTO L0004
+0053    001A    1108    	BCF EECON1,WREN
+0054    001B    1208    	BCF EECON1,EEIF
+0055    001C    1283    	BCF STATUS,RP0
+0056    001D            ; 7: Next a
+0057    001D    3001    	MOVLW 0x01
+0058    001E    0798    	ADDWF 0x18,F
+0059    001F    1C03    	BTFSS STATUS,C
+0060    0020    2806    	GOTO L0002
+0061    0021    301F    L0003:	MOVLW 0x1F
+0062    0022    0583    	ANDWF STATUS,F
+0063    0023            ; End of program
+0064    0023    2823    L0005:	GOTO L0005
+0065    0024            ; End of listing
+0066    0024            	END
+---------------------------------------------
+Number of errors = 0
