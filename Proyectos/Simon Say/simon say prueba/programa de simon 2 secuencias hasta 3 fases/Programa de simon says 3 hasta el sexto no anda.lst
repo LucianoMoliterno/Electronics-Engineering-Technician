@@ -1,0 +1,1022 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG   0      	;DIRECTIVA Origen del programa
+0002    0000    1683    	bsf   STATUS,5   ;CAMBIO DE BANCO para configurar el Micro
+0003    0001    0185    	clrf   TRISA      ;Todo en 0(8 bit)
+0004    0002    0186    	clrf   TRISB      ;Todo en 0(8 bit)
+0005    0003    3047    	movlw   b'1000111'
+0006    0004    0081    	movwf   option	         
+0007    0005    1405    	bsf   PORTA,0      ;para precionar entradas
+0008    0006    1485    	bsf   PORTA,1      ;para precionar
+0009    0007    1505    	bsf   PORTA,2      ;para precionar
+0010    0008    1585    	bsf   PORTA,3      ;para precionar 
+0011    0009    1605    	bsf   PORTA,4      ;para precionar         
+0012    000A    1006    	bcf   PORTB,0      ;Salidas
+0013    000B    1086    	bcf   PORTB,1
+0014    000C    1106    	bcf   PORTB,2
+0015    000D    1186    	bcf   PORTB,3
+0016    000E    1206    	bcf   PORTB,4
+0017    000F    1283    	bcf   STATUS,5   ;CAMBIO DE BANCO
+0018    0010    3007       	movlw	.7
+0019    0011    009F    	movwf	CMCON
+0020    0012            	;comandos para la Funcion velocidad
+0021    0012    3001    	movlw   .1
+0022    0013    00AA    	movwf   2ah
+0023    0014    3002    	movlw   .2
+0024    0015    00AB    	movwf   2bh
+0025    0016    3003    	movlw   .3
+0026    0017    00AC    	movwf   2ch
+0027    0018    3004    	movlw   .4
+0028    0019    00AD    	movwf   2dh
+0029    001A    3005    	movlw   .5
+0030    001B    00AE    	movwf   2eh
+0031    001C            	;configuraciones de los colores a prender
+0032    001C    1406    	bsf   portb,0      ;Verde prende
+0033    001D    0806    	movfw   portb
+0034    001E    00BA    	movwf   3ah
+0035    001F    0186    	clrf   PORTB      ;TODO EN 0 
+0036    0020    1486    	bsf   portb,1      ;Amarillo prende
+0037    0021    0806    	movfw   portb
+0038    0022    00BB    	movwf   3bh
+0039    0023    0186    	clrf   PORTB      ;TODO EN 0          
+0040    0024    1506    	bsf   portb,2      ;Azul prende
+0041    0025    0806    	movfw   portb
+0042    0026    00BC    	movwf   3ch
+0043    0027    0186    	clrf   PORTB      ;TODO EN 0           
+0044    0028    1586    	bsf   portb,3      ;Rojo prende
+0045    0029    0806    	movfw   portb
+0046    002A    00BD    	movwf   3dh
+0047    002B    0186    	clrf   PORTB      ;TODO EN 0
+0048    002C    1606    	bsf   portb,4      ;Blanco prende
+0049    002D    0806    	movfw   portb
+0050    002E    00BE    	movwf   3eh
+0051    002F    0186    	clrf   PORTB      ;TODO EN 0
+0052    0030            	;cierro el terminal de datos
+0053    0030    0185    	clrf   PORTA      ;TODO EN 0 
+0054    0031    0186    	clrf   PORTB      ;TODO EN 0	
+0055    0032            ;--------------------------------------------------------          	            	        
+0056    0032    1C05    inicio  btfss   porta,0		;Empesando con el sistema de velocidades, a elegir velocidad por colores
+0057    0033    283A    	goto   NO      		;Sigue preguntando por los otros      
+0058    0034    2387    	call   demora1      	;Si es si va por una velocidad de 1 segundo
+0059    0035    1805    no1     btfsc   porta,0      	;Pregunto si solto el boton.
+0060    0036    2835    	goto   no1      	;pregunto cuando lo suelto
+0061    0037    3001    	movlw   .1      	;pongo .1 para indentificar la velocidades en la funcion de velocidad
+0062    0038    009A    	movwf   1AH      	;variable entre .1 a .5
+0063    0039    285A    	goto   F1      		;Funcion velocidad
+0064    003A            	;Segunda pregunta de velocidad----------------------------------------------------------------    
+0065    003A    1C85    NO      btfss    porta,1      ;pregunto por la segunda velocidad de 0,8 seg
+0066    003B    2842    	goto   NO2
+0067    003C    2387    	CALL   demora1      ;Si es si
+0068    003D    1885    NO3     btfsc   porta,1
+0069    003E    283D    	goto   NO3      ;pregunto cuando lo suelto
+0070    003F    3002    	movlw   .2
+0071    0040    009A    	movwf   1AH
+0072    0041    285A    	goto   F1      ;Funcion velocidad
+0073    0042            	;Tercera pregunta de velocidad-----------------------------------------------
+0074    0042    1D05    NO2     btfss   porta,2      ;pregunto por la tercera velocidad que es 0,6 seg
+0075    0043    284A    	goto   NO4
+0076    0044    2387    	call   demora1
+0077    0045    1905    no5     btfsc   porta,2
+0078    0046    2845    	goto   no5
+0079    0047    3003    	movlw   .3
+0080    0048    009A    	movwf   1AH
+0081    0049    285A    	goto   F1
+0082    004A            	;Cuarta pregunta de velocidad------------------------------------------------
+0083    004A    1D85    NO4     btfss   porta,3      ;pregunto por la tercera velocidad que es 0,5 seg   
+0084    004B    2852    	goto   no6
+0085    004C    2387    	call    demora1
+0086    004D    1985    no7     btfsc   porta,3
+0087    004E    284D    	goto   no7
+0088    004F    3004    	movlw   .4
+0089    0050    009A    	movwf   1AH
+0090    0051    285A    	goto   F1
+0091    0052            	;Quinta y ultima pregunta de velocidad--------------------------------------      
+0092    0052    1E05    no6   	btfss   porta,4      ;pregunto por la tercera velocidad que es 0,4 seg
+0093    0053    2832    	goto   inicio      ;Me vuelvo para el principio (no se toco nada)
+0094    0054    2387    	call    demora1
+0095    0055    1A05    no8     btfsc   porta,4
+0096    0056    2855    	goto   no8
+0097    0057    3005    	movlw   .5
+0098    0058    009A    	movwf   1AH
+0099    0059    285A    	goto   F1	         	
+0100    005A    082A    F1      movfw   2AH     	;Fin de la pregunta de velocidades, empiesa el comando de velocidad-------- 
+0101    005B    021A    	subwf   1AH,W		;.1 - .1 deberia dar cero si se preciono porta,0
+0102    005C    1D03    	btfss   status,2   ;Z = 1   el resultado dio cero
+0103    005D    2863    	goto   NO9      ;Z no vale 0, pregunto por los otros
+0104    005E    3014    	movlw   .20      ;.20 es que repite 20 veses 50mseg, Si el resultado da cero la velocidad es de 1seg
+0105    005F    00B0    	movwf   30h      ;Donde pongo el dato de .20, variable del timer
+0106    0060    303D    	movlw   .61      ;50 mseg
+0107    0061    00B1    	movwf   31h      ;Donde pongo el dato de .61=50mseg, variable del timer
+0108    0062    2887    	goto   juego      ;Empiesa el juego              	
+0109    0063    082B    NO9     movfw   2BH    		;comando de velocidad numero 2--------------------------------------------  	
+0110    0064    021A    	subwf   1AH,W		;.2 - .1 deberia dar cero si se preciono porta,0
+0111    0065    1D03    	btfss   status,2   ;Z = 1   el resultado dio cero
+0112    0066    286C    	goto   NO10      ;Z no vale 0, pregunto por los otros
+0113    0067    300E    	movlw   .14      ;.16 es que repite 16 veses 50mseg, Si el resultado da cero la velocidad es de 0,8seg
+0114    0068    00B0    	movwf   30h      ;Donde pongo el dato de .16, variable del timer
+0115    0069    303D    	movlw   .61      ;50 mseg
+0116    006A    00B1    	movwf   31h      ;Donde pongo el dato de .61=50mseg, variable del timer
+0117    006B    2887    	goto   juego      ;Empiesa el juego   
+0118    006C            	;comando de velocidad numero 3-------------------------------------------
+0119    006C    082C    NO10    movfw   2CH      ;.3 - .1 deberia dar cero si se preciono porta,0
+0120    006D    021A    	subwf   1AH,W
+0121    006E    1D03    	btfss   status,2   ;Z = 1   el resultado dio cero
+0122    006F    2875    	goto   NO11      ;Z no vale 0, pregunto por los otros
+0123    0070    300A    	movlw   .10      ;.12 es que repite 12 veses 50mseg, Si el resultado da cero la velocidad es de 0,6seg
+0124    0071    00B0    	movwf   30h      ;Donde pongo el dato de .12, variable del timer
+0125    0072    303D    	movlw   .61      ;50 mseg
+0126    0073    00B1    	movwf   31h      ;Donde pongo el dato de .61=50mseg, variable del timer
+0127    0074    2887    	goto   juego      ;Empiesa el juego        
+0128    0075            	;comando de velocidad numero 4-------------------------------------------
+0129    0075    082D    NO11    movfw   2DH      ;.4 - .1 deberia dar cero si se preciono porta,0
+0130    0076    021A    	subwf   1AH,W
+0131    0077    1D03    	btfss   status,2   ;Z = 1   el resultado dio cero
+0132    0078    287E    	goto   NO12      ;Z no vale 0, pregunto por los otros
+0133    0079    3008    	movlw   .8      ;.10 es que repite 10 veses 50mseg, Si el resultado da cero la velocidad es de 0,4seg
+0134    007A    00B0    	movwf   30h      ;Donde pongo el dato de .10, variable del timer
+0135    007B    303D    	movlw   .61      ;50 mseg
+0136    007C    00B1    	movwf   31h      ;Donde pongo el dato de .61=50mseg, variable del timer
+0137    007D    2887    	goto   juego      ;Empiesa el juego           
+0138    007E            	;comando de velocidad numero 5-------------------------------------------
+0139    007E    082E    NO12    movfw   2EH	;.5 - .1 deberia dar cero si se preciono porta,0
+0140    007F    021A    	subwf   1AH,W
+0141    0080    1D03    	btfss   status,2   ;Z = 1   el resultado dio cero
+0142    0081    2832    	goto   inicio      ;Z no vale 0, pregunto por los otros
+0143    0082    3003    	movlw   .3      ;.8 es que repite 8 veses 50mseg, Si el resultado da cero la velocidad es de 0,150seg
+0144    0083    00B0    	movwf   30h      ;Donde pongo el dato de .8, variable del timer
+0145    0084    303D    	movlw   .61      ;50 mseg
+0146    0085    00B1    	movwf   31h      ;Donde pongo el dato de .61=50mseg, variable del timer
+0147    0086    2887    	goto   juego      ;Empiesa el juego
+0148    0087                    
+0149    0087    0186    juego   clrf   	portb    	;EMPIESA EL JUEGO Codigo de muestreo-------------------------------------  
+0150    0088    238E    	call	demora2
+0151    0089    1406    	bsf   	portb,0      	;Prende el verde
+0152    008A    237B    	call   	demorav      	;Demora variable
+0153    008B    1006    	bcf   	portb,0      	;apaga el verde
+0154    008C    238E    	call	demora2
+0155    008D    1586    	bsf	portb,3
+0156    008E    237B    	call	demorav
+0157    008F    0186    	clrf	portb
+0158    0090    238E    	call	demora2	
+0159    0091    3001    	movlw   .1
+0160    0092    00CA    	movwf   4ah
+0161    0093    3004    	movlw	.4
+0162    0094    00CB    	movwf	4bh
+0163    0095    3002    	movlw	.2
+0164    0096    00A0    	movwf	20h	
+0165    0097    1C05    j1	btfss   porta,0		;Primera pregunta--------------------------------------------------------	
+0166    0098    28A0    	goto   no13		;si es no me voy a preguntar por los otros puertos
+0167    0099    3001    	movlw   .1		;si es si
+0168    009A    00C0    	movwf   40h		;variable para restar despues
+0169    009B    1406    	bsf   portb,0		;Prende el color del puertob,0
+0170    009C    2387          	call   demora1		;Anti rebote de 50mseg
+0171    009D    1805    w1	btfsc   porta,0		;primera pregunta aleatoria
+0172    009E    289D    	goto	w1
+0173    009F    28CA    	goto	R1		;es la parte donde se le resta para hacer lo de aleatorio				     	
+0174    00A0    1C85    no13    btfss   porta,1   	;pregunta por el otro pulsador------------------------------------------   
+0175    00A1    28A9    	goto    no14      	;si es no me voy a preguntar por los otros puertos
+0176    00A2    3002    	movlw   .2      	;si es si
+0177    00A3    00C0    	movwf   40h      	;variable para restar despues
+0178    00A4    1486    	bsf	portb,1      	;Prende el color del puertob,1
+0179    00A5    2387          	call	demora1		;Anti rebote de 50mseg
+0180    00A6    1885    w2	btfsc   porta,1		;primera pregunta aleatoria
+0181    00A7    28A6    	goto	w2
+0182    00A8    28CA    	goto	R1         	
+0183    00A9    1D05    no14    btfss   porta,2      	;pregunta por el otro pulsador------------------------------------------
+0184    00AA    28B2    	goto   no15      	;si es no me voy a preguntar por los otros puertos
+0185    00AB    3003    	movlw   .3      	;si es si
+0186    00AC    00C0    	movwf   40h      	;variable para restar despues
+0187    00AD    1506    	bsf   portb,2      	;Prende el color del puertob,2
+0188    00AE    2387         	call   demora1      ;Anti rebote de 50mseg
+0189    00AF    1905    w3	btfsc   porta,2      ;primera pregunta aleatoria
+0190    00B0    28AF    	goto	w3
+0191    00B1    28CA    	goto	R1	                 		
+0192    00B2    1D85    no15    btfss   porta,3      ;pregunta por el otro pulsador------------------------------------------
+0193    00B3    28BB    	goto   no16      ;si es no me voy a preguntar por los otros puertos
+0194    00B4    3004    	movlw   .4      ;si es si
+0195    00B5    00C0    	movwf   40h      ;variable para restar despues
+0196    00B6    1586    	bsf   portb,3      ;Prende el color del puertob,3         
+0197    00B7    2387          	call   demora1      ;Anti rebote de 50mseg
+0198    00B8    1985    w4	btfsc   porta,3      ;primera pregunta aleatoria
+0199    00B9    28B8    	goto	w4
+0200    00BA    28CA    	goto	R1	   	
+0201    00BB    1E05    no16	btfss   porta,4      ;pregunta por el otro pulsador------------------------------------------
+0202    00BC    28C4    	goto    k1      ;si es no me voy a preguntar por los otros puertos
+0203    00BD    3005    	movlw   .5      ;si es si
+0204    00BE    00C0    	movwf   40h      ;variable para restar despues
+0205    00BF    1606    	bsf	portb,4      ;Prende el color del puertob,4 
+0206    00C0            	;Primera pregunta de la funcion aleatoria---------------------------------------------------------
+0207    00C0    2387    	call   demora1      ;Anti rebote de 50mseg
+0208    00C1    1A05    w5	btfsc   porta,4      ;primera pregunta aleatoria
+0209    00C2    28C1    	goto	w5
+0210    00C3    28CA    	goto	R1	
+0211    00C4    3002    k1	movlw	.2		;para hacer el tiempo de aleatorio
+0212    00C5    07C8    	addwf	48h,f		;Se le suma .1 al 49h que es una memoria
+0213    00C6    3001    	movlw	.1		;para hacer el tiempo de aleatorio
+0214    00C7    07C9    	addwf	49h,f		;Se le suma .1 al 49h que es una memoria
+0215    00C8    239A    	call	demora3
+0216    00C9    2897    	goto	j1		
+0217    00CA    0186    R1	clrf	portb		;Funcion aleatorio de desconteo de 49H------------------------------------------
+0218    00CB    3001    	movlw	.1		;Repite la operacion hasta dar cero
+0219    00CC    02C9    	subwf	49h,f
+0220    00CD    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0221    00CE    28D4    	goto	no22
+0222    00CF    083A    	movfw	3ah		;mantiene el color adentro (verde)
+0223    00D0    00DC    	movwf	5ch		;lo usara despues para mostrarlo en la segunda fase
+0224    00D1    3001    	movlw	.1		;el .1 equivale al color
+0225    00D2    00CC    	movwf	4ch		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0226    00D3    28F8    	goto	pp		;funcion de saber si se preciono bien o no
+0227    00D4    3001    no22	movlw	.1		;Repite la operacion hasta dar cero
+0228    00D5    02C9    	subwf	49h,f
+0229    00D6    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0230    00D7    28DD    	goto	no23
+0231    00D8    083B    	movfw	3bh		;mantiene el color adentro (verde)
+0232    00D9    00DC    	movwf	5ch		;lo usara despues para mostrarlo en la segunda fase
+0233    00DA    3002    	movlw	.2		;el .1 equivale al color
+0234    00DB    00CC    	movwf	4ch		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0235    00DC    28F8    	goto	pp		;funcion de saber si se preciono bien o no	
+0236    00DD    3001    no23	movlw	.1		;Repite la operacion hasta dar cero
+0237    00DE    02C9    	subwf	49h,f
+0238    00DF    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0239    00E0    28E6    	goto	no24
+0240    00E1    083C    	movfw	3ch		;mantiene el color adentro (verde)
+0241    00E2    00DC    	movwf	5ch		;lo usara despues para mostrarlo en la segunda fase
+0242    00E3    3003    	movlw	.3		;el .1 equivale al color
+0243    00E4    00CC    	movwf	4ch		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0244    00E5    28F8    	goto	pp		;funcion de saber si se preciono bien o no
+0245    00E6    3001    no24	movlw	.1		;Repite la operacion hasta dar cero
+0246    00E7    02C9    	subwf	49h,f
+0247    00E8    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0248    00E9    28EF    	goto	no25
+0249    00EA    083D    	movfw	3dh		;mantiene el color adentro (verde)
+0250    00EB    00DC    	movwf	5ch		;lo usara despues para mostrarlo en la segunda fase
+0251    00EC    3004    	movlw	.4		;el .1 equivale al color
+0252    00ED    00CC    	movwf	4ch		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0253    00EE    28F8    	goto	pp		;funcion de saber si se preciono bien o no
+0254    00EF    3001    no25	movlw	.1		;Repite la operacion hasta dar cero
+0255    00F0    02C9    	subwf	49h,f
+0256    00F1    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0257    00F2    28CA    	goto	R1
+0258    00F3    083E    	movfw	3eh		;mantiene el color adentro (verde)
+0259    00F4    00DC    	movwf	5ch		;lo usara despues para mostrarlo en la segunda fase
+0260    00F5    3005    	movlw	.5		;el .1 equivale al color
+0261    00F6    00CC    	movwf	4ch		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0262    00F7    28F8    	goto	pp		;funcion de saber si se preciono bien o no
+0263    00F8            pp	;configuraciones de los colores a pren
+0264    00F8    1406    	bsf   portb,0      ;Verde prende
+0265    00F9    0806    	movfw   portb
+0266    00FA    00BA    	movwf   3ah
+0267    00FB    0186    	clrf   PORTB      ;TODO EN 0 
+0268    00FC    1486    	bsf   portb,1      ;Amarillo prende
+0269    00FD    0806    	movfw   portb
+0270    00FE    00BB    	movwf   3bh
+0271    00FF    0186    	clrf   PORTB      ;TODO EN 0          
+0272    0100    1506    	bsf   portb,2      ;Azul prende
+0273    0101    0806    	movfw   portb
+0274    0102    00BC    	movwf   3ch
+0275    0103    0186    	clrf   PORTB      ;TODO EN 0           
+0276    0104    1586    	bsf   portb,3      ;Rojo prende
+0277    0105    0806    	movfw   portb
+0278    0106    00BD    	movwf   3dh
+0279    0107    0186    	clrf   PORTB      ;TODO EN 0
+0280    0108    1606    	bsf   portb,4      ;Blanco prende
+0281    0109    0806    	movfw   portb
+0282    010A    00BE    	movwf   3eh
+0283    010B    0186    	clrf   PORTB      ;TODO EN 0
+0284    010C    3001    R2	movlw	.1		;Repite la operacion hasta dar cero
+0285    010D    02C8    	subwf	48h,f
+0286    010E    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0287    010F    2915    	goto	no26
+0288    0110    083A    	movfw	3ah		;mantiene el color adentro (verde)
+0289    0111    00DD    	movwf	5dh		;lo usara despues para mostrarlo en la segunda fase
+0290    0112    3001    	movlw	.1		;el .1 equivale al color
+0291    0113    00CD    	movwf	4dh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0292    0114    2939    	goto	p		;funcion de saber si se preciono bien o no
+0293    0115    3001    no26	movlw	.1		;Repite la operacion hasta dar cero
+0294    0116    02C8    	subwf	48h,f
+0295    0117    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0296    0118    291E    	goto	no27
+0297    0119    083B    	movfw	3bh		;mantiene el color adentro (verde)
+0298    011A    00DD    	movwf	5dh		;lo usara despues para mostrarlo en la segunda fase
+0299    011B    3002    	movlw	.2		;el .1 equivale al color
+0300    011C    00CD    	movwf	4dh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0301    011D    2939    	goto	p		;funcion de saber si se preciono bien o no	
+0302    011E    3001    no27	movlw	.1		;Repite la operacion hasta dar cero
+0303    011F    02C8    	subwf	48h,f
+0304    0120    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0305    0121    2927    	goto	no28
+0306    0122    083C    	movfw	3ch		;mantiene el color adentro (verde)
+0307    0123    00DD    	movwf	5dh		;lo usara despues para mostrarlo en la segunda fase
+0308    0124    3003    	movlw	.3		;el .1 equivale al color
+0309    0125    00CD    	movwf	4dh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0310    0126    2939    	goto	p		;funcion de saber si se preciono bien o no
+0311    0127    3001    no28	movlw	.1		;Repite la operacion hasta dar cero
+0312    0128    02C8    	subwf	48h,f
+0313    0129    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0314    012A    2930    	goto	no29
+0315    012B    083D    	movfw	3dh		;mantiene el color adentro (verde)
+0316    012C    00DD    	movwf	5dh		;lo usara despues para mostrarlo en la segunda fase
+0317    012D    3004    	movlw	.4		;el .1 equivale al color
+0318    012E    00CD    	movwf	4dh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0319    012F    2939    	goto	p		;funcion de saber si se preciono bien o no
+0320    0130    3001    no29	movlw	.1		;Repite la operacion hasta dar cero
+0321    0131    02C8    	subwf	48h,f
+0322    0132    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0323    0133    290C    	goto	R2
+0324    0134    083E    	movfw	3eh		;mantiene el color adentro (verde)
+0325    0135    00DD    	movwf	5dh		;lo usara despues para mostrarlo en la segunda fase
+0326    0136    3005    	movlw	.5		;el .1 equivale al color
+0327    0137    00CD    	movwf	4dh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0328    0138    2939    	goto	p		;funcion de saber si se preciono bien o no	
+0329    0139            
+0330    0139    3001    p   	movlw	.1		;Empiesa a preguntar si el pulsador presioado es el correcto--------------------
+0331    013A    02A0    	subwf	20h,f
+0332    013B    1D03    	btfss	status,2
+0333    013C    2942    	goto	no30
+0334    013D    0840    	movfw	40h
+0335    013E    024B    	subwf	4bh,w
+0336    013F    1D03    	btfss	status,2
+0337    0140    2B4F    	goto	perdi
+0338    0141    2947    	goto	bien1
+0339    0142            
+0340    0142    0840    no30	movfw	40h		;varia dependiendo que boton precione (.1 deberia ser)
+0341    0143    024A    	subwf	4ah,w		;mantiene en forma permanente el .1
+0342    0144    1D03    	btfss	status,2	;pregunta si da cero
+0343    0145    2B4F    	goto	Perdi		
+0344    0146    2897    	goto	j1	
+0345    0147            	;Segunda fase del simon say---------------------------------------------------------------------	
+0346    0147    0186    bien1	clrf   	portb      ;limpia el puerto b por las dudas
+0347    0148    238E    	call	demora2
+0348    0149    1406    	bsf   	portb,0      ;Prende el verde
+0349    014A    237B    	call   	demorav      ;Demora variable
+0350    014B    1006    	bcf   	portb,0      ;apaga el verde
+0351    014C    238E    	call	demora2
+0352    014D    1586    	bsf	portb,3
+0353    014E    237B    	call	demorav
+0354    014F    0186    	clrf	portb
+0355    0150    238E    	call	demora2	
+0356    0151    085C    	movfw	5ch
+0357    0152    0086    	movwf	portb
+0358    0153    237B    	call	demorav
+0359    0154    0186    	clrf	portb
+0360    0155    238E    	call	demora2
+0361    0156    085D    	movfw	5dh
+0362    0157    0086    	movwf	portb
+0363    0158    237B    	call	demorav
+0364    0159    0186    	clrf	portb
+0365    015A    3001    	movlw   .1
+0366    015B    00CA    	movwf   4ah
+0367    015C    3004    	movlw	.4
+0368    015D    00CB    	movwf	4bh
+0369    015E    3002    	movlw	.2
+0370    015F    00A0    	movwf	20h
+0371    0160    3003    	movlw	.3
+0372    0161    00EC    	movwf	6ch
+0373    0162    3004    	movlw	.4
+0374    0163    00ED    	movwf	6dh
+0375    0164            	;configuraciones de los colores a prender-----------------------------------------------
+0376    0164    1406    	bsf   portb,0      ;Verde prende
+0377    0165    0806    	movfw   portb
+0378    0166    00BA    	movwf   3ah
+0379    0167    0186    	clrf   PORTB      ;TODO EN 0 
+0380    0168    1486    	bsf   portb,1      ;Amarillo prende
+0381    0169    0806    	movfw   portb
+0382    016A    00BB    	movwf   3bh
+0383    016B    0186    	clrf   PORTB      ;TODO EN 0          
+0384    016C    1506    	bsf   portb,2      ;Azul prende
+0385    016D    0806    	movfw   portb
+0386    016E    00BC    	movwf   3ch
+0387    016F    0186    	clrf   PORTB      ;TODO EN 0           
+0388    0170    1586    	bsf   portb,3      ;Rojo prende
+0389    0171    0806    	movfw   portb
+0390    0172    00BD    	movwf   3dh
+0391    0173    0186    	clrf   PORTB      ;TODO EN 0
+0392    0174    1606    	bsf   portb,4      ;Blanco prende
+0393    0175    0806    	movfw   portb
+0394    0176    00BE    	movwf   3eh
+0395    0177    0186    	clrf   PORTB      ;TODO EN 0     
+0396    0178            	;Primera pregunta--------------------------------------------------------
+0397    0178    1C05    j2	btfss   porta,0		;aprete el puerto A,0?
+0398    0179    2981    	goto   no31		;si es no me voy a preguntar por los otros puertos
+0399    017A    3001    	movlw   .1		;si es si
+0400    017B    00C0    	movwf   40h		;variable para restar despues
+0401    017C    1406    	bsf   portb,0		;Prende el color del puertob,0
+0402    017D                   	;Empiesa la funcion aleatoria--------------------------------------------
+0403    017D    2387          	call   demora1		;Anti rebote de 50mseg
+0404    017E    1805    w6	btfsc   porta,0		;primera pregunta aleatoria
+0405    017F    297E    	goto	w6
+0406    0180    29AB    	goto	R3		;es la parte donde se le resta para hacer lo de aleatorio		
+0407    0181            		     
+0408    0181            	;pregunta por el otro pulsador------------------------------------------
+0409    0181    1C85    no31    btfss   porta,1      ;aprete el puerto A,1?
+0410    0182    298A    	goto    no32      ;si es no me voy a preguntar por los otros puertos
+0411    0183    3002    	movlw   .2      ;si es si
+0412    0184    00C0    	movwf   40h      ;variable para restar despues
+0413    0185    1486    	bsf	portb,1      ;Prende el color del puertob,1
+0414    0186                  	;Primera pregunta de la funcion aleatoria-------------------------------
+0415    0186    2387          	call	demora1		;Anti rebote de 50mseg
+0416    0187    1885    w7	btfsc   porta,1		;primera pregunta aleatoria
+0417    0188    2987    	goto	w7
+0418    0189    29AB    	goto	R3       
+0419    018A            	;pregunta por el otro pulsador------------------------------------------
+0420    018A    1D05    no32    btfss   porta,2      ;aprete el puerto A,2?
+0421    018B    2993    	goto   no33      ;si es no me voy a preguntar por los otros puertos
+0422    018C    3003    	movlw   .3      ;si es si
+0423    018D    00C0    	movwf   40h      ;variable para restar despues
+0424    018E    1506    	bsf   portb,2      ;Prende el color del puertob,2
+0425    018F                  	;Primera pregunta de la funcion aleatoria-------------------------------
+0426    018F    2387          	call   demora1      ;Anti rebote de 50mseg
+0427    0190    1905    w8	btfsc   porta,2      ;primera pregunta aleatoria
+0428    0191    2990    	goto	w8
+0429    0192    29AB    	goto	R3
+0430    0193            	                 
+0431    0193            	;pregunta por el otro pulsador------------------------------------------
+0432    0193    1D85    no33    btfss   porta,3     	 ;aprete el puerto A,3?
+0433    0194    299C    	goto   no78      	 ;si es no me voy a preguntar por los otros puertos
+0434    0195    3004    	movlw   .4     		 ;si es si
+0435    0196    00C0    	movwf   40h      	;variable para restar despues
+0436    0197    1586    	bsf   portb,3      	;Prende el color del puertob,3         
+0437    0198            	;Primera pregunta de la funcion aleatoria-------------------------------
+0438    0198    2387          	call   demora1      	;Anti rebote de 50mseg
+0439    0199    1985    w9	btfsc   porta,3      	;primera pregunta aleatoria
+0440    019A    2999    	goto	w9
+0441    019B    29AB    	goto	R3	
+0442    019C               
+0443    019C            	;pregunta por el otro pulsador------------------------------------------
+0444    019C    1E05    no78	btfss   porta,4      ;aprete el puerto A,4?
+0445    019D    29A5    	goto    k2      ;si es no me voy a preguntar por los otros puertos
+0446    019E    3005    	movlw   .5      ;si es si
+0447    019F    00C0    	movwf   40h      ;variable para restar despues
+0448    01A0    1606    	bsf	portb,4      ;Prende el color del puertob,4 
+0449    01A1            	;Primera pregunta de la funcion aleatoria---------------------------------------------------------
+0450    01A1    2387    	call   demora1      ;Anti rebote de 50mseg
+0451    01A2    1A05    w10	btfsc   porta,4      ;primera pregunta aleatoria
+0452    01A3    29A2    	goto	w10
+0453    01A4    29AB    	goto	R3	
+0454    01A5    3002    k2	movlw	.2		;para hacer el tiempo de aleatorio
+0455    01A6    07C8    	addwf	48h,f		;Se le suma .1 al 49h que es una memoria
+0456    01A7    3001    	movlw	.1		;para hacer el tiempo de aleatorio
+0457    01A8    07C9    	addwf	49h,f		;Se le suma .1 al 49h que es una memoria
+0458    01A9    239A    	call	demora3
+0459    01AA    2978    	goto	j2
+0460    01AB            	
+0461    01AB            	;Funcion aleatorio de desconteo de 49H-------------------------------------------------------------
+0462    01AB    0186    R3	clrf	portb
+0463    01AC    3001    	movlw	.1		;Repite la operacion hasta dar cero
+0464    01AD    02C9    	subwf	49h,f
+0465    01AE    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0466    01AF    29B5    	goto	no35
+0467    01B0    083A    	movfw	3ah		;mantiene el color adentro (verde)
+0468    01B1    00DE    	movwf	5eh		;lo usara despues para mostrarlo en la segunda fase
+0469    01B2    3001    	movlw	.1		;el .1 equivale al color
+0470    01B3    00CE    	movwf	4eh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0471    01B4    29D9    	goto	pp2		;funcion de saber si se preciono bien o no
+0472    01B5            
+0473    01B5    3001    no35	movlw	.1		;Repite la operacion hasta dar cero
+0474    01B6    02C9    	subwf	49h,f
+0475    01B7    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0476    01B8    29BE    	goto	no36
+0477    01B9    083B    	movfw	3bh		;mantiene el color adentro (verde)
+0478    01BA    00DE    	movwf	5eh		;lo usara despues para mostrarlo en la segunda fase
+0479    01BB    3002    	movlw	.2		;el .1 equivale al color
+0480    01BC    00CE    	movwf	4eh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0481    01BD    29D9    	goto	pp2		;funcion de saber si se preciono bien o no
+0482    01BE            	
+0483    01BE    3001    no36	movlw	.1		;Repite la operacion hasta dar cero
+0484    01BF    02C9    	subwf	49h,f
+0485    01C0    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0486    01C1    29C7    	goto	no37
+0487    01C2    083C    	movfw	3ch		;mantiene el color adentro (verde)
+0488    01C3    00DE    	movwf	5eh		;lo usara despues para mostrarlo en la segunda fase
+0489    01C4    3003    	movlw	.3		;el .1 equivale al color
+0490    01C5    00CE    	movwf	4eh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0491    01C6    29D9    	goto	pp2		;funcion de saber si se preciono bien o no
+0492    01C7            
+0493    01C7    3001    no37	movlw	.1		;Repite la operacion hasta dar cero
+0494    01C8    02C9    	subwf	49h,f
+0495    01C9    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0496    01CA    29D0    	goto	no38
+0497    01CB    083D    	movfw	3dh		;mantiene el color adentro (verde)
+0498    01CC    00DE    	movwf	5eh		;lo usara despues para mostrarlo en la segunda fase
+0499    01CD    3004    	movlw	.4		;el .1 equivale al color
+0500    01CE    00CE    	movwf	4eh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0501    01CF    29D9    	goto	pp2		;funcion de saber si se preciono bien o no
+0502    01D0            
+0503    01D0    3001    no38	movlw	.1		;Repite la operacion hasta dar cero
+0504    01D1    02C9    	subwf	49h,f
+0505    01D2    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0506    01D3    29AB    	goto	R3
+0507    01D4    083E    	movfw	3eh		;mantiene el color adentro (verde)
+0508    01D5    00DE    	movwf	5eh		;lo usara despues para mostrarlo en la segunda fase
+0509    01D6    3005    	movlw	.5		;el .1 equivale al color
+0510    01D7    00CE    	movwf	4eh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0511    01D8    29D9    	goto	pp2		;funcion de saber si se preciono bien o no
+0512    01D9            	;Es par la segunda variable que se pondra en la segunda fase---------------------------------------------
+0513    01D9            pp2	;configuraciones de los colores a prender
+0514    01D9    1406    	bsf   portb,0      ;Verde prende
+0515    01DA    0806    	movfw   portb
+0516    01DB    00BA    	movwf   3ah
+0517    01DC    0186    	clrf   PORTB      ;TODO EN 0 
+0518    01DD    1486    	bsf   portb,1      ;Amarillo prende
+0519    01DE    0806    	movfw   portb
+0520    01DF    00BB    	movwf   3bh
+0521    01E0    0186    	clrf   PORTB      ;TODO EN 0          
+0522    01E1    1506    	bsf   portb,2      ;Azul prende
+0523    01E2    0806    	movfw   portb
+0524    01E3    00BC    	movwf   3ch
+0525    01E4    0186    	clrf   PORTB      ;TODO EN 0           
+0526    01E5    1586    	bsf   portb,3      ;Rojo prende
+0527    01E6    0806    	movfw   portb
+0528    01E7    00BD    	movwf   3dh
+0529    01E8    0186    	clrf   PORTB      ;TODO EN 0
+0530    01E9    1606    	bsf   portb,4      ;Blanco prende
+0531    01EA    0806    	movfw   portb
+0532    01EB    00BE    	movwf   3eh
+0533    01EC    0186    	clrf   PORTB      ;TODO EN 0
+0534    01ED            
+0535    01ED    3001    R4	movlw	.1		;Repite la operacion hasta dar cero
+0536    01EE    02C8    	subwf	48h,f
+0537    01EF    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0538    01F0    29F6    	goto	no39
+0539    01F1    083A    	movfw	3ah		;mantiene el color adentro (verde)
+0540    01F2    00DF    	movwf	5fh		;lo usara despues para mostrarlo en la segunda fase
+0541    01F3    3001    	movlw	.1		;el .1 equivale al color
+0542    01F4    00CF    	movwf	4fh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0543    01F5    2A1A    	goto	p2		;funcion de saber si se preciono bien o no
+0544    01F6            
+0545    01F6    3001    no39	movlw	.1		;Repite la operacion hasta dar cero
+0546    01F7    02C8    	subwf	48h,f
+0547    01F8    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0548    01F9    29FF    	goto	no40
+0549    01FA    083B    	movfw	3bh		;mantiene el color adentro (verde)
+0550    01FB    00DF    	movwf	5fh		;lo usara despues para mostrarlo en la segunda fase
+0551    01FC    3002    	movlw	.2		;el .1 equivale al color
+0552    01FD    00CF    	movwf	4fh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0553    01FE    2A1A    	goto	p2		;funcion de saber si se preciono bien o no
+0554    01FF            	
+0555    01FF    3001    no40	movlw	.1		;Repite la operacion hasta dar cero
+0556    0200    02C8    	subwf	48h,f
+0557    0201    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0558    0202    2A08    	goto	no41
+0559    0203    083C    	movfw	3ch		;mantiene el color adentro (verde)
+0560    0204    00DF    	movwf	5fh		;lo usara despues para mostrarlo en la segunda fase
+0561    0205    3003    	movlw	.3		;el .1 equivale al color
+0562    0206    00CF    	movwf	4fh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0563    0207    2A1A    	goto	p2		;funcion de saber si se preciono bien o no
+0564    0208            
+0565    0208    3001    no41	movlw	.1		;Repite la operacion hasta dar cero
+0566    0209    02C8    	subwf	48h,f
+0567    020A    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0568    020B    2A11    	goto	no42
+0569    020C    083D    	movfw	3dh		;mantiene el color adentro (verde)
+0570    020D    00DF    	movwf	5fh		;lo usara despues para mostrarlo en la segunda fase
+0571    020E    3004    	movlw	.4		;el .1 equivale al color
+0572    020F    00CF    	movwf	4fh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0573    0210    2A1A    	goto	p2		;funcion de saber si se preciono bien o no
+0574    0211            
+0575    0211    3001    no42	movlw	.1		;Repite la operacion hasta dar cero
+0576    0212    02C8    	subwf	48h,f
+0577    0213    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0578    0214    29ED    	goto	R4
+0579    0215    083E    	movfw	3eh		;mantiene el color adentro (verde)
+0580    0216    00DF    	movwf	5fh		;lo usara despues para mostrarlo en la segunda fase
+0581    0217    3005    	movlw	.5		;el .1 equivale al color
+0582    0218    00CF    	movwf	4fh		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0583    0219    2A1A    	goto	p2		;funcion de saber si se preciono bien o no
+0584    021A            	;Empiesa a preguntar si el pulsador presioado es el correcto-----------------------------------------------
+0585    021A    3001    p2   	movlw	.1
+0586    021B    02ED    	subwf	6dh,f		;.3
+0587    021C    1D03    	btfss	status,2
+0588    021D    2A23    	goto	no43
+0589    021E    0840    	movfw	40h
+0590    021F    024D    	subwf	4dh,w
+0591    0220    1D03    	btfss	status,2
+0592    0221    2B4F    	goto	perdi
+0593    0222    2A3A    	goto	bien2
+0594    0223            		
+0595    0223    3001    no43	movlw	.1
+0596    0224    02EC    	subwf	6ch,f
+0597    0225    1D03    	btfss	status,2
+0598    0226    2A2C    	goto	no44
+0599    0227    0840    	movfw	40h
+0600    0228    024C    	subwf	4ch,w
+0601    0229    1D03    	btfss	status,2
+0602    022A    2B4F    	goto	perdi
+0603    022B    2978    	goto	j2
+0604    022C            		
+0605    022C    3001    no44	movlw	.1
+0606    022D    02A0    	subwf	20h,f		;vale.2
+0607    022E    1D03    	btfss	status,2
+0608    022F    2A35    	goto	no45
+0609    0230    0840    	movfw	40h
+0610    0231    024B    	subwf	4bh,w
+0611    0232    1D03    	btfss	status,2
+0612    0233    2B4F    	goto	perdi
+0613    0234    2978    	goto	j2
+0614    0235            
+0615    0235    0840    no45	movfw	40h		;varia dependiendo que boton precione (.1 deberia ser)
+0616    0236    024A    	subwf	4ah,w		;mantiene en forma permanente el .1
+0617    0237    1D03    	btfss	status,2	;pregunta si da cero
+0618    0238    2B4F    	goto	Perdi		
+0619    0239    2978    	goto	j2	
+0620    023A            
+0621    023A            
+0622    023A            	;tercera fase del simon say---------------------------------------------------------------------	
+0623    023A    0186    bien2	clrf   	portb      ;limpia el puerto b por las dudas
+0624    023B    238E    	call	demora2
+0625    023C    1406    	bsf   	portb,0      ;Prende el verde
+0626    023D    237B    	call   	demorav      ;Demora variable
+0627    023E    1006    	bcf   	portb,0      ;apaga el verde
+0628    023F    238E    	call	demora2
+0629    0240    1586    	bsf	portb,3
+0630    0241    237B    	call	demorav
+0631    0242    0186    	clrf	portb
+0632    0243    238E    	call	demora2	
+0633    0244    085C    	movfw	5ch
+0634    0245    0086    	movwf	portb
+0635    0246    237B    	call	demorav
+0636    0247    0186    	clrf	portb
+0637    0248    238E    	call	demora2
+0638    0249    085D    	movfw	5dh
+0639    024A    0086    	movwf	portb
+0640    024B    237B    	call	demorav
+0641    024C    0186    	clrf	portb
+0642    024D    238E    	call	demora2
+0643    024E    085E    	movfw	5eh
+0644    024F    0086    	movwf	portb
+0645    0250    237B    	call	demorav
+0646    0251    0186    	clrf	portb
+0647    0252    238E    	call	demora2
+0648    0253    085F    	movfw	5fh
+0649    0254    0086    	movwf	portb
+0650    0255    237B    	call	demorav
+0651    0256    0186    	clrf	portb
+0652    0257    238E    	call	demora2	
+0653    0258    3001    	movlw   .1
+0654    0259    00CA    	movwf   4ah		;ESTA DEMAS
+0655    025A    3004    	movlw	.4
+0656    025B    00CB    	movwf	4bh		;ESTA DEMAS
+0657    025C    3002    	movlw	.2
+0658    025D    00A0    	movwf	20h
+0659    025E    3003    	movlw	.3
+0660    025F    00EC    	movwf	6ch
+0661    0260    3004    	movlw	.4
+0662    0261    00ED    	movwf	6dh
+0663    0262    3005    	movlw	.5
+0664    0263    00EE    	movwf	6eh
+0665    0264    3006    	movlw	.6
+0666    0265    00EF    	movwf	6fh	
+0667    0266            j3	;configuraciones de los colores a prender-----------------------------------------------
+0668    0266    1406    	bsf   portb,0      ;Verde prende
+0669    0267    0806    	movfw   portb
+0670    0268    00BA    	movwf   3ah
+0671    0269    0186    	clrf   PORTB      ;TODO EN 0 
+0672    026A    1486    	bsf   portb,1      ;Amarillo prende
+0673    026B    0806    	movfw   portb
+0674    026C    00BB    	movwf   3bh
+0675    026D    0186    	clrf   PORTB      ;TODO EN 0          
+0676    026E    1506    	bsf   portb,2      ;Azul prende
+0677    026F    0806    	movfw   portb
+0678    0270    00BC    	movwf   3ch
+0679    0271    0186    	clrf   PORTB      ;TODO EN 0           
+0680    0272    1586    	bsf   portb,3      ;Rojo prende
+0681    0273    0806    	movfw   portb
+0682    0274    00BD    	movwf   3dh
+0683    0275    0186    	clrf   PORTB      ;TODO EN 0
+0684    0276    1606    	bsf   portb,4      ;Blanco prende
+0685    0277    0806    	movfw   portb
+0686    0278    00BE    	movwf   3eh
+0687    0279    0186    	clrf   PORTB      ;TODO EN 0     
+0688    027A            	;Primera pregunta--------------------------------------------------------
+0689    027A    1C05    	btfss   porta,0		;aprete el puerto A,0?
+0690    027B    2A83    	goto   no46		;si es no me voy a preguntar por los otros puertos
+0691    027C    3001    	movlw   .1		;si es si
+0692    027D    00C0    	movwf   40h		;variable para restar despues
+0693    027E    1406    	bsf   portb,0		;Prende el color del puertob,0
+0694    027F                   	;Empiesa la funcion aleatoria--------------------------------------------
+0695    027F    2387          	call   demora1		;Anti rebote de 50mseg
+0696    0280    1805    w11	btfsc   porta,0		;primera pregunta aleatoria
+0697    0281    2A80    	goto	w11
+0698    0282    2AAD    	goto	R5		;es la parte donde se le resta para hacer lo de aleatorio		
+0699    0283            		     
+0700    0283            	;pregunta por el otro pulsador------------------------------------------
+0701    0283    1C85    no46    btfss   porta,1      ;aprete el puerto A,1?
+0702    0284    2A8C    	goto    no47      ;si es no me voy a preguntar por los otros puertos
+0703    0285    3002    	movlw   .2      ;si es si
+0704    0286    00C0    	movwf   40h      ;variable para restar despues
+0705    0287    1486    	bsf	portb,1      ;Prende el color del puertob,1
+0706    0288                  	;Primera pregunta de la funcion aleatoria-------------------------------
+0707    0288    2387          	call	demora1		;Anti rebote de 50mseg
+0708    0289    1885    w12	btfsc   porta,1		;primera pregunta aleatoria
+0709    028A    2A89    	goto	w12
+0710    028B    2AAD    	goto	R5
+0711    028C                     
+0712    028C            	;pregunta por el otro pulsador------------------------------------------
+0713    028C    1D05    no47    btfss   porta,2      ;aprete el puerto A,2?
+0714    028D    2A95    	goto   no48	     ;si es no me voy a preguntar por los otros puertos
+0715    028E    3003    	movlw   .3      ;si es si
+0716    028F    00C0    	movwf   40h      ;variable para restar despues
+0717    0290    1506    	bsf   portb,2      ;Prende el color del puertob,2
+0718    0291                  	;Primera pregunta de la funcion aleatoria-------------------------------
+0719    0291    2387          	call   demora1      ;Anti rebote de 50mseg
+0720    0292    1905    w13	btfsc   porta,2      ;primera pregunta aleatoria
+0721    0293    2A92    	goto	w13
+0722    0294    2AAD    	goto	R5
+0723    0295            	                 
+0724    0295            	;pregunta por el otro pulsador------------------------------------------
+0725    0295    1D85    no48    btfss   porta,3      	;aprete el puerto A,3?
+0726    0296    2A9E    	goto   no49      	;si es no me voy a preguntar por los otros puertos
+0727    0297    3004    	movlw   .4      	;si es si
+0728    0298    00C0    	movwf   40h      	;variable para restar despues
+0729    0299    1586    	bsf   portb,3      	;Prende el color del puertob,3         
+0730    029A            	;Primera pregunta de la funcion aleatoria-------------------------------
+0731    029A    2387          	call   demora1      	;Anti rebote de 50mseg
+0732    029B    1985    w14	btfsc   porta,3      	;primera pregunta aleatoria
+0733    029C    2A9B    	goto	w14
+0734    029D    2AAD    	goto	R5	
+0735    029E              
+0736    029E            	;pregunta por el otro pulsador------------------------------------------
+0737    029E    1E05    no49	btfss   porta,4      	;aprete el puerto A,4?
+0738    029F    2AA7    	goto    k3      	;si es no me voy a preguntar por los otros puertos
+0739    02A0    3005    	movlw   .5      	;si es si
+0740    02A1    00C0    	movwf   40h      	;variable para restar despues
+0741    02A2    1606    	bsf	portb,4      	;Prende el color del puertob,4 
+0742    02A3            	;Primera pregunta de la funcion aleatoria---------------------------------------------------------
+0743    02A3    2387    	call   demora1      	;Anti rebote de 50mseg
+0744    02A4    1A05    w15	btfsc   porta,4     	;primera pregunta aleatoria
+0745    02A5    2AA4    	goto	w15
+0746    02A6    2AAD    	goto	R5	
+0747    02A7    3002    k3	movlw	.2		;para hacer el tiempo de aleatorio
+0748    02A8    07C8    	addwf	48h,f		;Se le suma .1 al 49h que es una memoria
+0749    02A9    3001    	movlw	.1		;para hacer el tiempo de aleatorio
+0750    02AA    07C9    	addwf	49h,f		;Se le suma .1 al 49h que es una memoria
+0751    02AB    239A    	call	demora3
+0752    02AC    2A66    	goto	j3	
+0753    02AD            	;Funcion aleatorio de desconteo de 49H-------------------------------------------------------------
+0754    02AD    0186    R5	clrf	portb
+0755    02AE    3001    	movlw	.1		;Repite la operacion hasta dar cero
+0756    02AF    02C9    	subwf	49h,f
+0757    02B0    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0758    02B1    2AB7    	goto	no50
+0759    02B2    083A    	movfw	3ah		;mantiene el color adentro (verde)
+0760    02B3    00E0    	movwf	60h		;lo usara despues para mostrarlo en la segunda fase
+0761    02B4    3001    	movlw	.1		;el .1 equivale al color
+0762    02B5    00C1    	movwf	41h		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0763    02B6    2ADB    	goto	pp3		;funcion de saber si se preciono bien o no
+0764    02B7            
+0765    02B7    3001    no50	movlw	.1		;Repite la operacion hasta dar cero
+0766    02B8    02C9    	subwf	49h,f
+0767    02B9    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0768    02BA    2AC0    	goto	no51
+0769    02BB    083B    	movfw	3bh		;mantiene el color adentro (verde)
+0770    02BC    00E0    	movwf	60h		;lo usara despues para mostrarlo en la segunda fase
+0771    02BD    3002    	movlw	.2		;el .1 equivale al color
+0772    02BE    00C1    	movwf	41h		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0773    02BF    2ADB    	goto	pp3		;funcion de saber si se preciono bien o no
+0774    02C0            	
+0775    02C0    3001    no51	movlw	.1		;Repite la operacion hasta dar cero
+0776    02C1    02C9    	subwf	49h,f
+0777    02C2    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0778    02C3    2AC9    	goto	no52
+0779    02C4    083C    	movfw	3ch		;mantiene el color adentro (verde)
+0780    02C5    00E0    	movwf	60h		;lo usara despues para mostrarlo en la segunda fase
+0781    02C6    3003    	movlw	.3		;el .1 equivale al color
+0782    02C7    00C1    	movwf	41h		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0783    02C8    2ADB    	goto	pp3		;funcion de saber si se preciono bien o no
+0784    02C9            
+0785    02C9    3001    no52	movlw	.1		;Repite la operacion hasta dar cero
+0786    02CA    02C9    	subwf	49h,f
+0787    02CB    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0788    02CC    2AD2    	goto	no53
+0789    02CD    083D    	movfw	3dh		;mantiene el color adentro (verde)
+0790    02CE    00E0    	movwf	60h		;lo usara despues para mostrarlo en la segunda fase
+0791    02CF    3004    	movlw	.4		;el .1 equivale al color
+0792    02D0    00C1    	movwf	41h		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0793    02D1    2ADB    	goto	pp3		;funcion de saber si se preciono bien o no
+0794    02D2            
+0795    02D2    3001    no53	movlw	.1		;Repite la operacion hasta dar cero
+0796    02D3    02C9    	subwf	49h,f
+0797    02D4    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0798    02D5    2AAD    	goto	R5
+0799    02D6    083E    	movfw	3eh		;mantiene el color adentro (verde)
+0800    02D7    00E0    	movwf	60h		;lo usara despues para mostrarlo en la segunda fase
+0801    02D8    3005    	movlw	.5		;el .1 equivale al color
+0802    02D9    00C1    	movwf	41h		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0803    02DA    2ADB    	goto	pp3		;funcion de saber si se preciono bien o no
+0804    02DB            
+0805    02DB            	;Funcion aleatorio de desconteo de 49H-------------------------------------------------------------
+0806    02DB            pp3	;configuraciones de los colores a prender
+0807    02DB    1406    	bsf   portb,0      ;Verde prende
+0808    02DC    0806    	movfw   portb
+0809    02DD    00BA    	movwf   3ah
+0810    02DE    0186    	clrf   PORTB      ;TODO EN 0 
+0811    02DF    1486    	bsf   portb,1      ;Amarillo prende
+0812    02E0    0806    	movfw   portb
+0813    02E1    00BB    	movwf   3bh
+0814    02E2    0186    	clrf   PORTB      ;TODO EN 0          
+0815    02E3    1506    	bsf   portb,2      ;Azul prende
+0816    02E4    0806    	movfw   portb
+0817    02E5    00BC    	movwf   3ch
+0818    02E6    0186    	clrf   PORTB      ;TODO EN 0           
+0819    02E7    1586    	bsf   portb,3      ;Rojo prende
+0820    02E8    0806    	movfw   portb
+0821    02E9    00BD    	movwf   3dh
+0822    02EA    0186    	clrf   PORTB      ;TODO EN 0
+0823    02EB    1606    	bsf   portb,4      ;Blanco prende
+0824    02EC    0806    	movfw   portb
+0825    02ED    00BE    	movwf   3eh
+0826    02EE    0186    	clrf   PORTB      ;TODO EN 0
+0827    02EF            
+0828    02EF    0186    R6	clrf	portb
+0829    02F0    3001    	movlw	.1		;Repite la operacion hasta dar cero
+0830    02F1    02C8    	subwf	48h,f
+0831    02F2    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0832    02F3    2AF9    	goto	no59
+0833    02F4    083A    	movfw	3ah		;mantiene el color adentro (verde)
+0834    02F5    00E1    	movwf	61h		;lo usara despues para mostrarlo en la segunda fase
+0835    02F6    3001    	movlw	.1		;el .1 equivale al color
+0836    02F7    00C2    	movwf	42h		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0837    02F8    2B1D    	goto	p4		;funcion de saber si se preciono bien o no
+0838    02F9            
+0839    02F9    3001    no59	movlw	.1		;Repite la operacion hasta dar cero
+0840    02FA    02C8    	subwf	48h,f
+0841    02FB    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0842    02FC    2B02    	goto	no60
+0843    02FD    083B    	movfw	3bh		;mantiene el color adentro (verde)
+0844    02FE    00E1    	movwf	61h		;lo usara despues para mostrarlo en la segunda fase
+0845    02FF    3002    	movlw	.2		;el .1 equivale al color
+0846    0300    00C2    	movwf	42h		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0847    0301    2B1D    	goto	p4		;funcion de saber si se preciono bien o no
+0848    0302            	
+0849    0302    3001    no60	movlw	.1		;Repite la operacion hasta dar cero
+0850    0303    02C8    	subwf	48h,f
+0851    0304    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0852    0305    2B0B    	goto	no61
+0853    0306    083C    	movfw	3ch		;mantiene el color adentro (verde)
+0854    0307    00E1    	movwf	61h		;lo usara despues para mostrarlo en la segunda fase
+0855    0308    3003    	movlw	.3		;el .1 equivale al color
+0856    0309    00C2    	movwf	42h		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0857    030A    2B1D    	goto	p4		;funcion de saber si se preciono bien o no
+0858    030B    3001    no61	movlw	.1		;Repite la operacion hasta dar cero
+0859    030C    02C8    	subwf	48h,f
+0860    030D    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0861    030E    2B14    	goto	no62
+0862    030F    083D    	movfw	3dh		;mantiene el color adentro (verde)
+0863    0310    00E1    	movwf	61h		;lo usara despues para mostrarlo en la segunda fase
+0864    0311    3004    	movlw	.4		;el .1 equivale al color
+0865    0312    00C2    	movwf	42h		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0866    0313    2B1D    	goto	p4		;funcion de saber si se preciono bien o no
+0867    0314    3001    no62	movlw	.1		;Repite la operacion hasta dar cero
+0868    0315    02C8    	subwf	48h,f
+0869    0316    1D03    	btfss	status,2	;pregunta si la cuenta dio cero
+0870    0317    2AEF    	goto	R6
+0871    0318    083E    	movfw	3eh		;mantiene el color adentro (verde)
+0872    0319    00E1    	movwf	61h		;lo usara despues para mostrarlo en la segunda fase
+0873    031A    3005    	movlw	.5		;el .1 equivale al color
+0874    031B    00C2    	movwf	42h		;se guardara en 4bh para luego en la resta se dira si fue correcto o no
+0875    031C    2B1D    	goto	p4		;funcion de saber si se preciono bien o no
+0876    031D            	;Empiesa a preguntar si el pulsador presioado es el correcto-----------------------------------------------
+0877    031D    3001    p4	movlw	.1
+0878    031E    02EE    	subwf	6eh,f		;.3
+0879    031F    1D03    	btfss	status,2
+0880    0320    2B26    	goto	no54
+0881    0321    0840    	movfw	40h
+0882    0322    024E    	subwf	4eh,w
+0883    0323    1D03    	btfss	status,2
+0884    0324    2B4F    	goto	perdi
+0885    0325    2B67    	goto	win
+0886    0326    3001    no54	movlw	.1
+0887    0327    02ED    	subwf	6dh,f		;.3
+0888    0328    1D03    	btfss	status,2
+0889    0329    2B2F    	goto	no55
+0890    032A    0840    	movfw	40h
+0891    032B    024F    	subwf	4fh,w
+0892    032C    1D03    	btfss	status,2
+0893    032D    2B4F    	goto	perdi
+0894    032E    2A66    	goto	j3
+0895    032F    3001    no55	movlw	.1
+0896    0330    02ED    	subwf	6dh,f		;.3
+0897    0331    1D03    	btfss	status,2
+0898    0332    2B38    	goto	no56
+0899    0333    0840    	movfw	40h
+0900    0334    024D    	subwf	4dh,w
+0901    0335    1D03    	btfss	status,2
+0902    0336    2B4F    	goto	perdi
+0903    0337    2A66    	goto	j3		
+0904    0338    3001    no56	movlw	.1
+0905    0339    02EC    	subwf	6ch,f
+0906    033A    1D03    	btfss	status,2
+0907    033B    2B41    	goto	no57
+0908    033C    0840    	movfw	40h
+0909    033D    024C    	subwf	4ch,w
+0910    033E    1D03    	btfss	status,2
+0911    033F    2B4F    	goto	perdi
+0912    0340    2A66    	goto	j3		
+0913    0341    3001    no57	movlw	.1
+0914    0342    02A0    	subwf	20h,f		;vale.2
+0915    0343    1D03    	btfss	status,2
+0916    0344    2B4A    	goto	no58
+0917    0345    0840    	movfw	40h
+0918    0346    024B    	subwf	4bh,w
+0919    0347    1D03    	btfss	status,2
+0920    0348    2B4F    	goto	perdi
+0921    0349    2A66    	goto	j3
+0922    034A    0840    no58	movfw	40h		;varia dependiendo que boton precione (.1 deberia ser)
+0923    034B    024A    	subwf	4ah,w		;mantiene en forma permanente el .1
+0924    034C    1D03    	btfss	status,2	;pregunta si da cero
+0925    034D    2B4F    	goto	Perdi		
+0926    034E    2A66    	goto	j3	
+0927    034F            	;Perdiste (Game Over)----------------------------------------------------------------------------------------
+0928    034F    1406    Perdi	bsf	portb,0
+0929    0350    1486    	bsf	portb,1
+0930    0351    1506    	bsf	portb,2
+0931    0352    1586    	bsf	portb,3
+0932    0353    1606    	bsf	portb,4
+0933    0354    238E    	call 	demora2
+0934    0355    0186    	clrf	portb
+0935    0356    238E    	call 	demora2
+0936    0357    1406    	bsf	portb,0
+0937    0358    1486    	bsf	portb,1
+0938    0359    1506    	bsf	portb,2
+0939    035A    1586    	bsf	portb,3
+0940    035B    1606    	bsf	portb,4
+0941    035C    237B    	call 	demorav
+0942    035D    0186    	clrf	portb
+0943    035E    238E    	call 	demora2
+0944    035F    1406    	bsf	portb,0
+0945    0360    1486    	bsf	portb,1
+0946    0361    1506    	bsf	portb,2
+0947    0362    1586    	bsf	portb,3
+0948    0363    1606    	bsf	portb,4
+0949    0364    238E    	call 	demora2
+0950    0365    0186    	clrf	portb
+0951    0366    2832    	goto	inicio
+0952    0367            	;Ganaste (Win)------------------------------------------------------------
+0953    0367    1406    win	bsf	portb,0
+0954    0368    238E    	call	demora2
+0955    0369    1486    	bsf	portb,1
+0956    036A    238E    	call	demora2
+0957    036B    1506    	bsf	portb,2
+0958    036C    238E    	call	demora2
+0959    036D    1586    	bsf	portb,3
+0960    036E    238E    	call	demora2
+0961    036F    1606    	bsf	portb,4
+0962    0370    238E    	call	demora2
+0963    0371    0186    	clrf	portb
+0964    0372    238E    	call 	demora2
+0965    0373    1406    	bsf	portb,0
+0966    0374    1486    	bsf	portb,1
+0967    0375    1506    	bsf	portb,2
+0968    0376    1586    	bsf	portb,3
+0969    0377    1606    	bsf	portb,4
+0970    0378    238E    	call 	demora2
+0971    0379    0186    	clrf	portb
+0972    037A    2832    	goto	inicio 
+0973    037B            	;Demoras de tiempos------------------------------------------------------
+0974    037B    0181    demorav	clrf	TMR0      	;TMR0=0 limpio el timer
+0975    037C    0830    	movfw   30h		;va 30H
+0976    037D    00BF    	movwf   3FH      	;permanente
+0977    037E    110B    pipa    bcf	intcon,2
+0978    037F    303D    	movlw	.61		;variable (tengo .61 = 50mseg) ESTABA 31H
+0979    0380    0081    	movwf   TMR0		;Permanente, 31h le pasa el .61 al timer
+0980    0381    1D0B    ni      btfss   intcon,2	;cuenta hasta llegar a cero
+0981    0382    2B81    	goto	ni		;repite hasta llegar a cero
+0982    0383    2B84    	goto	si9		;llego a cero intcon,2
+0983    0384    0BBF    si9     decfsz	3FH,f		;es la variable que se resta
+0984    0385    2B7E    	goto	pipa
+0985    0386    0008    	return          	;vuelve de donde vino----------------------------
+0986    0387    0181    demora1	clrf   TMR0		;limpiando timer, hacer de 50 mseg
+0987    0388    303D    	movlw   d'61'		;Seria .61
+0988    0389    0081    	movwf   TMR0		;TMRO=178
+0989    038A    1D0B    N	btfss	intcon,2
+0990    038B    2B8A    	goto	N
+0991    038C    110B    	bcf	intcon,2
+0992    038D    0008    	return			;;vuelve de donde vino----------------------------
+0993    038E    0181    demora2	clrf	TMR0      	;TMR0=0 limpio el timer
+0994    038F    3005    	movlw   .5		;con esto hace un demora de 500 mseg
+0995    0390    00C8    	movwf   48H      	;permanente
+0996    0391    110B    pipa2   bcf	intcon,2
+0997    0392    303D    	movlw	.61		;variable (tengo .61 = 50mseg) ESTABA 31H
+0998    0393    0081    	movwf   TMR0		;Permanente, 31h le pasa el .61 al timer
+0999    0394    1D0B    niii    btfss   intcon,2	;cuenta hasta llegar a cero
+1000    0395    2B94    	goto	niii		;repite hasta llegar a cero
+1001    0396    2B97    	goto	siz		;llego a cero intcon,2
+1002    0397    0BC8    siz     decfsz	48H,f		;es la variable que se resta
+1003    0398    2B91    	goto	pipa2
+1004    0399    0008    	return			;vuelve de donde vino----------------------------
+1005    039A    0181    demora3	clrf	TMR0      	;TMR0=0 limpio el timer
+1006    039B    3001    	movlw   .1		;con esto hace un demora de 500 mseg
+1007    039C    00C7    	movwf   47H      	;permanente
+1008    039D    110B    pipa3   bcf	intcon,2
+1009    039E    30FF    	movlw	.255		;variable (tengo .61 = 50mseg) ESTABA 31H
+1010    039F    0081    	movwf   TMR0		;Permanente, 31h le pasa el .61 al timer
+1011    03A0    1D0B    niiii   btfss   intcon,2	;cuenta hasta llegar a cero
+1012    03A1    2BA0    	goto	niiii		;repite hasta llegar a cero
+1013    03A2    2BA3    	goto	sizz		;llego a cero intcon,2
+1014    03A3    0BC7    sizz     decfsz	47H,f		;es la variable que se resta
+1015    03A4    2B9D    	goto	pipa3
+1016    03A5    0008    	return			;vuelve de donde vino----------------------------
+---------------------------------------------
+Number of errors = 0

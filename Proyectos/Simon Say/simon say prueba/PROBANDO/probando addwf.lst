@@ -1,0 +1,70 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG   0      	;DIRECTIVA Origen del programa
+0002    0000    1683    	bsf   STATUS,5   ;CAMBIO DE BANCO para configurar el Micro
+0003    0001    0185    	clrf   TRISA      ;Todo en 0(8 bit)
+0004    0002    0186    	clrf   TRISB      ;Todo en 0(8 bit)
+0005    0003    3047    	movlw   b'1000111'
+0006    0004    0081    	movwf   option
+0007    0005            	         
+0008    0005    1405    	bsf   PORTA,0      ;para precionar entradas
+0009    0006    1485    	bsf   PORTA,1      ;para precionar
+0010    0007    1505    	bsf   PORTA,2      ;para precionar
+0011    0008    1585    	bsf   PORTA,3      ;para precionar 
+0012    0009    1605    	bsf   PORTA,4      ;para precionar 
+0013    000A                     
+0014    000A    1006    	bcf   PORTB,0      ;Salidas
+0015    000B    1086    	bcf   PORTB,1
+0016    000C    1106    	bcf   PORTB,2
+0017    000D    1186    	bcf   PORTB,3
+0018    000E    1206    	bcf   PORTB,4
+0019    000F            	;comandos para la Funcion velocidad
+0020    000F    3001    	movlw   .1
+0021    0010    00AA    	movwf   2ah
+0022    0011    3002    	movlw   .2
+0023    0012    00AB    	movwf   2bh
+0024    0013    3003    	movlw   .3
+0025    0014    00AC    	movwf   2ch
+0026    0015    3004    	movlw   .4
+0027    0016    00AD    	movwf   2dh
+0028    0017    3005    	movlw   .5
+0029    0018    00AE    	movwf   2eh
+0030    0019            	;cierro el terminal de datos
+0031    0019    1283    	bcf   STATUS,5		;CAMBIO DE BANCO
+0032    001A    0185    	clrf   PORTA      	;TODO EN 0 
+0033    001B    0186    	clrf   PORTB      	;TODO EN 0
+0034    001C    1C05    inicio	btfss	porta,0
+0035    001D    281C    	goto	inicio
+0036    001E    1406    	bsf	portb,0		;si me da si
+0037    001F    202D    	call	demora1
+0038    0020    1805    w1	btfsc	porta,0
+0039    0021    282A    	goto	no
+0040    0022    2823    	goto	si
+0041    0023            
+0042    0023    3001    si	movlw	.1
+0043    0024    02C9    	subwf	49h,f
+0044    0025    1D03    	btfss	status,2
+0045    0026    2823    	goto	si
+0046    0027    2828    	goto	si2
+0047    0028    1006    si2	bcf	portb,0
+0048    0029    281C    	goto	inicio
+0049    002A            
+0050    002A    3001    no	movlw	.1
+0051    002B    07C9    	addwf	49h,f
+0052    002C    2820    	goto	w1
+0053    002D            	
+0054    002D            
+0055    002D            
+0056    002D    0181    demora1	clrf   TMR0      	;limpiando timer, hacer de 50 mseg
+0057    002E    30FF    	movlw   d'255'      	;Seria .61
+0058    002F    0081    	movwf   TMR0      	;TMRO=178
+0059    0030    1D0B    N	btfss   intcon,2
+0060    0031    2830    	goto   N
+0061    0032    110B    	bcf   intcon,2
+0062    0033    0008    	return
+0063    0034            
+0064    0034            	          
+---------------------------------------------
+Number of errors = 0
