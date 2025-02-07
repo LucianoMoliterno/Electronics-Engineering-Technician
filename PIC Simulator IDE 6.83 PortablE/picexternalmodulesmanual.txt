@@ -1,0 +1,63 @@
+<topic>General info
+PIC Simulator IDE is an automation (ActiveX) server/client application. This feature enables communication with external simulation modules that can be developed by home developers and third parties using various Development Systems for Windows.
+
+<subtopic>picsimulatoride.server
+External client application can access PIC Simulator IDE server services by creating an ActiveX object using picsimulatoride.server class.
+
+<topic>Functions and procedures
+Here is the list of functions and procedures available for external client applications:
+<subtopic>- getpic
+getpic() function with no arguments will return the selected PIC microcontroller model [string].
+<subtopic>- getpath
+getpath() function with no arguments will return the path of loaded HEX file [string].
+<subtopic>- getflash
+getflash(address) function will return the value in the flash memory location specified by 'address' argument [0-MaxAvailable].
+<subtopic>- geteeprom
+geteeprom(address) function will return the value in the eeprom memory location specified by 'address' argument [0-MaxAvailable].
+<subtopic>- getpc
+getpc() function will return the value in PC register.
+<subtopic>- getw
+getw() function will return the value in W register.
+<subtopic>- getreg
+getreg(address) function will return the value in one of the special function or general purpose registers specified by 'address' argument [0-511].
+<subtopic>- setreg
+setreg(address,value) procedure will set the new register value, 'address' argument [0-511], 'value' argument [0-255].
+<subtopic>- setregbit
+setregbit(address,bit,value) procedure will set the new value for the specified register bit, 'address' argument [0-511], 'bit' argument [0-7], 'value' argument [0-1].
+<subtopic>- getstack
+getstack(level) function will return the value stored in one of the stack levels [1-8].
+<subtopic>- getcrystal
+getcrystal() function with no arguments will return the clock frequency parameter.
+<subtopic>- getclockcycles
+getclockcycles() function with no arguments will return the number of clock cycles passed after the start of the simulation. The last two functions will enable the external client application to develop a real time behavior if needed.
+<subtopic>- getinst
+getinst() function with no arguments will return the mnemonics of last executed instruction [string].
+<subtopic>- getportstate
+getportstate(address) function will return the real logic levels on the port 'address' argument [5(PORTA)-11(PORTG)].
+<subtopic>- setpinstate
+setpinstate(port,pin,state) procedure will set the logic level on the addressed pin, 'port' argument [5(PORTA)-11(PORTG)], 'pin' argument [0-7], 'state' argument [0-1].
+<subtopic>- getanalog
+getanalog(an) function will return the analog value on the analog input specified by 'an' argument [0-15].
+<subtopic>- setanalog
+setanalog(an,value) procedure will set the analog value on the addressed analog input, 'an' argument [0-15], 'value' argument [0-1023].
+<subtopic>- extsimstart
+extsimstart() procedure will start the simulation.
+<subtopic>- extsimstop
+extsimstop() procedure will stop the simulation.
+<subtopic>- extsimstep
+extsimstep() procedure will execute one simulation step if in Step By Step mode.
+<subtopic>- extsimrate
+extsimrate(rate) procedure will change the simulation rate, 'rate' argument [1(Step By Step)-6(Ultimate)].
+
+<topic>External client/servers
+Full support and full synchronization is available for external applications with client/server capabilities. External server module should provide the following procedures:
+
+<subtopic>- objectinit
+objectinit() procedure will be called at the beginning of the simulation in PIC Simulator IDE. With this procedure external module should be initialized to a known initial state.
+<subtopic>- objectrefresh
+objectrefresh() procedure will be called after every simulated instruction.
+<subtopic>- objectterm
+objectterm() procedure needs to contain the code to terminate external module application (typically End statement).
+
+<subtopic>External modules interface
+The class name should be set using External Modules interface available from Tools menu of PIC Simulator IDE. External client/server applications will be started and terminated automatically with PIC Simulator IDE.
