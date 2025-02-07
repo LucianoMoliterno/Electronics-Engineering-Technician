@@ -1,0 +1,10 @@
+F:\Developing\Visual Studio 2008\Lapine Systems Simon\Lapine Systems Simon\bin\Release\Lapine Systems Simon.exe
+F:\Developing\Visual Studio 2008\Lapine Systems Simon\Lapine Systems Simon\bin\Release\Lapine Systems Simon.pdb
+F:\Developing\Visual Studio 2008\Lapine Systems Simon\Lapine Systems Simon\bin\Release\Lapine Systems Simon.xml
+F:\Developing\Visual Studio 2008\Lapine Systems Simon\Lapine Systems Simon\obj\Release\ResolveAssemblyReference.cache
+F:\Developing\Visual Studio 2008\Lapine Systems Simon\Lapine Systems Simon\obj\Release\Lapine_Systems_Simon.Form1.resources
+F:\Developing\Visual Studio 2008\Lapine Systems Simon\Lapine Systems Simon\obj\Release\Lapine_Systems_Simon.Resources.resources
+F:\Developing\Visual Studio 2008\Lapine Systems Simon\Lapine Systems Simon\obj\Release\Lapine Systems Simon.vbproj.GenerateResource.Cache
+F:\Developing\Visual Studio 2008\Lapine Systems Simon\Lapine Systems Simon\obj\Release\Lapine Systems Simon.exe
+F:\Developing\Visual Studio 2008\Lapine Systems Simon\Lapine Systems Simon\obj\Release\Lapine Systems Simon.xml
+F:\Developing\Visual Studio 2008\Lapine Systems Simon\Lapine Systems Simon\obj\Release\Lapine Systems Simon.pdb
