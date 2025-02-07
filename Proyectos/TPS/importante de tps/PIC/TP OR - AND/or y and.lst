@@ -1,0 +1,114 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG	0		;DIRECTIVA Origen del programa
+0002    0000    1683    	bsf	STATUS,5	;CAMBIO DE BANCO para configurar el Micro
+0003    0001    0185    	clrf	TRISA		;Todo en 0(8 bit)
+0004    0002    0186    	clrf	TRISB		;Todo en 0(8 bit)
+0005    0003    1405    	bsf	PORTA,0		;Logica A = OR
+0006    0004    1485    	bsf	PORTA,1		;Logica B = AND
+0007    0005    1706    	bsf	PORTB,6		;EMPIESA EN 0
+0008    0006    1686    	bsf	PORTB,5		;EMPIESA EN 0
+0009    0007            
+0010    0007    1006    	bcf	PORTB,0		;LED
+0011    0008    1283    	bcf	STATUS,5	;CAMBIO DE BANCO
+0012    0009    0185    	clrf	PORTA		;TODO EN 0 
+0013    000A    0186    	clrf	PORTB		;TODO EN 0
+0014    000B            
+0015    000B    282B    	goto	inicio
+0016    000C            
+0017    000C    1F06    BE	btfss	PORTB,6		;PREGUNTO OR
+0018    000D    2811    	goto	PE		
+0019    000E    280F    	goto	PO
+0020    000F            
+0021    000F    1406    PO	bsf	PORTB,0		;PRENDE
+0022    0010    282B    	goto	inicio
+0023    0011            
+0024    0011    1E86    PE	btfss	PORTB,5		;PREGUNTO AND
+0025    0012    281B    	goto	FE	
+0026    0013    2814    	goto	FA
+0027    0014            
+0028    0014    1C05    FA	btfss	PORTA,0
+0029    0015    2817    	goto	WA	
+0030    0016    2819    	goto	WE
+0031    0017            
+0032    0017    1006    WA	bcf	PORTB,0		;APAGO
+0033    0018    282B    	goto	inicio
+0034    0019            
+0035    0019    1406    WE	bsf	PORTB,0		;PRENDE
+0036    001A    282B    	goto	inicio
+0037    001B            
+0038    001B    1006    FE	bcf	PORTB,0
+0039    001C    282B    	goto	inicio
+0040    001D            
+0041    001D            
+0042    001D    1006    AE	bcf	PORTB,0		;APAGA
+0043    001E    282E    	goto	inicio1
+0044    001F            
+0045    001F    1006    OL	bcf	PORTB,0		;APAGA
+0046    0020    2831    	goto	inicio2
+0047    0021    2822    	goto	VA
+0048    0022            
+0049    0022    1406    VA	bsf	PORTB,0		;PRENDE
+0050    0023    2831    	goto	inicio2
+0051    0024            
+0052    0024    1406    OK	bsf	PORTB,0		;PRENDE
+0053    0025    2831    	goto	inicio2
+0054    0026            
+0055    0026    1006    OE	bcf	PORTB,0		;APAGA
+0056    0027    2831    	goto 	inicio2
+0057    0028            
+0058    0028    1F06    OA	btfss	PORTB,6		;PREGUNTO
+0059    0029    281F    	goto	OL
+0060    002A    2824    	goto	OK
+0061    002B            
+0062    002B    1C85    inicio	btfss	PORTA,1		;PREGUNTO SI ES 1
+0063    002C    281D    	goto	AE
+0064    002D    280C    	goto	BE
+0065    002E            
+0066    002E    1C05    inicio1	btfss	PORTA,0		;PREGUNTO SI ES 1
+0067    002F    2826    	goto	OE
+0068    0030    2828    	goto	OA
+0069    0031            
+0070    0031    1C05    inicio2	btfss	PORTA,0		;PREGUNTO SI ES 1
+0071    0032    2834    	goto	JE
+0072    0033    2836    	goto	JA
+0073    0034            
+0074    0034    1006    JE	bcf	PORTB,0		;APAGA
+0075    0035    283D    	goto	inicio3
+0076    0036            
+0077    0036    1F06    JA	btfss	PORTB,6		;PREGUNTO POR OR
+0078    0037    2839    	goto	HE
+0079    0038    283B    	goto	HA
+0080    0039            
+0081    0039    1006    HE	bcf	PORTB,0		;APAGO
+0082    003A    283D    	goto	inicio3
+0083    003B    1406    HA	bsf	PORTB,0		;PRENDE
+0084    003C    2831    	goto	inicio2
+0085    003D            
+0086    003D    1C85    Inicio3	btfss	PORTA,1		
+0087    003E    2840    	goto	GA
+0088    003F    2842    	goto	GE
+0089    0040            
+0090    0040    1006    GA	bcf	PORTB,0
+0091    0041    282B    	goto	inicio
+0092    0042            
+0093    0042    1F06    GE	btfss	PORTB,6
+0094    0043    2847    	goto	YE
+0095    0044    2845    	goto	YA
+0096    0045            
+0097    0045    1406    YA	bsf	PORTB,0
+0098    0046    283D    	goto	inicio3
+0099    0047    1006    YE	bcf	PORTB,0	
+0100    0048    282B    	goto	inicio
+0101    0049            end
+0102    0049            
+0103    0049            
+0104    0049            
+0105    0049            
+0106    0049            
+0107    0049            
+0108    0049            
+---------------------------------------------
+Number of errors = 0

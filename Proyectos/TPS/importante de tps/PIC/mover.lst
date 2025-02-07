@@ -1,0 +1,36 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG	0
+0002    0000    1683    	bsf	STATUS,5
+0003    0001    0185    	clrf	TRISA
+0004    0002    0186    	clrf	TRISB
+0005    0003    1406    	bsf	PORTB,0
+0006    0004    1486    	bsf	PORTB,1
+0007    0005    1506    	bsf	PORTB,2
+0008    0006    1586    	bsf	PORTB,3
+0009    0007    1706    	bsf	PORTB,6
+0010    0008    1786    	bsf	PORTB,7
+0011    0009    1005    	bcf	PORTA,0
+0012    000A    1085    	bcf	PORTA,1
+0013    000B    1105    	bcf	PORTA,2
+0014    000C    1185    	bcf	PORTA,3
+0015    000D    1283    	bcf	STATUS,5
+0016    000E    0185    	clrf	TRISA
+0017    000F    0186    	clrf	TRISB
+0018    0010    1F86    inicio	btfss	PORTB,7
+0019    0011    2816    	goto	no
+0020    0012    2813    	goto	si
+0021    0013    0806    si	movfw	PORTB
+0022    0014    009A    	movwf	1Ah
+0023    0015    2816    	goto	no
+0024    0016    1F06    no	btfss	PORTB,6
+0025    0017    281C    	goto	no2
+0026    0018    2819    	goto	si2
+0027    0019    081A    si2	movfw	1ah
+0028    001A    0085    	movwf	PORTA
+0029    001B    281C    	goto	no2
+0030    001C    2810    no2	goto	inicio
+---------------------------------------------
+Number of errors = 0

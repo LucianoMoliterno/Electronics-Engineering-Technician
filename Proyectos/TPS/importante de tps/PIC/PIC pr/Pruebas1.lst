@@ -1,0 +1,29 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG	0		;DIRECTIVA Origen del programa
+0002    0000    1683    	bsf	STATUS,5	;CAMBIO DE BANCO para configurar el Micro
+0003    0001    0185    	clrf	TRISA		;Todo en 0(8 bit)
+0004    0002    0185    	clrf	TRISA		;Todo en 0(8 bit)
+0005    0003    1405    	bsf	PORTA,0		;bit 0 de PORTA = in
+0006    0004    1386    	bcf	PORTB,7		;bit 7 de PORTB = out LED
+0007    0005    1283    	bcf	STATUS,5	;CAMBIO DE BANCO para TRABAJAR el Micro
+0008    0006    0185    	clrf	PORTA		;Asegurar que ARRANCA en 0
+0009    0007    0186    	clrf	PORTB
+0010    0008    1C05    INICIO	btfss	PORTA,0		; ? EL BIT 0 = 1?? PULSADOR
+0011    0009    280B    	goto	APAGAR	
+0012    000A    280D    	goto	prender
+0013    000B            
+0014    000B    1386    APAGAR	bcf	PORTB,7		;BIT 7 DE porb =0
+0015    000C    2808    	goto	INICIO	
+0016    000D            
+0017    000D    1786    PRENDER	bsf	PORTB,7	
+0018    000E    2808    	goto	INICIO	
+0019    000F            
+0020    000F            	END			;DIRECTIVA de final de grabacion	
+0021    000F            	
+0022    000F            
+0023    000F            
+---------------------------------------------
+Number of errors = 0
