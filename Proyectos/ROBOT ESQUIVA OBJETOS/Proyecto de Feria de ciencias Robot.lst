@@ -1,0 +1,94 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG	0		;DIRECTIVA Origen del programa
+0002    0000    1683    	bsf	STATUS,5	;CAMBIO DE BANCO para configurar el Micro
+0003    0001    0185    	clrf	TRISA		;Todo en 0(8 bit)
+0004    0002    0186    	clrf	TRISB		;Todo en 0(8 bit)
+0005    0003    1005    	bcf	PORTA,0		;bit = in lED 0 
+0006    0004    1485    	bsf	PORTA,1		;bit = in led 1
+0007    0005    1505    	bsf	PORTA,2
+0008    0006            
+0009    0006    1006    	bcf	PORTB,0		
+0010    0007    1086    	bcf	PORTB,1		
+0011    0008    1106    	bcf	PORTB,2			
+0012    0009    1186    	bcf	PORTB,3		
+0013    000A    1206    	bcf	PORTB,4		
+0014    000B    1286    	bcf	PORTB,5		
+0015    000C    1306    	bcf	PORTB,6		
+0016    000D    1386    	bcf	PORTB,7		;
+0017    000E            
+0018    000E    1283    	bcf	STATUS,5	;CAMBIO DE BANCO para TRABAJAR el Micro
+0019    000F    0185    	clrf	PORTA		;Todo en 0(8 bit)
+0020    0010    0186    	clrf	PORTB		;Todo en 0(8 bit)
+0021    0011            
+0022    0011            	
+0023    0011            
+0024    0011    1405    inicio	bsf	PORTA,0		;+V PARA EL SENSOR
+0025    0012    1406    	bsf	PORTB,0
+0026    0013    1486    	bsf	PORTB,1
+0027    0014    1506    	bsf	PORTB,2		;principio del movimiento del robot
+0028    0015    1186    	bcf	PORTB,3
+0029    0016    1606    	bsf	PORTB,4
+0030    0017    1286    	bcf	PORTB,5
+0031    0018            
+0032    0018    1C85    	btfss	PORTA,1	
+0033    0019    281B    	goto	inicio2		;NO
+0034    001A    281E    	goto	AA		;SI
+0035    001B            	
+0036    001B    1D05    inicio2	btfss	PORTA,2
+0037    001C    2811    	goto	inicio
+0038    001D    282B    	goto	AS
+0039    001E            
+0040    001E    1106    AA	bcf	PORTB,2		;PORTA,1 = Sensor 1 fue tocado Para Atras
+0041    001F    1586    	bsf	PORTB,3
+0042    0020    1206    	bcf	PORTB,4
+0043    0021    1686    	bsf	PORTB,5
+0044    0022    2038    	call	DEMORA
+0045    0023    1506    	bsf	PORTB,2		;MOTOR1 DOBLA
+0046    0024    1186    	bcf	PORTB,3
+0047    0025    1206    	bcf	PORTB,4		;MOTOR2 APAGADO
+0048    0026    1286    	bcf	PORTB,5
+0049    0027    2038    	call	DEMORA
+0050    0028    1606    	bsf	PORTB,4
+0051    0029    1286    	bcf	PORTB,5
+0052    002A    2811    	goto	inicio
+0053    002B            
+0054    002B    1206    AS	bcf	PORTB,4		;Para Atras Sensor 2 tocado
+0055    002C    1686    	bsf	PORTB,5
+0056    002D    1106    	bcf	PORTB,2
+0057    002E    1586    	bsf	PORTB,3
+0058    002F    2038    	call	DEMORA
+0059    0030    1106    	bcf	PORTB,2
+0060    0031    1186    	bcf	PORTB,3
+0061    0032    1606    	bsf	PORTB,4
+0062    0033    1286    	bcf	PORTB,5
+0063    0034    2038    	call	DEMORA
+0064    0035    1506    	bsf	PORTB,2
+0065    0036    1186    	bcf	PORTB,3
+0066    0037    2811    	goto	inicio
+0067    0038            	
+0068    0038            	
+0069    0038    019A    DEMORA	clrf 	1AH		;LIMPIAMOS
+0070    0039    019B    	clrf	1BH		;Limpiamos
+0071    003A    01AA    	clrf	2AH		;LIMPIAMOS
+0072    003B    3010    	MOVLW	.16		;LOS SEGUNDOS X LITERAL
+0073    003C    00AA    	MOVWF	2AH
+0074    003D    30FF    NOPE2	MOVLW	.255		;NOPE2 CON NOPE FORMAN LOS SEGUNDOS
+0075    003E    009B    	MOVWF	1BH	
+0076    003F    30FF    Nope	MOVLW	.255		;NOPE2 CON NOPE FORMAN LOS SEGUNDOS
+0077    0040    009A    	MOVWF	1AH		;LO PONEMOS HAY	
+0078    0041    0B9A    NO	DECFSZ	1AH,F		;DECRECEMOS
+0079    0042    2841    	goto	NO		;SIGUE DECRECIENDO
+0080    0043    2844    	goto	pepe		;TERMINO
+0081    0044    0B9B    pepe	DECFSZ	1BH,F
+0082    0045    283F    	goto	Nope
+0083    0046    2847    	goto	PEPE2
+0084    0047            
+0085    0047    0BAA    PEPE2	DECFSZ	2AH,F
+0086    0048    283D    	goto	NOPE2
+0087    0049    284A    	goto	AI
+0088    004A    0008    AI	RETURN			;VOLVEMOS
+---------------------------------------------
+Number of errors = 0

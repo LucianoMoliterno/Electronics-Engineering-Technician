@@ -1,0 +1,45 @@
+
+ROM used: 34 (0%)
+          34 (0%) including unused fragments
+
+          0 Average locations per line
+          2 Average locations per statement
+
+RAM used: 6 (2%) at main() level
+          6 (2%) worst case
+
+Stack used: 0 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   25    14 100  BOTON LED.c
+  326     0   0  ..\..\..\..\Archivos de programa\PICC\devices\16F877A.h
+----- -----
+  351    14 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     30  88   1   483  3.8  main
+
+Program metrics:
+    Functions               1
+    Statements              14
+    Comments                88
+    Volume (V)              483
+    Difficilty (D)          3.8
+    Effort to implement (E) 1837
+    Time to implement (T)   2 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   2
+    Maintainability (MI)    142
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF    30  2014  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

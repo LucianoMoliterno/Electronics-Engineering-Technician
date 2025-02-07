@@ -1,0 +1,9 @@
+D:\Documents and Settings\Quimey\Configuración local\Datos de programa\Temporary Projects\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+D:\Documents and Settings\Quimey\Configuración local\Datos de programa\Temporary Projects\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+D:\Documents and Settings\Quimey\Configuración local\Datos de programa\Temporary Projects\WindowsFormsApplication1\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Documents and Settings\Quimey\Configuración local\Datos de programa\Temporary Projects\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+D:\Documents and Settings\Quimey\Configuración local\Datos de programa\Temporary Projects\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+D:\Documents and Settings\Quimey\Configuración local\Datos de programa\Temporary Projects\WindowsFormsApplication1\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Documents and Settings\Quimey\Configuración local\Datos de programa\Temporary Projects\WindowsFormsApplication1\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Documents and Settings\Quimey\Configuración local\Datos de programa\Temporary Projects\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
+D:\Documents and Settings\Quimey\Configuración local\Datos de programa\Temporary Projects\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.pdb
