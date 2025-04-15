@@ -1,0 +1,64 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG	0		;DIRECTIVA Origen del programa
+0002    0000    1683    	bsf	STATUS,5	;CAMBIO DE BANCO para configurar el Micro
+0003    0001    0185    	clrf	TRISA		;Todo en 0(8 bit)
+0004    0002    0186    	clrf	TRISB		;Todo en 0(8 bit)
+0005    0003    1405    	bsf	PORTA,0		;asciende
+0006    0004            
+0007    0004    1006    	bcf	PORTB,0
+0008    0005    1086    	bcf	PORTB,1
+0009    0006    1106    	bcf	PORTB,2
+0010    0007    1186    	bcf	PORTB,3
+0011    0008    1206    	bcf	PORTB,4
+0012    0009    1286    	bcf	PORTB,5
+0013    000A    1306    	bcf	PORTB,6
+0014    000B    1386    	bcf	PORTB,7
+0015    000C            
+0016    000C    1283    	bcf	STATUS,5	;CAMBIO DE BANCO
+0017    000D    0185    	clrf	PORTA		;TODO EN 0 
+0018    000E    0186    	clrf	PORTB		;TODO EN 0
+0019    000F            
+0020    000F    1C05    inicio	btfss	PORTA,0		;INICIATIVA
+0021    0010    280F    	goto	inicio		;NO
+0022    0011    2812    	goto	SI2		;SI
+0023    0012            
+0024    0012    2018    SI2	call	DEMORA		;VAMOS A DEMORA
+0025    0013    0A86    Si	incf	PORTB,F
+0026    0014    2815    	goto	suelta
+0027    0015            
+0028    0015    1C05    suelta	btfss	PORTA,0
+0029    0016    280F    	goto	inicio
+0030    0017    2815    	goto	suelta		;Fin
+0031    0018            
+0032    0018    019A    DEMORA	clrf 	1AH		;LIMPIAMOS
+0033    0019    019B    	clrf	1BH		;Limpiamos
+0034    001A    01AA    	clrf	2AH		;LIMPIAMOS
+0035    001B    3004    	MOVLW	.4		;LOS SEGUNDOS X LITERAL
+0036    001C    00AA    	MOVWF	2AH
+0037    001D    30FF    NOPE2	MOVLW	.255		;NOPE2 CON NOPE FORMAN LOS SEGUNDOS
+0038    001E    009B    	MOVWF	1BH	
+0039    001F    30FF    Nope	MOVLW	.255		;NOPE2 CON NOPE FORMAN LOS SEGUNDOS
+0040    0020    009A    	MOVWF	1AH		;LO PONEMOS HAY	
+0041    0021            	
+0042    0021    0B9A    NO	DECFSZ	1AH,F		;DECRECEMOS
+0043    0022    2821    	goto	NO		;SIGUE DECRECIENDO
+0044    0023    2824    	goto	pepe		;TERMINO
+0045    0024            
+0046    0024    0B9B    pepe	DECFSZ	1BH,F
+0047    0025    281F    	goto	Nope
+0048    0026    2827    	goto	PEPE2
+0049    0027            
+0050    0027    0BAA    PEPE2	DECFSZ	2AH,F
+0051    0028    281D    	goto	NOPE2
+0052    0029    282A    	goto	AI
+0053    002A            	
+0054    002A            
+0055    002A    0008    AI	RETURN			;VOLVEMOS
+0056    002B            
+0057    002B            	
+0058    002B            
+---------------------------------------------
+Number of errors = 0
