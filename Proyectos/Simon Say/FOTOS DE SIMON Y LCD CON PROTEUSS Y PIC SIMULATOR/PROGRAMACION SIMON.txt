@@ -1,0 +1,512 @@
+    	MOVLW 0x01    	
+	MOVWF PCLATH
+    	GOTO  L1
+    	NOP
+ L10:   MOVLW 0x2C
+   	MOVWF FSR
+    	BCF   STATUS,IRP
+    	MOVF  INDF,W
+    	BTFSC STATUS,Z
+    	GOTO  L2
+ L7:    MVLW 0x01
+    	MOVWF 0x78
+ L4:    CLRF 0x77
+ L3:    DECFSZ 0x77,F
+     	GOTO  L3
+    	DECFSZ 0x78,F
+    	GOTO  L4
+    	MOVLW 0x4A
+    	MOVWF 0x77
+ L5:	DECFSZ 0x77,F
+    	GOTO  L5
+    	GOTO  L6
+ L6:	DECFSZ INDF,F
+    	GOTO L7
+ L2:	RETURN
+ L13:	MOVF 0x20,W
+    	SUBLW 0x04
+    	BTFSS STATUS,Z
+    	GOTO  L8
+    	MOVLW 0x01
+    	MOVWF 0x20
+    	GOTO  L9
+ L8:	INCF 0x20,F    
+ L9:	RETURN
+ L15:	MOVLW 0x1E
+    	MOVWF 0x2C
+    	CALL  L10
+ L11:	MOVF 0x06,F
+    	BTFSS STATUS,Z
+    	GOTO  L11
+    	MOVLW 0x1E
+    	MOVWF 0x2C
+    	CALL  L10
+    	RETURN
+ L70:	BCF 0x28,0
+    	MOVLW 0x01
+    	MOVWF 0x26
+   	MOVLW 0x0F
+    	MOVWF 0x05
+    	MOVLW 0x64
+    	MOVWF 0x2C
+    	CALL  L10
+    	BCF 0x05,0
+    	MOVLW 0x01
+    	MOVWF 0x20
+ L20:	BTFSC 0x28,0
+    	GOTO  L12
+    	CALL  L13
+    	BTFSS 0x06,7
+    	GOTO  L14
+    	MOVLW 0x01
+    	MOVWF 0x26
+    	MOVLW 0x0F
+    	MOVWF 0x05
+    	BCF 0x05,0
+    	BSF 0x28,0
+   	CALL  L15
+    	GOTO  L16
+ L14:	BTFSS 0x06,6
+    	GOTO  L17
+    	MOVLW 0x02
+    	MOVWF 0x26
+    	MOVLW 0x0F
+    	MOVWF 0x05
+    	BCF 0x05,1
+    	BSF 0x28,0
+    	CALL  L15
+   	GOTO  L16
+ L17:	BTFSS 0x06,5
+    	GOTO  L18
+    	MOVLW 0x03
+    	MOVWF 0x26
+    	MOVLW 0x0F
+    	MOVWF 0x05
+    	BCF 0x05,2
+    	BSF 0x28,0
+    	CALL L15
+    	GOTO L16
+ L18:	BTFSS 0x06,4
+    	GOTO L19
+    	MOVLW 0x04
+    	MOVWF 0x26
+    	MOVLW 0x0F
+    	MOVWF 0x05
+    	BCF 0x05,3
+    	BSF 0x28,0
+    	CALL L15
+    	GOTO L16
+ L19:	BCF 0x28,0
+ L16:	GOTO L20
+ L12:	CLRF 0x05
+    	MOVLW 0x04
+	MOVWF 0x29
+ L21:	MOVLW 0xFA
+    	MOVWF 0x2C
+    	CALL L10
+    	DECFSZ 0x29,F
+    	GOTO L21
+    	MOVLW 0x0F
+    	MOVWF 0x05
+    	MOVLW 0x02
+    	MOVWF 0x29
+ L22:	MOVLW 0xFA
+    	MOVWF 0x2C
+    	CALL L10
+    	DECFSZ 0x29,F
+    	GOTO L22
+    	GOTO L23
+ L71:	MOVF 0x22,W
+    	BSF STATUS,RP0
+    	MOVWF 0x1B
+    	BCF STATUS,RP0
+   	MOVF 0x20,W
+    	BSF STATUS,RP0
+    	MOVWF 0x1A
+    	BSF 0x1C,2    	BCF STATUS,RP0
+    	MOVF INTCON,W
+    	MOVWF 0x77
+    	BCF INTCON,GIE
+   	BSF STATUS,RP0
+    	MOVLW 0x55
+    	MOVWF 0x1D
+    	MOVLW 0xAA
+    	MOVWF 0x1D
+    	BSF 0x1C,1
+ L24:	BTFSC 0x1C,1
+   	GOTO L24
+   	BCF 0x1C,2
+    	MOVF 0x77,W
+   	BCF STATUS,RP0
+   	IORWF INTCON,F
+ AA2   	INCF 0x22,F
+    	RETURN
+ L48:	MOVF 0x2B,W
+   	XORLW 0x01
+   	BTFSC STATUS,Z
+   	GOTO L25
+   	XORLW 0x03
+   	BTFSC STATUS,Z
+   	GOTO L26
+    	XORLW 0x01
+    	BTFSC STATUS,Z
+   	GOTO L27
+   	XORLW 0x07
+    	BTFSC STATUS,Z
+     	GOTO L28
+     	GOTO L29
+ L25:	BCF 0x05,0
+    	GOTO L30
+ L26:	BCF 0x05,1
+     	GOTO L30
+ L27:	BCF 0x05,2
+      	GOTO L30
+ L28:	BCF 0x05,3
+     	GOTO L30
+ L29:	CLRF 0x05
+     	GOTO L30
+ L30:	RETURN
+ L36:	CLRF 0x77
+     	CLRF 0x78
+     	MOVF 0x2D,W
+     	BCF STATUS,C
+     	BTFSC 0x2E,0
+     	ADDWF 0x77,F
+     	RRF 0x77,F
+     	RRF 0x78,F
+     	BTFSC 0x2E,1
+     	ADDWF 0x77,F
+     	RRF 0x77,F    	RRF 0x78,F
+     	BTFSC 0x2E,2
+     	ADDWF 0x77,F
+     	RRF 0x77,F
+     	RRF 0x78,F
+     	BTFSC 0x2E,3
+     	ADDWF 0x77,F
+    	RRF 0x77,F
+     	RRF 0x78,F
+     	BTFSC 0x2E,4
+     	ADDWF 0x77,F
+     	RRF 0x77,F
+     	RRF 0x78,F
+     	BTFSC 0x2E,5
+     	ADDWF 0x77,F
+     	RRF 0x77,F
+    	RRF 0x78,F
+     	BTFSC 0x2E,6
+     	ADDWF 0x77,F
+     	RRF 0x77,F
+     	RRF 0x78,F
+     	BTFSC 0x2E,7
+     	ADDWF 0x77,F
+     	RRF 0x77,F
+     	RRF 0x78,F
+     	RETURN
+ L37:	MOVLW 0x12
+     	SUBWF 0x2D,F
+     	BTFSS STATUS,C
+     	GOTO L31
+     	MOVLW 0x2D
+     	MOVWF FSR
+     	BCF STATUS,IRP
+     	MOVLW 0xFC
+     	ANDWF INDF,F
+     	BCF STATUS,C
+    	RRF INDF,F
+     	RRF INDF,F
+     	MOVF INDF,W
+     	BTFSC STATUS,Z
+     	GOTO L31
+     	GOTO L32
+ L33:	NOP
+ L32:	DECFSZ INDF,F
+     	GOTO L33
+ L31:	RETURN
+ L49:	CLRF 0x2A
+ L39:	MOVF 0x2A,W
+     	SUBLW 0x28
+     	BTFSS STATUS,C
+     	GOTO L34
+     	CLRF 0x2B
+ L38:	MOVF 0x2B,W
+     	SUBLW 0x04
+     	BTFSS STATUS,C
+     	GOTO L35
+     	BSF 0x06,3
+     	MOVF 0x29,W
+     	SUBLW 0x06
+     	MOVWF 0x2C
+     	MOVLW 0xF0
+     	MOVWF 0x2D
+     	MOVF 0x2C,W
+     	MOVWF 0x2E
+     	CALL L36
+     	MOVF 0x78,W
+     	MOVWF 0x2C
+     	MOVF 0x2C,W
+     	MOVWF 0x2D
+     	CALL L37
+    	BCF 0x06,3
+     	MOVF 0x29,W
+     	SUBLW 0x06
+     	MOVWF 0x2C
+     	MOVLW 0xF0
+    	MOVWF 0x2D
+   	MOVF 0x2C,W
+     	MOVWF 0x2E
+     	CALL L36
+     	MOVF 0x78,W
+     	MOVWF 0x2C
+     	MOVF 0x2C,W
+     	MOVWF 0x2D
+     	CALL L37
+     	INCF 0x2B,F
+     	GOTO L38
+ L35:	INCF 0x2A,F
+     	GOTO L39
+ L34:	RETURN
+ L50:	MOVF 0x28,W
+     	XORLW 0x01
+    	BTFSC STATUS,Z
+    	GOTO L40
+     	XORLW 0x03
+     	BTFSC STATUS,Z
+     	GOTO L41
+     	XORLW 0x01
+     	BTFSC STATUS,Z
+     	GOTO L42
+     	XORLW 0x07
+     	BTFSC STATUS,Z
+     	GOTO L43
+     	GOTO L44
+ L40:	MOVLW 0x02
+     	MOVWF 0x29
+ L45:	MOVLW 0x91
+     	MOVWF 0x2C
+     	CALL L10
+     	DECFSZ 0x29,F
+     	GOTO L45
+     	GOTO L46
+ L41:	MOVLW 0x64
+     	MOVWF 0x2C
+     	CALL L10
+     	GOTO L46
+ L42:	MOVLW 0x32
+     	MOVWF 0x2C
+     	CALL L10
+     	GOTO L46
+ L43:	MOVLW 0x0F
+     	MOVWF 0x2C
+     	CALL L10
+     	GOTO L46
+ L44:	GOTO L46
+ L46:	RETURN
+ L73:	CLRF 0x21
+ L51:	MOVF 0x22,W
+     	SUBWF 0x21,W
+     	BTFSC STATUS,C
+     	GOTO L47
+     	MOVF 0x21,W
+     	BSF STATUS,RP0
+     	MOVWF 0x1B
+     	BCF 0x1C,7
+    	BSF 0x1C,0
+    	MOVF 0x1A,W
+     	BCF STATUS,RP0
+     	MOVWF 0x23
+     	MOVF 0x23,W
+    	MOVWF 0x2B
+     	CALL L48
+     	MOVF 0x23,W
+     	MOVWF 0x29
+     	CALL L49
+     	MOVF 0x26,W
+    	MOVWF 0x28
+    	CALL L50
+     	MOVLW 0x0F
+     	MOVWF 0x05
+     	MOVF 0x26,W
+     	MOVWF 0x28
+    	CALL L50
+     	INCF 0x21,F
+     	GOTO L51
+ L47:	GOTO L52
+ L74:	CLRF 0x21
+     	MOVLW 0x01
+     	MOVWF 0x20
+ L62:	MOVF 0x22,W
+     	SUBWF 0x21,W
+     	BTFSC STATUS,C
+     	GOTO L53
+     	BTFSC 0x27,0
+     	GOTO L53
+     	BCF 0x28,0
+ L60:	BTFSC 0x28,0
+     	GOTO L54
+     	CALL L13
+     	BTFSS 0x06,7
+     	GOTO L55
+     	MOVLW 0x01
+     	MOVWF 0x25
+     	BSF 0x28,0
+     	GOTO L56
+ L55:	BTFSS 0x06,6
+     	GOTO L57
+     	MOVLW 0x02
+     	MOVWF 0x25
+     	BSF 0x28,0
+     	GOTO L56
+ L57:	BTFSS 0x06,5
+     	GOTO L58
+     	MOVLW 0x03
+     	MOVWF 0x25
+     	BSF 0x28,0
+     	GOTO L56
+ L58:	BTFSS 0x06,4
+     	GOTO L59
+     	MOVLW 0x04
+     	MOVWF 0x25
+     	BSF 0x28,0
+     	GOTO L56
+ L59:	BCF 0x28,0
+ L56:	GOTO L60
+ L54:	MOVF 0x21,W
+     	BSF STATUS,RP0
+     	MOVWF 0x1B
+     	BCF 0x1C,7
+     	BSF 0x1C,0
+     	MOVF 0x1A,W
+     	BCF STATUS,RP0
+     	MOVWF 0x24
+     	MOVF 0x25,W
+     	SUBWF 0x24,W
+     	BTFSC STATUS,Z
+     	GOTO L61
+     	BSF 0x27,0
+ L61:	MOVF 0x25,W
+    	MOVWF 0x2B
+     	CALL L48
+    	MOVF 0x25,W
+     	MOVWF 0x29
+     	CALL L49
+     	CALL L15
+     	MOVLW 0x0F
+     	MOVWF 0x05
+     	INCF 0x21,F
+	gOTO L62
+ L53:	GOTO L63
+ L78:	MOVF 0x25,W
+     	MOVWF 0x2B
+     	CALL L48
+    	CLRF 0x29
+ L67:	MOVF 0x29,W
+     	SUBLW 0x64
+     	BTFSS STATUS,C
+     	GOTO L64
+     	CLRF 0x2A
+ L66:	MOVF 0x2A,W
+     	SUBLW 0x04
+     	BTFSS STATUS,C
+     	GOTO L65
+     	BSF 0x06,3
+     	MOVF 0x28,W
+     	SUBLW 0x06
+     	MOVWF 0x2B
+     	MOVWF 0x2C
+     	CALL L10
+    	BCF 0x06,3
+    	MOVF 0x28,W
+     	SUBLW 0x06
+     	MOVWF 0x2B
+     	MOVWF 0x2C
+     	CALL L10
+     	INCF 0x2A,F
+     	GOTO L66
+ L65:	INCF 0x29,F
+     	GOTO L67
+ L64:	MOVLW 0x04
+     	MOVWF 0x2B
+ L68:	MOVLW 0xFA
+     	MOVWF 0x2C
+     	CALL L10
+     	DECFSZ 0x2B,F
+     	GOTO L68
+     	GOTO L69
+ L1:	CLRF FSR
+     	BCF STATUS,IRP
+     	MOVLW 0x1F
+     	ANDWF STATUS,F
+     	BSF STATUS,RP0
+     	BSF 0x0E,3
+     	MOVLW 0x07
+     	BCF STATUS,RP0
+     	MOVWF 0x1F
+     	MOVLW 0xF0
+     	TRISB ;OBSOLETE
+     	MOVLW 0x00
+     	TRISA ;OBSOLETE
+     	BCF 0x06,0
+     	BCF 0x06,1
+     	BCF 0x06,2
+     	BCF 0x06,3
+     	CLRF INTCON
+     	BSF STATUS,RP0
+     	BSF 0x0C,7
+     	MOVLW 0xC0
+     	BCF STATUS,RP0
+     	IORWF INTCON,F
+ L79:	CLRF 0x25
+    	MOVF 0x25,W
+     	MOVWF 0x24
+      	MOVWF 0x23
+     	MOVWF 0x21
+     	MOVWF 0x22
+     	BCF 0x27,0
+     	MOVLW 0x01
+     	MOVWF 0x20
+     	GOTO L70
+ L23:	CALL L71
+ L77:	BTFSC 0x27,0
+     	GOTO L72
+     	GOTO L73
+ L52:	GOTO L74
+ L63:	CALL L71
+     	BTFSC 0x27,0
+     	GOTO L75
+     	MOVLW 0x05
+     	MOVWF 0x2B
+     	CALL L48
+     	MOVLW 0x01
+     	MOVWF 0x29
+     	CALL L49
+     	MOVLW 0x02
+     	MOVWF 0x29
+     	CALL L49
+     	MOVLW 0x04
+     	MOVWF 0x29
+     	CALL L49
+     	MOVLW 0x0F
+     	MOVWF 0x05
+     	MOVLW 0x04
+     	MOVWF 0x28
+ L76:	MOVLW 0xFA
+      	MOVWF 0x2C
+     	CALL L10
+     	DECFSZ 0x28,F
+    	GOTO L76
+        L75:	GOTO L77
+        L72:	MOVLW 0x04
+     	MOVWF 0x28
+     	GOTO L78
+        L69:	GOTO L79
+     	SLEEP
+
+
+
+
+
+
+
+
+
+(PAGINA DE USERS PIC = HTTP:// EBOOKGRATISENPDF.BLOGSPOT.COM.AR/)
