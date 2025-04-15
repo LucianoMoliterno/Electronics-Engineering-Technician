@@ -1,0 +1,44 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG	0		;DIRECTIVA Origen del programa
+0002    0000    1683    	bsf	STATUS,5	;CAMBIO DE BANCO para configurar el Micro
+0003    0001    0185    	clrf	TRISA		;Todo en 0(8 bit)
+0004    0002    0186    	clrf	TRISB		;Todo en 0(8 bit)
+0005    0003    1405    	bsf	PORTA,0		;bit = in lED 1 
+0006    0004    1485    	bsf	PORTA,1		;bit = in led 3
+0007    0005            
+0008    0005    1086    	bcf	PORTB,1		;BIT = out LED 1
+0009    0006    1186    	bcf	PORTB,3		;BIT = out led 3L
+0010    0007            
+0011    0007    1283    	bcf	STATUS,5	;CAMBIO DE BANCO para TRABAJAR el Micro
+0012    0008    0185    	clrf	PORTA		;Todo en 0(8 bit)
+0013    0009    0186    	clrf	PORTB		;Todo en 0(8 bit)
+0014    000A            
+0015    000A    1C05    INICIO	btfss	PORTA,0		; ? EL BIT 0 = 1?? PULSADOR
+0016    000B    2810    	goto	APAGAR	
+0017    000C    2812    	goto	PRENDER
+0018    000D    1C85    inici	btfss	PORTA,1
+0019    000E    2814    	goto	apaga
+0020    000F    2816    	goto	prende
+0021    0010            
+0022    0010    1086    APAGAR	bcf	PORTB,1		;Pulsador sin presionar
+0023    0011    280D    	goto	inici
+0024    0012            
+0025    0012    1486    PRENDER	bsf	PORTB,1		;Pulsador precionado
+0026    0013    280D    	goto	inici	
+0027    0014            
+0028    0014    1186    apaga	bcf	PORTB,3		;Pulsador sin presionar
+0029    0015    280A    	goto 	INICIO
+0030    0016            	
+0031    0016            	
+0032    0016    1586    prende	bsf	PORTB,3		;Pulsador precionado
+0033    0017    280A    	goto	INICIO
+0034    0018            	
+0035    0018            	END			;DIRECTIVA de final de grabacion	
+0036    0018            	
+0037    0018            
+0038    0018            
+---------------------------------------------
+Number of errors = 0

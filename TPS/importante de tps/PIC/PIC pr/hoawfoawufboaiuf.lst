@@ -1,0 +1,17 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG	0		;DIRECTIVA Origen del programa
+0002    0000    1683    	bsf	STATUS,5	;CAMBIO DE BANCO para configurar el Micro
+0003    0001    0185    	clrf	TRISA		;Todo en 0(8 bit)
+0004    0002    0186    	clrf	TRISB		;Todo en 0(8 bit)
+0005    0003    1283    	BCF	STATUS,5 	;CAMBIO DE BANCO para configurar el Micro
+0006    0004    0185    	clrf	TRISA		;Todo en 0(8 bit)
+0007    0005    0186    	clrf	TRISB		;Todo en 0(8 bit)
+0008    0006            	;COMELA OTERO
+0009    0006    1405    	BSF	PORTA,0
+0010    0007    1505    	BSF	PORTA,2	
+0011    0008            	END
+---------------------------------------------
+Number of errors = 0
