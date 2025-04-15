@@ -1,0 +1,81 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            ; Begin
+0002    0000            	R0L EQU 0x20
+0003    0000            	R0H EQU 0x21
+0004    0000            	R1L EQU 0x22
+0005    0000            	R1H EQU 0x23
+0006    0000            	R2L EQU 0x24
+0007    0000            	R2H EQU 0x25
+0008    0000            	R3L EQU 0x26
+0009    0000            	R3H EQU 0x27
+0010    0000            	R4L EQU 0x28
+0011    0000            	R4H EQU 0x29
+0012    0000            	R5L EQU 0x2A
+0013    0000            	R5H EQU 0x2B
+0014    0000            	ORG 0x0000
+0015    0000    118A    	BCF PCLATH,3
+0016    0001    120A    	BCF PCLATH,4
+0017    0002    2805    	GOTO L0003
+0018    0003            	ORG 0x0004
+0019    0004    0009    	RETFIE
+0020    0005            L0003:
+0021    0005            ; 1: Symbol ad_action = ADCON0.GO_DONE 'set new name for A/D conversion start bit
+0022    0005            ;       The address of 'ad_action' is 0x1F,2
+0023    0005            ; 2: Symbol display = PORTB 'set new name for PORTB used to display the conversion result
+0024    0005            ;       The address of 'display' is 0x6
+0025    0005            	display EQU 0x6
+0026    0005            ; 3: 
+0027    0005            ; 4: TRISB = %00000000 'set PORTB pins as outputs
+0028    0005    1683    	BSF STATUS,RP0
+0029    0006    0186    	CLRF 0x06
+0030    0007    1283    	BCF STATUS,RP0
+0031    0008            ; 5: TRISA = %111111 'set PORTA pins as inputs
+0032    0008    1683    	BSF STATUS,RP0
+0033    0009    303F    	MOVLW 0x3F
+0034    000A    0085    	MOVWF 0x05
+0035    000B    1283    	BCF STATUS,RP0
+0036    000C            ; 6: ADCON0 = 0xc0 'set A/D conversion clock to internal source
+0037    000C    30C0    	MOVLW 0xC0
+0038    000D    009F    	MOVWF 0x1F
+0039    000E            ; 7: ADCON1 = 0 'set PORTA pins as analog inputs
+0040    000E    1683    	BSF STATUS,RP0
+0041    000F    019F    	CLRF 0x1F
+0042    0010    1283    	BCF STATUS,RP0
+0043    0011            ; 8: High ADCON0.ADON 'turn on A/D converter module
+0044    0011    141F    	BSF 0x1F,0
+0045    0012            ; 9: 
+0046    0012            ; 10: main: 
+0047    0012            L0001:
+0048    0012            ; 11: Gosub getadresult 'go to conversion routine
+0049    0012    2017    	CALL L0002
+0050    0013            ; 12: display = ADRESH 'display the result of the conversion
+0051    0013    081E    	MOVF 0x1E,W
+0052    0014    0086    	MOVWF 0x06
+0053    0015            ; 13: Goto main 'repeat forever
+0054    0015    2812    	GOTO L0001
+0055    0016            ; 14: End
+0056    0016    2816    L0004:	GOTO L0004
+0057    0017            ; 15: 
+0058    0017            ; 16: getadresult:  'conversion routine
+0059    0017            L0002:
+0060    0017            ; 17: High ad_action 'start the conversion
+0061    0017    151F    	BSF 0x1F,2
+0062    0018            ; 18: While ad_action 'wait until conversion is completed
+0063    0018            L0005:
+0064    0018    1D1F    	BTFSS 0x1F,2
+0065    0019    281B    	GOTO L0006
+0066    001A            ; 19: Wend
+0067    001A    2818    	GOTO L0005
+0068    001B    301F    L0006:	MOVLW 0x1F
+0069    001C    0583    	ANDWF STATUS,F
+0070    001D            ; 20: Return
+0071    001D    0008    	RETURN
+0072    001E            ; End of program
+0073    001E    281E    L0007:	GOTO L0007
+0074    001F            ; End of listing
+0075    001F            	END
+---------------------------------------------
+Number of errors = 0
