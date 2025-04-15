@@ -1,0 +1,69 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            ; Begin
+0002    0000            	R0L EQU 0xC
+0003    0000            	R0H EQU 0xD
+0004    0000            	R1L EQU 0xE
+0005    0000            	R1H EQU 0xF
+0006    0000            	R2L EQU 0x10
+0007    0000            	R2H EQU 0x11
+0008    0000            	R3L EQU 0x12
+0009    0000            	R3H EQU 0x13
+0010    0000            	R4L EQU 0x14
+0011    0000            	R4H EQU 0x15
+0012    0000            	R5L EQU 0x16
+0013    0000            	R5H EQU 0x17
+0014    0000            	W_TEMP EQU 0x4F
+0015    0000            	STATUS_TEMP EQU 0x4E
+0016    0000            	ORG 0x0000
+0017    0000    118A    	BCF PCLATH,3
+0018    0001    120A    	BCF PCLATH,4
+0019    0002    280E    	GOTO L0001
+0020    0003            	ORG 0x0004
+0021    0004    00CF    	MOVWF W_TEMP
+0022    0005    0E03    	SWAPF STATUS,W
+0023    0006    0183    	CLRF STATUS
+0024    0007    00CE    	MOVWF STATUS_TEMP
+0025    0008    2019    	CALL L0002
+0026    0009    0E4E    	SWAPF STATUS_TEMP,W
+0027    000A    0083    	MOVWF STATUS
+0028    000B    0ECF    	SWAPF W_TEMP,F
+0029    000C    0E4F    	SWAPF W_TEMP,W
+0030    000D    0009    	RETFIE
+0031    000E            L0001:
+0032    000E            ; 1: TRISB = 0x00 'set all PORTB pins as outputs
+0033    000E    1683    	BSF STATUS,RP0
+0034    000F    0186    	CLRF 0x06
+0035    0010    1283    	BCF STATUS,RP0
+0036    0011            ; 2: PORTB = %11111111 'make all PORTB pins high
+0037    0011    30FF    	MOVLW 0xFF
+0038    0012    0086    	MOVWF 0x06
+0039    0013            ; 3: INTCON.T0IE = 1 'enable Timer0 interrupts
+0040    0013    168B    	BSF 0x0B,5
+0041    0014            ; 4: INTCON.GIE = True 'enable all un-masked interrupts
+0042    0014    178B    	BSF 0x0B,7
+0043    0015            ; 5: OPTION_REG.T0CS = False 'set Timer0 clock source to internal instruction cycle clock
+0044    0015    1683    	BSF STATUS,RP0
+0045    0016    1281    	BCF 0x01,5
+0046    0017    1283    	BCF STATUS,RP0
+0047    0018            ; 6: End
+0048    0018    2818    L0003:	GOTO L0003
+0049    0019            ; 7: 
+0050    0019            ; 8: On Interrupt 'interrupt routine
+0051    0019            L0002:
+0052    0019            ; 9: PORTB = PORTB - 1 'decrement the value on PORTB
+0053    0019    3001    	MOVLW 0x01
+0054    001A    0206    	SUBWF 0x06,W
+0055    001B    0086    	MOVWF 0x06
+0056    001C            ; 10: INTCON.T0IF = 0 'enable new TMR0 interrupts
+0057    001C    110B    	BCF 0x0B,2
+0058    001D            ; 11: Resume
+0059    001D    0008    	RETURN
+0060    001E            ; End of program
+0061    001E    281E    L0004:	GOTO L0004
+0062    001F            ; End of listing
+0063    001F            	END
+---------------------------------------------
+Number of errors = 0

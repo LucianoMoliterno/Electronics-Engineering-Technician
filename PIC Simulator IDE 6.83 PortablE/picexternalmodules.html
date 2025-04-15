@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>External Modules</title>
+</head>
+<body text="#003060" bgcolor="#FFFFFF" link="#003060" vlink="#003060" alink="#003060">
+<center>
+<table width="550" border="1" cellpadding="5" cellspacing="0" cols="1">
+<tr><td valign="top">
+<center>
+<font face="Arial" size=-1>
+
+
+<br>&nbsp;
+<br><font size=+2><b>PIC Simulator IDE External Modules</b></font>
+<br>&nbsp;
+<br>&nbsp;
+<p style="text-indent: 20;" align="justify">PIC Simulator IDE is an automation (ActiveX) server/client application. This feature enables communication with external simulation modules that can be developed by home developers and third parties using various Development Systems for Windows.</p>
+<p style="text-indent: 20;" align="left">External client application can access PIC Simulator IDE server services by creating an ActiveX object using <font color="#0000C0">picsimulatoride.server</font> class.
+<br>&nbsp;
+<br>Available functions and procedures:
+<br>- <font color="#0000C0">getpic()</font> function with no arguments will return the selected PIC microcontroller model [string].
+<br>- <font color="#0000C0">getpath()</font> function with no arguments will return the path of loaded HEX file [string].
+<br>- <font color="#0000C0">getflash(address)</font> function will return the value in the flash memory location specified by 'address' argument [0-8191].
+<br>- <font color="#0000C0">geteeprom(address)</font> function will return the value in the eeprom memory location specified by 'address' argument [0-255].
+<br>- <font color="#0000C0">getpc()</font> function will return the value in PC register.
+<br>- <font color="#0000C0">getw()</font> function will return the value in W register.
+<br>- <font color="#0000C0">getreg(address)</font> function will return the value in one of the special function or general purpose registers specified by 'address' argument [0-511].
+<br>- <font color="#0000C0">getstack(level)</font> function will return the value stored in one of the stack levels [1-8].
+<br>- <font color="#0000C0">getcrystal()</font> function with no arguments will return the clock frequency parameter.
+<br>- <font color="#0000C0">getclockcycles()</font> function with no arguments will return the number of clock cycles passed after the start of the simulation. The last two functions will enable the external client application to develop a real time behavior if needed.
+<br>- <font color="#0000C0">getinst()</font> function with no arguments will return the mnemonics of last executed instruction [string].
+<br>- <font color="#0000C0">getportstate(address)</font> function will return the real logic levels on the port 'address' argument [5-9].
+<br>- <font color="#0000C0">setpinstate(port,pin,state)</font> procedure will set the logic level on the addressed pin, 'port' argument [5-9], 'pin' argument [0-7], 'state' argument [0-1].
+<br>- <font color="#0000C0">getanalog(an)</font> function will return the analog value on the analog input specified by 'an' argument [0-7].
+<br>- <font color="#0000C0">setanalog(an,value)</font> procedure will set the analog value on the addressed analog input, 'an' argument [0-7], 'value' argument [0-1023].
+<br>&nbsp;
+<br>Full support and full synchronization is available for external applications with client/server capabilities. External server module should provide the following procedures:
+<br>- <font color="#0000C0">objectinit()</font> procedure will be called at the beginning of the simulation in PIC Simulator IDE. With this procedure external module should be initialized to a known initial state.
+<br>- <font color="#0000C0">objectrefresh()</font> procedure will be called after every simulated instruction.
+<br>- <font color="#0000C0">objectterm()</font> procedure needs to contain the code to terminate external module application (typically End statement).
+<br>The class name should be set using External Modules interface available from Tools menu of PIC Simulator IDE. External client/server applications will be started and terminated automatically with PIC Simulator IDE.
+<br>&nbsp;
+</p>
+
+
+</font>
+</center>
+</td></tr>
+</table>
+</center>
+</body>
+</html>

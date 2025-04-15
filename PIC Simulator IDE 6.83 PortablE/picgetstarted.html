@@ -1,0 +1,599 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Getting Started</title>
+</head>
+<body text="#003060" bgcolor="#FFFFFF" link="#003060" vlink="#003060" alink="#003060">
+<center>
+<table width="550" border="1" cellpadding="5" cellspacing="0" cols="1">
+<tr><td valign="top">
+<center>
+<font face="Arial" size=-1>
+
+
+<br>&nbsp;
+<br><font size=+2><b>PIC Simulator IDE Getting Started Page</b></font>
+<br>&nbsp;
+<br>&nbsp;
+<p style="text-indent: 20;" align="justify">There are eleven examples bundled with PIC Simulator IDE. They are located in application folder. This is short step by step guide for the beginners that will help them to test these examples and in that way explore the most important features of PIC Simulator IDE.
+<center>
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#1">Example 1</a>: Timer0 module simulation, TMR0 interrupts
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#2">Example 2</a>: RB0/INT external interrupts
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#3">Example 3</a>: EEPROM data memory access simulation
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#4">Example 4</a>: Math multiply routine, demonstration of compiler, assembler and debugger
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#5">Example 5</a>: A/D module simulation
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#6">Example 6</a>: Comparator and voltage reference modules simualtion
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#7">Example 7</a>: LCD module simulation
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#8">Example 8</a>: Hardware UART module simulation
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#9">Example 9</a>: Software UART simulation interface
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#10">Example 10</a>: 7-segment LED displays simulation
+<br>&nbsp;&nbsp;&nbsp;<a href="picgetstarted.html#11">Example 11</a>: Signal generator and oscilloscope simulation modules
+</center>
+</p>
+
+<a name="1"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 1</font>
+<br>&nbsp;
+<br>- Examine timer0.bas file from the application folder. This Basic program uses Timer0 module interrupts to periodically change the value on PORTB pins. File timer0.asm was generated using integrated Basic compiler. File timer0.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>TRISB = 0x00 <font color="#00A0C0">'set all PORTB pins as outputs</font>
+<br>PORTB = %11111111 <font color="#00A0C0">'make all PORTB pins high</font>
+<br>INTCON.T0IE = 1 <font color="#00A0C0">'enable Timer0 interrupts</font>
+<br>INTCON.GIE = True <font color="#00A0C0">'enable all un-masked interrupts</font>
+<br>OPTION_REG.T0CS = False <font color="#00A0C0">'set Timer0 clock source to internal instruction cycle clock</font>
+<br>End
+<br>&nbsp;
+<br>On Interrupt <font color="#00A0C0">'interrupt routine</font>
+<br>PORTB = PORTB - 1 <font color="#00A0C0">'decrement the value on PORTB</font>
+<br>INTCON.T0IF = 0 <font color="#00A0C0">'enable new TMR0 interrupts</font>
+<br>Resume
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F84' and click on Select button.
+<br>- Click on File\Load Program.
+<br>- Select timer0.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Tools\Microcontroller View. That will open the Microcontroller View window.
+<br>- Reposition the windows on the screen to get better view.
+<br>- Select the Rate\Extremely Fast simulation rate.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- This Basic program uses Timer0 module interrupts to periodically change the value on PORTB pins.
+<br>- The simulation can be stopped any time by clicking on Simulation\Stop.
+<br>Note: If you would like to compile this example for some other PIC microcontroller model, it might be necessary to change T0IE and T0IF bit names to TMR0IE and TMR0IF. You should check in the datasheet of the model you want to use what are the correct bit names for INTCON register.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen1.png">view</a>
+<br><img width="500" src="picscreen1.png">
+<br>&nbsp;
+</p>
+
+<a name="2"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 2</font>
+<br>&nbsp;
+<br>- Examine rb0int.bas file from the application folder. This Basic program uses RB0/INT pin based interrupts to change the value on PORTA. File rb0int.asm was generated using integrated Basic compiler. File rb0int.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>TRISA = 0x00 <font color="#00A0C0">'set all PORTA pins as outputs</font>
+<br>PORTA = 0xff <font color="#00A0C0">'make all PORTA pins high</font>
+<br>INTCON.INTE = 1 <font color="#00A0C0">'enable RB0/INT interrupts</font>
+<br>INTCON.GIE = 1 <font color="#00A0C0">'enable all un-masked interrupts</font>
+<br>End
+<br>&nbsp;
+<br>On Interrupt <font color="#00A0C0">'interrupt routine</font>
+<br>PORTA = PORTA - 1 <font color="#00A0C0">'decrement the value on PORTA</font>
+<br>INTCON.INTF = 0 <font color="#00A0C0">'enable new RB0/INT interrupts</font>
+<br>Resume
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F84' and click on Select button.
+<br>- Click on File\Load Program.
+<br>- Select rb0int.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Tools\Microcontroller View. That will open the Microcontroller View window.
+<br>- Reposition the windows on the screen to get better view.
+<br>- Select the Rate\Extremely Fast simulation rate.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- This Basic program uses RB0/INT pin based interrupts to change the value on PORTA.
+<br>- Clicking on T button associated with RB0/INT pin will keep toggling the logical state of this pin. Interrupts will be triggered on the rising edge of the pulses. Every time the value on PORTA will be changed.
+<br>- The simulation can be stopped any time by clicking on Simulation\Stop.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen2.png">view</a>
+<br><img width="500" src="picscreen2.png">
+<br>&nbsp;
+</p>
+
+<a name="3"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 3</font>
+<br>&nbsp;
+<br>- Examine eeprom.bas file from the application folder. This example fills the whole data EEPROM memory and the enters an infinite loop. File eeprom.asm was generated using integrated Basic compiler. File eeprom.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>Dim a As Byte <font color="#00A0C0">'eeprom address</font>
+<br>Dim b As Byte <font color="#00A0C0">'eeprom data</font>
+<br>&nbsp;
+<br>For a = 0 To 63 <font color="#00A0C0">'go through whole eeprom memory</font>
+<br>b = 255 - a <font color="#00A0C0">'set the data value to be written</font>
+<br>Write a, b <font color="#00A0C0">'perform the writing to eeprom</font>
+<br>Next a
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F84' and click on Select button.
+<br>- Click on File\Load Program.
+<br>- Select eeprom.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Tools\EEPROM Memory Editor. That will open the EEPROM Memory Editor window.
+<br>- Reposition the windows on the screen to get better view.
+<br>- Click on Options\Change EEPROM Write Time. Enter 100 for the new value and click on OK. You should be very cautious when choosing this value, because the realistic value is about 20000 clock cycles at 4 MHz. In this simple example we will use short value, because it can not affect the functionality of the program, but can significantly decrease simulation execution time.
+<br>- Select the Rate\Extremely Fast simulation rate.
+<br>- Click on Options\Infinite Loop Stops Simulation to select that option.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- This example fills the whole data EEPROM memory and the enters an infinite loop.
+<br>- Upon detection of the infinite loop the simulator will automatically stop the simulation.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen3.png">view</a>
+<br><img width="500" src="picscreen3.png">
+<br>&nbsp;
+</p>
+
+<a name="4"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 4</font>
+<br>&nbsp;
+<br>- Examine multiply.bas file from the application folder. This example will multiply two numbers 123 (hex 7B) and 234 (hex EA) and get the result 28782 (hex 706E). File multiply.asm was generated using integrated Basic compiler. File multiply.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>Dim a As Word <font color="#00A0C0">'first number</font>
+<br>Dim b As Word <font color="#00A0C0">'second number</font>
+<br>Dim x As Word <font color="#00A0C0">'result</font>
+<br>&nbsp;
+<br>a = 123 <font color="#00A0C0">'set first number</font>
+<br>b = 234 <font color="#00A0C0">'set second number</font>
+<br>x = a * b <font color="#00A0C0">'calculate result</font>
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F84' and click on Select button.
+<br>- Click on Tools\BASIC Compiler
+<br>- Click on File\Open
+<br>- Select multiply.bas file and click on Open. The basic source program will be displayed in the editor.
+<br>- Click on Tools\Compile. The compiler will generate multiply.asm file with assembler source and display RAM Memory Usage window. Click on Close to close it.
+<br>- Close BASIC Compiler window.
+<br>- Click on Tools\Assembler
+<br>- Click on File\Open
+<br>- Select multiply.asm file and click on Open. The assembler source program will be displayed in the editor.
+<br>- Click on Tools\Assemble. After the operation is completed the assembler will generate two files: multiply.lst and multiply.hex. The output file multiply.lst will be displayed.
+<br>- Close Assembler window.
+<br>- Click on File\Load Program.
+<br>- Select multiply.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Tools\Breakpoints Manager. That will open the Breakpoints Manager window.
+<br>- Click on Yes to use existing assembler listing file.
+<br>- Reposition the windows on the screen to get better view.
+<br>- Click on the line corresponding to 0017 address to define the breakpoint on this instruction (L0002: GOTO L0002).
+<br>- Select the Hold PC In Focus option
+<br>- Select the Rate\Extremely Fast simulation rate.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- When this mathematical routine is finished the program enters the infinite loop at the address 0017, but because of the breakpoint, the simulator will automatically switch to Step By Step simulation rate.
+<br>- You can stop the simulation now by clicking on Simulation\Stop or continue the execution by clearing the defined breakpoint and clicking on Rate\Extremely Fast.
+<br>- General purpose register pair (19H-18H) will hold the first argument 007B.
+<br>- GPR pair (1BH-1AH) will hold the second argument 00EA.
+<br>- The result 706E will reside in (1DH-1CH) register pair.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen4.png">view</a>
+<br><img width="500" src="picscreen4.png">
+<br>&nbsp;
+</p>
+
+<a name="5"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 5</font>
+<br>&nbsp;
+<br>- Examine adc.bas file from the application folder. This program reads analog value on AN0 analog input and displays 8-bit conversion result on PORTB. File adc.asm was generated using integrated Basic compiler. File adc.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>Symbol ad_action = ADCON0.GO_DONE <font color="#00A0C0">'set new name for A/D conversion start bit</font>
+<br>Symbol display = PORTB <font color="#00A0C0">'set new name for PORTB used to display the conversion result</font>
+<br>&nbsp;
+<br>TRISB = %00000000 <font color="#00A0C0">'set PORTB pins as outputs</font>
+<br>TRISA = %111111 <font color="#00A0C0">'set PORTA pins as inputs</font>
+<br>ADCON0 = 0xc0 <font color="#00A0C0">'set A/D conversion clock to internal source</font>
+<br>ADCON1 = 0 <font color="#00A0C0">'set PORTA pins as analog inputs</font>
+<br>High ADCON0.ADON <font color="#00A0C0">'turn on A/D converter module</font>
+<br>&nbsp;
+<br>main:
+<br>Gosub getadresult <font color="#00A0C0">'go to conversion routine</font>
+<br>display = ADRESH <font color="#00A0C0">'display the result of the conversion</font>
+<br>Goto main <font color="#00A0C0">'repeat forever</font>
+<br>End
+<br>&nbsp;
+<br>getadresult: <font color="#00A0C0">'conversion routine</font>
+<br>High ad_action <font color="#00A0C0">'start the conversion</font>
+<br>While ad_action <font color="#00A0C0">'wait until conversion is completed</font>
+<br>Wend
+<br>Return
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F877' and click on Select button.
+<br>- Click on File\Load Program.
+<br>- Select adc.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Tools\Microcontroller View. That will open the Microcontroller View window.
+<br>- Reposition the windows on the screen to get better view.
+<br>- Select the Rate\Extremely Fast simulation rate.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- Click on A button associated with RA0/AN0 pin.
+<br>- Using the slider change the analog value on this pin and click on Accept button.
+<br>- Watch how this change affect the state on PORTB pins.
+<br>- The last three steps can be repeated.
+<br>- The simulation can be stopped any time by clicking on Simulation\Stop.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen5.png">view</a>
+<br><img width="500" src="picscreen5.png">
+<br>&nbsp;
+</p>
+
+<a name="6"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 6</font>
+<br>&nbsp;
+<br>- Examine comp.bas file from the application folder. This example uses analog comparator module to detect the state of AN0 and AN1 analog inputs in regard to 2.5V reference voltage generated by internal module. File comp.asm was generated using integrated Basic compiler. File comp.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>Symbol comp_change = PIR1.CMIF <font color="#00A0C0">'comparator interrupt flag</font>
+<br>&nbsp;
+<br>CMCON = 0x06 <font color="#00A0C0">'set comparator mode to two common reference comparators with outputs</font>
+<br>TRISA = 0x07 <font color="#00A0C0">'set RA0, RA1 and RA2 as inputs, other PORTA pins as outputs</font>
+<br>VRCON = 0xec <font color="#00A0C0">'turn on, configure voltage reference module for 2.5V and connect it to RA2</font>
+<br>TRISB = 0x00 <font color="#00A0C0">'set PORTB pins as outputs</font>
+<br>&nbsp;
+<br>loop1:
+<br>While Not comp_change <font color="#00A0C0">'wait for comparator output change</font>
+<br>Wend
+<br>PORTB = CMCON <font color="#00A0C0">'display CMCON register on PORTB pins, RB6 and RB7 are comparator outputs</font>
+<br>comp_change = 0 <font color="#00A0C0">'reset comparator interrupt flag</font>
+<br>Goto loop1 <font color="#00A0C0">'repeat forever</font>
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F628' and click on Select button.
+<br>- Click on File\Load Program.
+<br>- Select comp.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Options\Use Voltage for Analog Inputs to select this option.
+<br>- Click on Tools\Microcontroller View. That will open the Microcontroller View window.
+<br>- Reposition the windows on the screen to get better view.
+<br>- Select the Rate\Extremely Fast simulation rate.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- Click on A button associated with AN0 or AN1 pin.
+<br>- Using the slider change the analog value on that pin and click on Accept button.
+<br>- Watch how this change affect the state on PORTA and PORTB pins.
+<br>- The last three steps can be repeated.
+<br>- The simulation can be stopped any time by clicking on Simulation\Stop.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen6.png">view</a>
+<br><img width="500" src="picscreen6.png">
+<br>&nbsp;
+</p>
+
+<a name="7"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 7</font>
+<br>&nbsp;
+<br>- Examine lcd.bas file from the application folder. This program reads analog value on AN0 analog input and displays formatted output on the attached 2x16 LCD module. File lcd.asm was generated using integrated Basic compiler. File lcd.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>Define ADC_CLOCK = 3 <font color="#00A0C0">'default value is 3</font>
+<br>Define ADC_SAMPLEUS = 10 <font color="#00A0C0">'default value is 20</font>
+<br>Define LCD_BITS = 8 <font color="#00A0C0">'allowed values are 4 and 8 - the number of data interface lines</font>
+<br>Define LCD_DREG = PORTB
+<br>Define LCD_DBIT = 0 <font color="#00A0C0">'0 or 4 for 4-bit interface, ignored for 8-bit interface</font>
+<br>Define LCD_RSREG = PORTD
+<br>Define LCD_RSBIT = 1
+<br>Define LCD_EREG = PORTD
+<br>Define LCD_EBIT = 3
+<br>Define LCD_RWREG = PORTD <font color="#00A0C0">'set to 0 if not used, 0 is default</font>
+<br>Define LCD_RWBIT = 2 <font color="#00A0C0">'set to 0 if not used, 0 is default</font>
+<br>Define LCD_COMMANDUS = 2000 <font color="#00A0C0">'delay after LCDCMDOUT, default value is 5000</font>
+<br>Define LCD_DATAUS = 50 <font color="#00A0C0">'delay after LCDOUT, default value is 100</font>
+<br>Define LCD_INITMS = 2 <font color="#00A0C0">'delay used by LCDINIT, default value is 100</font>
+<br><font color="#00A0C0">'the last three Define directives set the values suitable for simulation; they should be omitted for a real device</font>
+<br>&nbsp;
+<br>Dim an0 As Word
+<br>&nbsp;
+<br>TRISA = 0xff <font color="#00A0C0">'set all PORTA pins as inputs</font>
+<br>ADCON1 = 0 <font color="#00A0C0">'set all PORTA pins as analog inputs</font>
+<br>Lcdinit 1 <font color="#00A0C0">'initialize LCD module; cursor is blinking</font>
+<br>&nbsp;
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;Adcin 0, an0
+<br>&nbsp;&nbsp;&nbsp;Lcdcmdout LcdClear <font color="#00A0C0">'clear LCD display</font>
+<br>&nbsp;&nbsp;&nbsp;Lcdout "Analog input AN0" <font color="#00A0C0">'text for the line 1</font>
+<br>&nbsp;&nbsp;&nbsp;Lcdcmdout LcdLine2Home <font color="#00A0C0">'set cursor at the beginning of line 2</font>
+<br>&nbsp;&nbsp;&nbsp;Lcdout "Value: ", #an0 <font color="#00A0C0">'formatted text for line 2</font>
+<br>&nbsp;&nbsp;&nbsp;WaitMs 1 <font color="#00A0C0">'larger value should be used in real device</font>
+<br>Goto loop 'loop forever
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F877' and click on Select button.
+<br>- Click on File\Load Program.
+<br>- Select lcd.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Tools\Microcontroller View. That will open the Microcontroller View window.
+<br>- Click on Tools\LCD Module. Click on Yes for the LCD Module to load the setup parameters from the basic program. That will open the LCD Module simulator window. (Note: LCD Module parameters can be setup manually using Setup command.)
+<br>- Reposition the windows on the screen to get better view.
+<br>- Select the Rate\Extremely Fast simulation rate.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- Click on A button associated with RA0/AN0 pin.
+<br>- Using the slider change the analog value on this pin and click on Accept button.
+<br>- Watch how this change affect the LCD Module. 
+<br>- The last three steps can be repeated.
+<br>- The simulation can be stopped any time by clicking on Simulation\Stop.
+<br>Note: At the beginning of this simulation you will need to be patient, because LCD initialization sequence will take about 10ms of real time. Watch Real Time Duration field.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen7.png">view</a>
+<br><img width="500" src="picscreen7.png">
+<br>&nbsp;
+</p>
+
+<a name="8"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 8</font>
+<br>&nbsp;
+<br>- Examine uart.bas file from the application folder. This program first sends 6 lines of formatted output to hardware UART serial port and then responds to the bytes received on that serial port by sending one line of formatted text for every received byte. File uart.asm was generated using integrated Basic compiler. File uart.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>Dim i As Byte <font color="#00A0C0">'declare a variable</font>
+<br>Hseropen 9600 <font color="#00A0C0">'open hardware uart port for baud rate 9600</font>
+<br><font color="#00A0C0">'WaitMs 1000 'this delay should be used in a real device</font>
+<br>&nbsp;
+<br>For i = 10 To 5 Step -1 <font color="#00A0C0">'for-next loop</font>
+<br>Hserout "Number: ", #i, CrLf <font color="#00A0C0">'send formatted output to serial port</font>
+<br><font color="#00A0C0">'WaitMs 500 'this delay should be used in a real device</font>
+<br>Next i
+<br>&nbsp;
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;Hserin i <font color="#00A0C0">'wait to receive a byte on serial port</font>
+<br>&nbsp;&nbsp;&nbsp;Hserout "Number: ", #i, CrLf <font color="#00A0C0">'send formatted output to serial port</font>
+<br>Goto loop <font color="#00A0C0">'loop forever</font>
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F877' and click on Select button.
+<br>- Click on Options\Change Clock Frequency.
+<br>- Enter '4' and click on OK button.
+<br>- Click on Options\Change UART Transmit/Receive Time.
+<br>- Enter '100' and click on OK button.
+<br>- Click on File\Load Program.
+<br>- Select uart.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Tools\Hardware UART Simulation Interface. That will open the window for interfacing hardware UART during the simulation.
+<br>- Reposition the windows on the screen to get better view.
+<br>- Select the Rate\Extremely Fast simulation rate.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- Wait until the program has finished sending 6 lines of formatted text to the serial port.
+<br>- Using one of three available buttons in the UART Input section of the UART interface send a byte to the serial port.
+<br>- Watch how program responds by sending one line of formatted output.
+<br>- The last two steps can be repeated.
+<br>- The simulation can be stopped any time by clicking on Simulation\Stop.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen8.png">view</a>
+<br><img width="500" src="picscreen8.png">
+<br>&nbsp;
+</p>
+
+<a name="9"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 9</font>
+<br>&nbsp;
+<br>- Examine softuart.bas file from the application folder. This program first sends 6 lines of formatted output to software UART serial port (TX line: PORTB.1) and then responds to the bytes received on that serial port (RX line: PORTB.2) by sending one line of formatted text for every received byte. File softuart.asm was generated using integrated Basic compiler. File softuart.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>Define SEROUT_DELAYUS = 500
+<br>Dim i As Byte <font color="#00A0C0">'declare a variable</font>
+<br><font color="#00A0C0">'WaitMs 1000 'this delay should be used in a real device</font>
+<br>&nbsp;
+<br>For i = 10 To 5 Step -1 <font color="#00A0C0">'for-next loop</font>
+<br>Serout PORTB.1, 9600, "Number: ", #i, CrLf <font color="#00A0C0">'send formatted output to PORTB.1 (TX line of software UART)</font>
+<br><font color="#00A0C0">'WaitMs 500 'this delay should be used in a real device</font>
+<br>Next i
+<br>&nbsp;
+<br>loop:
+<br>&nbsp;&nbsp;&nbsp;Serin PORTB.2, 9600, i <font color="#00A0C0">'wait to receive a byte on PORTB.2 (RX line of software UART)</font>
+<br>&nbsp;&nbsp;&nbsp;Serout PORTB.1, 9600, "Number: ", #i, CrLf <font color="#00A0C0">'send formatted output to serial port</font>
+<br>Goto loop <font color="#00A0C0">'loop forever</font>
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F84' and click on Select button.
+<br>- Click on Options\Change Clock Frequency.
+<br>- Enter '4' and click on OK button.
+<br>- Click on File\Load Program.
+<br>- Select softuart.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Tools\Software UART Simulation Interface. That will open the window for interfacing software UART during the simulation.
+<br>- Default settings should be set: RX Line ---> PORTB.2, TX Line ---> PORTB.1, Baud Rate ---> 9600, Logic Levels ---> Standard. If not, using commands from Settings menu make the necessary changes.
+<br>- Click on Options\Compact Microcontroller View to select it.
+<br>- Click on Tools\Microcontroller View. That will open the Microcontroller View window.
+<br>- Reposition the windows on the screen to get better view.
+<br>- Select the Rate\Ultimate (No Refresh) simulation rate.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- Wait until the program has finished sending 6 lines of formatted text to the serial port. Pay attention to the state of PORTB.1 pin on the Microcontroller View window.
+<br>- Using one of three available buttons in the UART Input section of the UART interface send a byte to the serial port. Pay attention to the state of PORTB.2 pin on the Microcontroller View window.
+<br>- Watch how program responds by sending one line of formatted output.
+<br>- The last two steps can be repeated.
+<br>- The simulation can be stopped any time by clicking on Simulation\Stop.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen9.png">view</a>
+<br><img width="500" src="picscreen9.png">
+<br>&nbsp;
+</p>
+
+<a name="10"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 10</font>
+<br>&nbsp;
+<br>- Examine 7segment.bas file from the application folder. This program displays numbers from 0 to 99 on the two 7-segment LED displays with parallel connection and two enable lines using TMR0 interrupt multiplexing procedure. File 7segment.asm was generated using integrated Basic compiler. File 7segment.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>Dim digit As Byte <font color="#00A0C0">'input variable for GETMASK subroutine</font>
+<br>Dim digit1 As Byte <font color="#00A0C0">'current high digit</font>
+<br>Dim digit2 As Byte <font color="#00A0C0">'current low digit</font>
+<br>Dim mask As Byte <font color="#00A0C0">'output variable from GETMASK subroutine</font>
+<br>Dim mask1 As Byte <font color="#00A0C0">'current high digit mask</font>
+<br>Dim mask2 As Byte <font color="#00A0C0">'current low digit mask</font>
+<br>Dim i As Byte
+<br>Dim phase As Bit
+<br>&nbsp;
+<br>Symbol d1enable = PORTC.0 <font color="#00A0C0">'enable line for higher 7-segment display</font>
+<br>Symbol d2enable = PORTC.1 <font color="#00A0C0">'enable line for lower 7-segment display</font>
+<br>TRISB = %00000000 <font color="#00A0C0">'set PORTB pins as outputs</font>
+<br>TRISC.0 = 0 <font color="#00A0C0">'set RC0 pin as output</font>
+<br>TRISC.1 = 0 <font color="#00A0C0">'set RC1 pin as output</font>
+<br>d1enable = False
+<br>d2enable = False
+<br>mask1 = 0
+<br>mask2 = 0
+<br>phase = 0
+<br>INTCON.T0IE = 1 <font color="#00A0C0">'enable Timer0 interrupts</font>
+<br>INTCON.GIE = 1 <font color="#00A0C0">'enable all un-masked interrupts</font>
+<br>OPTION_REG.T0CS = 0 <font color="#00A0C0">'set Timer0 clock source to internal instruction cycle clock</font>
+<br>&nbsp;
+<br>loop:
+<br>For i = 0 To 99
+<br>&nbsp;&nbsp;&nbsp;digit1 = i / 10 <font color="#00A0C0">'get current high digit</font>
+<br>&nbsp;&nbsp;&nbsp;digit2 = i Mod 10 <font color="#00A0C0">'get current low digit</font>
+<br>&nbsp;&nbsp;&nbsp;TMR0 = 0 <font color="#00A0C0">'reset Timer0 to prevent its interrupt before both masks are determined</font>
+<br>&nbsp;&nbsp;&nbsp;digit = digit1
+<br>&nbsp;&nbsp;&nbsp;Gosub getmask <font color="#00A0C0">'get mask for high digit</font>
+<br>&nbsp;&nbsp;&nbsp;mask1 = mask
+<br>&nbsp;&nbsp;&nbsp;digit = digit2
+<br>&nbsp;&nbsp;&nbsp;Gosub getmask <font color="#00A0C0">'get mask for low digit</font>
+<br>&nbsp;&nbsp;&nbsp;mask2 = mask
+<br>&nbsp;&nbsp;&nbsp;Gosub show1 <font color="#00A0C0">'display new mask</font>
+<br>&nbsp;&nbsp;&nbsp;Gosub show2 <font color="#00A0C0">'display new mask</font>
+<br>&nbsp;&nbsp;&nbsp;WaitUs 500 <font color="#00A0C0">'delay interval suitable for simulation</font>
+<br><font color="#00A0C0">'use large delay for the real device, say WAITMS 500</font>
+<br>Next i
+<br>Goto loop
+<br>End
+<br>&nbsp;
+<br>On Interrupt <font color="#00A0C0">'Timer0 interrupt routine</font>
+<br><font color="#00A0C0">'continuously switch between high and low digit displays</font>
+<br>If phase = 0 Then
+<br>&nbsp;&nbsp;&nbsp;phase = 1
+<br>&nbsp;&nbsp;&nbsp;Gosub show1
+<br>Else
+<br>&nbsp;&nbsp;&nbsp;phase = 0
+<br>&nbsp;&nbsp;&nbsp;Gosub show2
+<br>Endif
+<br>INTCON.T0IF = 0 <font color="#00A0C0">'enable new TMR0 interrupts</font>
+<br>Resume
+<br>&nbsp;
+<br>getmask: <font color="#00A0C0">'get appropriate 7-segment mask for input digit</font>
+<br>&nbsp;&nbsp;&nbsp;mask = LookUp(0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f), digit
+<br>Return
+<br>&nbsp;
+<br>show1: <font color="#00A0C0">'show high digit on its display</font>
+<br>&nbsp;&nbsp;&nbsp;d2enable = False
+<br>&nbsp;&nbsp;&nbsp;PORTB = mask1
+<br>&nbsp;&nbsp;&nbsp;d1enable = True
+<br>Return
+<br>&nbsp;
+<br>show2: <font color="#00A0C0">'show low digit on its display</font>
+<br>&nbsp;&nbsp;&nbsp;d1enable = False
+<br>&nbsp;&nbsp;&nbsp;PORTB = mask2
+<br>&nbsp;&nbsp;&nbsp;d2enable = True
+<br>Return
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F877' and click on Select button.
+<br>- Click on Options\Change Clock Frequency.
+<br>- Enter '4' and click on OK button.
+<br>- Click on File\Load Program.
+<br>- Select 7segment.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Tools\7-Segment LED Displays Panel. That will open the window with four 7-segment displays.
+<br>- Click on Setup button below the display number 2.
+<br>- Click twice on the orange field next to the Display Enable label to select pin that will be used to enable/disable this display.
+<br>- Select PORTC.0 and then click on Select.
+<br>- Click on Setup button below the display number 1.
+<br>- Click twice on the orange field next to the Display Enable label to select pin that will be used to enable/disable this display.
+<br>- Select PORTC.1 and then click on Select.
+<br>- Click on the Hide Setup button to save some screen space.
+<br>- Reposition the windows on the screen to get better view.
+<br>- Select the Rate\Ultimate (No Refresh) simulation rate.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- The program will display numbers from 0 to 99 on the two 7-segment LED displays using TMR0 interrupt multiplexing procedure.
+<br>- Experiment with the Keep Last Display option.
+<br>- The simulation can be stopped any time by clicking on Simulation\Stop.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen10.png">view</a>
+<br><img width="500" src="picscreen10.png">
+<br>&nbsp;
+</p>
+
+<a name="11"></a>
+<p style="text-indent: 20;" align="left"><font color="#0000C0">EXAMPLE 11</font>
+<br>&nbsp;
+<br>- Examine i2c.bas file from the application folder. This routine programs the first 32 locations in the external serial EEPROM device using I2C communication protocol. In this example it is used to demonstrate oscilloscope and signal generator simulation modules. File i2c.asm was generated using integrated Basic compiler. File i2c.hex was generated using integrated assembler.
+<br>&nbsp;
+<font face="Courier New" color="#0000C0">
+<br>Dim addr As Word <font color="#00A0C0">'variable for storing EEPROM byte address</font>
+<br>Dim data As Byte <font color="#00A0C0">'variable for storing EEPROM byte data</font>
+<br>&nbsp;
+<br>Symbol sda = PORTC.2 <font color="#00A0C0">'nickname for SDA pin</font>
+<br>Symbol scl = PORTC.3 <font color="#00A0C0">'nickname for SCL pin</font>
+<br>&nbsp;
+<br>For addr = 0 To 31 <font color="#00A0C0">'the first 32 bytes will be written</font>
+<br>&nbsp;&nbsp;&nbsp;data = 255 - addr <font color="#00A0C0">'set the data byte to be written</font>
+<br>&nbsp;&nbsp;&nbsp;I2CWrite sda, scl, 0xa0, addr, data <font color="#00A0C0">'perform I2C write operation to serial EEPROM</font>
+<br>&nbsp;&nbsp;&nbsp;WaitMs 1 <font color="#00A0C0">'small delay interval</font>
+<br>Next addr
+</font>
+<br>&nbsp;
+<br>- Start PIC Simulator IDE.
+<br>- Click on Options\Select Microcontroller.
+<br>- Select 'PIC16F877' and click on Select button.
+<br>- Click on Options\Change Clock Frequency.
+<br>- Enter '4' and click on OK button.
+<br>- Click on File\Load Program.
+<br>- Select i2c.hex file and click on Open. That will load the program into PIC program memory.
+<br>- Click on Tools\Oscilloscope. That will open the four channel digital oscilloscope window.
+<br>- Click on Settings\Turn On/Off Oscilloscope Channel 1.
+<br>- Select PORTC.2 and then click on Select.
+<br>- Select Pull-up option for channel 1 pin.
+<br>- Click on Settings\Turn On/Off Oscilloscope Channel 2.
+<br>- Select PORTC.3 and then click on Select.
+<br>- Select Pull-up option for channel 2 pin.
+<br>- Click on Settings\Turn On/Off Oscilloscope Channel 3.
+<br>- Select PORTB.0 and then click on Select.
+<br>- Click on Settings\Turn On/Off Oscilloscope Channel 4.
+<br>- Select PORTB.1 and then click on Select.
+<br>- Click on Tools\Signal Generator. That will open the four channel continuous pulses generator.
+<br>- Click on Settings\Turn On/Off Signal Generator 1.
+<br>- Select PORTB.0 and then click on Select.
+<br>- Enter 500 to define period for channel 1 pulses and then click on OK.
+<br>- Enter 25 to define duty cycle for channel 1 pulses and then click on OK.
+<br>- Click on Settings\Turn On/Off Signal Generator 2.
+<br>- Select PORTB.1 and then click on Select.
+<br>- Enter 1000 to define period for channel 2 pulses and then click on OK.
+<br>- Enter 50 to define duty cycle for channel 2 pulses and then click on OK.
+<br>- Click on Tools\Microcontroller View. That will open the Microcontroller View window.
+<br>- Reposition the windows on the screen to get better view.
+<br>- Select the Rate\Extremely Fast simulation rate.
+<br>- Click on Simulation\Start. The simulation will start immediately.
+<br>- I2C communication can be observed on the oscilloscope module as well as the pulses generated by the signal generator.
+<br>- The simulation can be stopped any time by clicking on Simulation\Stop.
+<br>&nbsp;
+<br>- Screenshot: <a target="_blank" href="picscreen11.png">view</a>
+<br><img width="500" src="picscreen11.png">
+<br>&nbsp;
+</p>
+
+
+</font>
+</center>
+</td></tr>
+</table>
+</center>
+</body>
+</html>
