@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - PaginaWeb_Restaurante</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre del Restaurante</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#menu">Menú</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio">
+            <h1>Nombre del Restaurante</h1>
+            <p>Bienvenido a nuestro restaurante.</p>
+        </section>
+
+        <section id="menu">
+            <h2>Menú</h2>
+            <p>Aquí puedes encontrar nuestros platos principales:</p>
+            <ul>
+                <li>Plato 1</li>
+                <li>Plato 2</li>
+                <li>Plato 3</li>
+            </ul>
+        </section>
+
+        <section id="galeria">
+            <h2>Galería</h2>
+            <div class="gallery">
+                <img src="imagen1.jpg" alt="Imagen 1">
+                <img src="imagen2.jpg" alt="Imagen 2">
+                <img src="imagen3.jpg" alt="Imagen 3">
+            </div>
+        </section>
+
+        <section id="contacto">
+            <h2>Contacto</h2>
+            <p>¡Estamos encantados de atenderte! Puedes contactarnos a través de:</p>
+            <ul>
+                <li>Teléfono: 123456789</li>
+                <li>Email: info@restaurante.com</li>
+                <li>Dirección: Dirección del restaurante</li>
+            </ul>
+        </section>
+      
+      <section id="reserva">
+    <h2>Reserva una mesa</h2>
+    <form id="reserva-form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required>
+        
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" required>
+        
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" required>
+        
+        <label for="personas">Número de personas:</label>
+        <input type="number" id="personas" min="1" required>
+        
+        <button type="submit">Reservar</button>
+    </form>
+</section>
+
+    </main>
+
+    <footer>
+        <p>Derechos de autor &copy; 2023 Restaurante</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
