@@ -1,0 +1,101 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG	0
+0002    0000    1683    	bsf	status,5
+0003    0001    0186    	clrf	trisb
+0004    0002    3087    	movlw	b'10000111'
+0005    0003    0081    	movwf	option
+0006    0004    1605    	bsf	porta,4
+0007    0005    1786    	bsf	portb,7
+0008    0006            
+0009    0006    1405    	bsf	porta,0
+0010    0007    1485    	bsf	porta,1
+0011    0008    1505    	bsf	porta,2
+0012    0009    1585    	bsf	porta,3
+0013    000A            	
+0014    000A    1283    	bcf	status,5
+0015    000B    0185    	clrf	porta
+0016    000C    0186    	clrf	portb
+0017    000D    1E05    inicio	btfss	porta,4
+0018    000E    2829    	goto	no
+0019    000F    2810    	goto	si
+0020    0010    2038    si	call	demora2
+0021    0011    1E05    	btfss	porta,4
+0022    0012    280D    	goto	inicio
+0023    0013    2814    	goto	jk
+0024    0014    1D85    jk	btfss	porta,3		;SI esta el 8
+0025    0015    2817    	goto	funcion
+0026    0016    2820    	goto	si2
+0027    0017            
+0028    0017    0805    funcion	movfw	porta		;NO2
+0029    0018    009A    	movwf	1ah
+0030    0019    081A    	movfw	1ah
+0031    001A    0086    	movwf	portb
+0032    001B    1206    	bcf	portb,4
+0033    001C    281D    	goto	suelta
+0034    001D    1E05    suelta	btfss	porta,4
+0035    001E    280D    	goto	inicio
+0036    001F    281D    	goto	suelta
+0037    0020    1C85    si2	btfss	porta,1		;Si esta el 10
+0038    0021    2824    	goto	no3
+0039    0022    2823    	goto	si3
+0040    0023    281D    si3	goto	suelta
+0041    0024    1D05    no3	btfss	porta,2
+0042    0025    2828    	goto	no4
+0043    0026    2827    	goto	si4
+0044    0027    281D    si4	goto	suelta
+0045    0028    2817    no4	goto	funcion
+0046    0029            
+0047    0029    1F86    no	btfss	portb,7
+0048    002A    280D    	goto	inicio		;NO
+0049    002B    282C    	goto	see
+0050    002C            
+0051    002C    282D    see	goto	z0
+0052    002D    2040    z0	call	demora		;ME VOY A DEMORAAAA
+0053    002E    1D03    	btfss	status,2
+0054    002F    2835    	goto	sote
+0055    0030    0386    	decf	portb,f	
+0056    0031    1D03    	btfss	status,2
+0057    0032    2834    	goto	note		;no
+0058    0033    2835    	goto	sote		;si
+0059    0034            
+0060    0034    282C    note	goto	see
+0061    0035    1F86    sote	btfss	portb,7
+0062    0036    280D    	goto	inicio		;no
+0063    0037    2835    	goto	sote		;si
+0064    0038            
+0065    0038    0181    demora2	clrf	TMR0
+0066    0039    30FF    	movlw	.255
+0067    003A    0081    	movwf	TMR0
+0068    003B    1D0B    dece	btfss	intcon,2
+0069    003C    283B    	goto	dece
+0070    003D    283E    	goto	listo
+0071    003E    110B    listo	bcf	intcon,2
+0072    003F    0008    	return
+0073    0040            
+0074    0040    01AA    demora	clrf	2ah
+0075    0041    019B    	clrf	1bh
+0076    0042    081B    	movfw	1bh
+0077    0043    3064    	movlw	.100
+0078    0044    00AA    	movwf	2ah
+0079    0045    30C8    	movlw	.200
+0080    0046    0BAA    aw	decfsz	2ah,f
+0081    0047    2846    	goto	aw
+0082    0048    0B9B    	decfsz	1bh,f
+0083    0049    2846    	goto	aw
+0084    004A    0008    	return
+0085    004B            
+0086    004B            	
+0087    004B            
+0088    004B            	
+0089    004B            
+0090    004B            
+0091    004B            
+0092    004B            
+0093    004B            
+0094    004B            
+0095    004B            	
+---------------------------------------------
+Number of errors = 0

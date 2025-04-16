@@ -1,0 +1,85 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	org	0
+0002    0000    1683    	bsf	status,5
+0003    0001    1405    	bsf	porta,0
+0004    0002    1485    	bsf	porta,1
+0005    0003    1505    	bsf	porta,2
+0006    0004    1585    	bsf	porta,3
+0007    0005            
+0008    0005    0186    	clrf	trisb
+0009    0006    3047    	movlw	b'1000111'
+0010    0007    0081    	movwf	option
+0011    0008    1283    	bcf	status,5
+0012    0009    1C05    inicio	btfss	porta,0
+0013    000A    2809    	goto	inicio
+0014    000B    280C    	goto	inicix1
+0015    000C            
+0016    000C    0181    inicix1	clrf	TMR0	;TMR0=0
+0017    000D    3037    	movlw	.55	;61 es igual a 250useg
+0018    000E    0081    	movwf	TMR0	;TMRO=178
+0019    000F            
+0020    000F    1805    traba	btfsc	porta,0
+0021    0010    280F    	goto	traba
+0022    0011    2812    	goto	inicix
+0023    0012            	
+0024    0012    1D05    inicix	btfss	porta,2
+0025    0013    2815    	goto	no2
+0026    0014    2812    	goto	inicix
+0027    0015    1D85    no2	btfss	porta,3
+0028    0016    2818    	goto	no3
+0029    0017    2812    	goto	inicix
+0030    0018    1C85    no3	btfss	porta,1
+0031    0019    2812    	goto	inicix
+0032    001A    281B    	goto	no4
+0033    001B            
+0034    001B    1086    no4	bcf	portb,1
+0035    001C    1106    	bcf	portb,2
+0036    001D    1586    	bsf	portb,3
+0037    001E    1606    	bsf	portb,4
+0038    001F    2039    	call	demora
+0039    0020    1486    	bsf	portb,1
+0040    0021    1106    	bcf	portb,2
+0041    0022    1186    	bcf	portb,3
+0042    0023    1606    	bsf	portb,4
+0043    0024    2039    	call	demora
+0044    0025    1486    	bsf	portb,1
+0045    0026    1506    	bsf	portb,2
+0046    0027    1186    	bcf	portb,3
+0047    0028    1206    	bcf	portb,4
+0048    0029    2039    	call	demora
+0049    002A    1086    	bcf	portb,1
+0050    002B    1506    	bsf	portb,2
+0051    002C    1586    	bsf	portb,3
+0052    002D    1206    	bcf	portb,4
+0053    002E    2039    	call 	demora
+0054    002F    1C05    	btfss	porta,0
+0055    0030    281B    	goto	no4
+0056    0031    2832    	goto	si6
+0057    0032            
+0058    0032    1086    si6	bcf	portb,1
+0059    0033    1106    	bcf	portb,2
+0060    0034    1186    	bcf	portb,3
+0061    0035    1206    	bcf	portb,4
+0062    0036    1805    	btfsc	porta,0
+0063    0037    2832    	goto	si6
+0064    0038    2809    	goto	inicio
+0065    0039            
+0066    0039    019A    demora	clrf	1AH
+0067    003A    0181    	clrf	TMR0	;TMR0=0
+0068    003B    3004    	movlw	.4
+0069    003C    009A    	movwf	1AH
+0070    003D    110B    pipa	bcf	intcon,2
+0071    003E    3032    	movlw	.50
+0072    003F    0081    	movwf	TMR0	;TMRO=178
+0073    0040    1D0B    no	btfss	intcon,2
+0074    0041    2840    	goto	no
+0075    0042    2843    	goto	si9
+0076    0043    0B9A    si9	decfsz	1AH,F
+0077    0044    283D    	goto	pipa
+0078    0045    0008    	return
+0079    0046            	
+---------------------------------------------
+Number of errors = 0
