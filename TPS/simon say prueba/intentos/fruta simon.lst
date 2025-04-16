@@ -1,0 +1,52 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            	ORG	0		;DIRECTIVA Origen del programa
+0002    0000    1683    	bsf	STATUS,5	;CAMBIO DE BANCO para configurar el Micro
+0003    0001    0185    	clrf	TRISA		;Todo en 0(8 bit)
+0004    0002    0186    	clrf	TRISB		;Todo en 0(8 bit)
+0005    0003            
+0006    0003    1405    	bsf	PORTA,0		;para precionar entradas
+0007    0004    1485    	bsf	PORTA,1		;para precionar
+0008    0005    1505    	bsf	PORTA,2		;para precionar
+0009    0006    1585    	bsf	PORTA,3		;para precionar 
+0010    0007    1605    	bsf	PORTA,4		;para precionar 
+0011    0008            
+0012    0008    1706    	bsf	PORTB,6		;para precionar mov
+0013    0009    1786    	bsf	PORTB,7		;para precionar	mov
+0014    000A            
+0015    000A    1006    	bcf	PORTB,0		;Salidas
+0016    000B    1086    	bcf	PORTB,1
+0017    000C    1106    	bcf	PORTB,2
+0018    000D    1586    	bsf	PORTB,3		;para precionar 
+0019    000E    1606    	bsf	PORTB,4		;para precionar 
+0020    000F            
+0021    000F    1283    	bcf	STATUS,5	;CAMBIO DE BANCO
+0022    0010    0185    	clrf	PORTA		;TODO EN 0 
+0023    0011    0186    	clrf	PORTB		;TODO EN 0
+0024    0012            
+0025    0012    1C05    INICIO	btfss	porta,0		;si precione
+0026    0013    2819    	goto	no
+0027    0014    2815    	goto	si
+0028    0015    1406    si	bsf	portb,0
+0029    0016    1C05    	btfss	porta,0
+0030    0017    2819    	goto	no
+0031    0018    2815    	goto	si		;volvemos
+0032    0019    1006    no	bcf	portb,0
+0033    001A    281B    	goto	no2
+0034    001B            
+0035    001B    1C85    no2	btfss	porta,1		;si precione
+0036    001C    2822    	goto	no1
+0037    001D    281E    	goto	si1
+0038    001E            
+0039    001E    1486    si1	bsf	PORTB,1
+0040    001F    1C85    	btfss	porta,1
+0041    0020    2822    	goto	no1
+0042    0021    281E    	goto	si1		;volvemos
+0043    0022            
+0044    0022    1086    no1	bcf	PORTB,1
+0045    0023    2812    	goto	inicio
+0046    0024            end	
+---------------------------------------------
+Number of errors = 0
